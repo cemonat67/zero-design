@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+
+{% block title %}FFSP Dashboard{% endblock %}
+
+{% block content %}
+<div class="wrap">
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="row">
+            <div class="seg">
+                <button class="active">Dashboard</button>
+                <button onclick="window.location.href='/analytics'">Analytics</button>
+                <button onclick="window.location.href='/design'">Design</button>
+                <button onclick="window.location.href='/analyze'">Analyze</button>
+                <button onclick="window.location.href='/optimize'">Optimize</button>
+                <button onclick="window.location.href='/report'">Report</button>
+                <button onclick="window.location.href='/export'">Export</button>
+                <button onclick="window.location.href='/settings'">Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- KPI Cards -->
+    <div class="kpis">
+        <div class="kpi">
+            <div class="kpi-label">Toplam CO₂e (t)</div>
+            <div class="kpi-value">1.72</div>
+        </div>
+        <div class="kpi">
+            <div class="kpi-label">Tasarım Skoru</div>
+            <div class="kpi-value">8.4</div>
+        </div>
+        <div class="kpi">
+            <div class="kpi-label">Sürdürülebilirlik (%)</div>
+            <div class="kpi-value">87</div>
+        </div>
+        <div class="kpi">
+            <div class="kpi-label">Maliyet Optimizasyonu (%)</div>
+            <div class="kpi-value">23.5</div>
+        </div>
+    </div>
+
+    <!-- Main Grid -->
+    <div class="grid">
+        <!-- Chart Section -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Tasarım Emisyonları — Kategori Bazında CO₂e</h3>
+                <div class="switch">
+                    <input type="checkbox" id="normalize" checked>
+                    <label for="normalize">Yaşam döngüsü bazında normalize et</label>
+                </div>
+            </div>
+            <div class="chart-container">
+                <canvas id="emissionsChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Risk Table -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Sürdürülebilirlik Tablosu</h3>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Kategori</th>
+                            <th>CO₂e (kg)</th>
+                            <th>Skor</th>
+                            <th>Sürdürülebilirlik (%)</th>
+                            <th>Durum</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Kumaş Seçimi</td>
+                            <td>154</td>
+                            <td>8.2</td>
+                            <td>85.4</td>
+                            <td><span class="pill success">İyi</span></td>
+                        </tr>
+                        <tr>
+                            <td>Üretim Süreci</td>
+                            <td>573</td>
+                            <td>7.8</td>
+                            <td>78.2</td>
+                            <td><span class="pill success">İyi</span></td>
+                        </tr>
+                        <tr>
+                            <td>Boyama</td>
+                            <td>130</td>
+                            <td>6.9</td>
+                            <td>72.1</td>
+                            <td><span class="pill warning">Orta</span></td>
+                        </tr>
+                        <tr>
+                            <td>Paketleme</td>
+                            <td>65</td>
+                            <td>9.1</td>
+                            <td>91.3</td>
+                            <td><span class="pill success">Mükemmel</span></td>
+                        </tr>
+                        <tr>
+                            <td>Nakliye</td>
+                            <td>218</td>
+                            <td>5.4</td>
+                            <td>58.7</td>
+                            <td><span class="pill error">Düşük</span></td>
+                        </tr>
+                        <tr>
+                            <td>Geri Dönüşüm</td>
+                            <td>583</td>
+                            <td>8.9</td>
+                            <td>89.2</td>
+                            <td><span class="pill success">İyi</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Chart.js implementation
+const ctx = document.getElementById('emissionsChart').getContext('2d');
+const chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Kumaş Seçimi', 'Üretim', 'Boyama', 'Paketleme', 'Nakliye', 'Geri Dönüşüm'],
+        datasets: [{
+            label: 'CO₂e (kg)',
+            data: [154, 573, 130, 65, 218, 583],
+            backgroundColor: 'rgba(59, 130, 246, 0.8)',
+            borderColor: 'rgba(59, 130, 246, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                display: false
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                grid: {
+                    color: 'rgba(255, 255, 255, 0.1)'
+                },
+                ticks: {
+                    color: '#9CA3AF'
+                }
+            },
+            x: {
+                grid: {
+                    display: false
+                },
+                ticks: {
+                    color: '#9CA3AF'
+                }
+            }
+        }
+    }
+});
+</script>
+{% endblock %}

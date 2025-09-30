@@ -1,170 +1,283 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zero@Design - Giriş</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-{% block title %}FFSP Dashboard{% endblock %}
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #0a1929;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
 
-{% block content %}
-<div class="wrap">
-    <!-- Hero Section -->
-    <div class="hero">
-        <div class="row">
-            <div class="seg">
-                <button class="active">Dashboard</button>
-                <button onclick="window.location.href='/analytics'">Analytics</button>
-                <button onclick="window.location.href='/design'">Design</button>
-                <button onclick="window.location.href='/analyze'">Analyze</button>
-                <button onclick="window.location.href='/optimize'">Optimize</button>
-                <button onclick="window.location.href='/report'">Report</button>
-                <button onclick="window.location.href='/export'">Export</button>
-                <button onclick="window.location.href='/settings'">Settings</button>
-            </div>
-        </div>
-    </div>
+        .login-container {
+            background: #132f4c;
+            border-radius: 16px;
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
+            width: 100%;
+            max-width: 440px;
+            padding: 48px 40px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
 
-    <!-- KPI Cards -->
-    <div class="kpis">
-        <div class="kpi">
-            <div class="kpi-label">Toplam CO₂e (t)</div>
-            <div class="kpi-value">1.72</div>
-        </div>
-        <div class="kpi">
-            <div class="kpi-label">Tasarım Skoru</div>
-            <div class="kpi-value">8.4</div>
-        </div>
-        <div class="kpi">
-            <div class="kpi-label">Sürdürülebilirlik (%)</div>
-            <div class="kpi-value">87</div>
-        </div>
-        <div class="kpi">
-            <div class="kpi-label">Maliyet Optimizasyonu (%)</div>
-            <div class="kpi-value">23.5</div>
-        </div>
-    </div>
+        .logo-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
 
-    <!-- Main Grid -->
-    <div class="grid">
-        <!-- Chart Section -->
-        <div class="card">
-            <div class="card-header">
-                <h3>Tasarım Emisyonları — Kategori Bazında CO₂e</h3>
-                <div class="switch">
-                    <input type="checkbox" id="normalize" checked>
-                    <label for="normalize">Yaşam döngüsü bazında normalize et</label>
-                </div>
-            </div>
-            <div class="chart-container">
-                <canvas id="emissionsChart"></canvas>
-            </div>
-        </div>
+        .logo-text {
+            color: #ffffff;
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 8px;
+        }
 
-        <!-- Risk Table -->
-        <div class="card">
-            <div class="card-header">
-                <h3>Sürdürülebilirlik Tablosu</h3>
-            </div>
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Kategori</th>
-                            <th>CO₂e (kg)</th>
-                            <th>Skor</th>
-                            <th>Sürdürülebilirlik (%)</th>
-                            <th>Durum</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Kumaş Seçimi</td>
-                            <td>154</td>
-                            <td>8.2</td>
-                            <td>85.4</td>
-                            <td><span class="pill success">İyi</span></td>
-                        </tr>
-                        <tr>
-                            <td>Üretim Süreci</td>
-                            <td>573</td>
-                            <td>7.8</td>
-                            <td>78.2</td>
-                            <td><span class="pill success">İyi</span></td>
-                        </tr>
-                        <tr>
-                            <td>Boyama</td>
-                            <td>130</td>
-                            <td>6.9</td>
-                            <td>72.1</td>
-                            <td><span class="pill warning">Orta</span></td>
-                        </tr>
-                        <tr>
-                            <td>Paketleme</td>
-                            <td>65</td>
-                            <td>9.1</td>
-                            <td>91.3</td>
-                            <td><span class="pill success">Mükemmel</span></td>
-                        </tr>
-                        <tr>
-                            <td>Nakliye</td>
-                            <td>218</td>
-                            <td>5.4</td>
-                            <td>58.7</td>
-                            <td><span class="pill error">Düşük</span></td>
-                        </tr>
-                        <tr>
-                            <td>Geri Dönüşüm</td>
-                            <td>583</td>
-                            <td>8.9</td>
-                            <td>89.2</td>
-                            <td><span class="pill success">İyi</span></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
+        .logo-underline {
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #ff9800 0%, #f57c00 100%);
+            border-radius: 2px;
+            margin: 12px 0 24px 0;
+        }
 
-<script>
-// Chart.js implementation
-const ctx = document.getElementById('emissionsChart').getContext('2d');
-const chart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: ['Kumaş Seçimi', 'Üretim', 'Boyama', 'Paketleme', 'Nakliye', 'Geri Dönüşüm'],
-        datasets: [{
-            label: 'CO₂e (kg)',
-            data: [154, 573, 130, 65, 218, 583],
-            backgroundColor: 'rgba(59, 130, 246, 0.8)',
-            borderColor: 'rgba(59, 130, 246, 1)',
-            borderWidth: 1
-        }]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            legend: {
-                display: false
+        .subtitle {
+            color: #b0bec5;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+
+        .welcome-text {
+            color: #ffffff;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            color: #b0bec5;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            background: #0a1929;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        input::placeholder {
+            color: #546e7a;
+        }
+
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .checkbox-group label {
+            margin: 0;
+            color: #b0bec5;
+            font-size: 0.875rem;
+            cursor: pointer;
+        }
+
+        .forgot-link {
+            color: #3b82f6;
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .forgot-link:hover {
+            color: #60a5fa;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 32px 0;
+        }
+
+        .divider-line {
+            flex: 1;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .divider-text {
+            padding: 0 16px;
+            color: #78909c;
+            font-size: 0.875rem;
+        }
+
+        .signup-section {
+            text-align: center;
+            color: #b0bec5;
+            font-size: 0.875rem;
+        }
+
+        .signup-link {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+
+        .signup-link:hover {
+            color: #60a5fa;
+        }
+
+        .features-note {
+            margin-top: 32px;
+            padding: 16px;
+            background: rgba(59, 130, 246, 0.08);
+            border-left: 3px solid #3b82f6;
+            border-radius: 8px;
+        }
+
+        .features-note p {
+            color: #90caf9;
+            font-size: 0.8rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 32px 24px;
             }
-        },
-        scales: {
-            y: {
-                beginAtZero: true,
-                grid: {
-                    color: 'rgba(255, 255, 255, 0.1)'
-                },
-                ticks: {
-                    color: '#9CA3AF'
-                }
-            },
-            x: {
-                grid: {
-                    display: false
-                },
-                ticks: {
-                    color: '#9CA3AF'
-                }
+
+            .logo-text {
+                font-size: 2rem;
+            }
+
+            .welcome-text {
+                font-size: 1.25rem;
             }
         }
-    }
-});
-</script>
-{% endblock %}
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo-section">
+            <div class="logo-text">Zero@<br>Design</div>
+            <div class="logo-underline"></div>
+            <p class="subtitle">Sürdürülebilir Moda Platformu</p>
+        </div>
+
+        <h2 class="welcome-text">Hesabınıza Giriş Yapın</h2>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">E-posta Adresi</label>
+                <input type="email" id="email" placeholder="ornek@email.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Şifre</label>
+                <input type="password" id="password" placeholder="••••••••" required>
+            </div>
+
+            <div class="remember-forgot">
+                <div class="checkbox-group">
+                    <input type="checkbox" id="remember">
+                    <label for="remember">Beni Hatırla</label>
+                </div>
+                <a href="#" class="forgot-link">Şifremi Unuttum?</a>
+            </div>
+
+            <button type="submit" class="login-btn">Giriş Yap</button>
+        </form>
+
+        <div class="divider">
+            <div class="divider-line"></div>
+            <span class="divider-text">veya</span>
+            <div class="divider-line"></div>
+        </div>
+
+        <div class="signup-section">
+            Hesabınız yok mu? <a href="#" class="signup-link">Kayıt Olun</a>
+        </div>
+
+        <div class="features-note">
+            <p>🌱 CO₂ Hesaplama • 🤖 AI Öneriler • 📊 Benchmark Analizi • 🔗 DPP/NFT Entegrasyonu</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            window.location.href = 'http://localhost:5000';
+        });
+    </script>
+</body>
+</html>
