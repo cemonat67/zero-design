@@ -36,8 +36,8 @@ Zero@Design, tekstil ve moda endüstrisinde sürdürülebilirlik ve şeffaflığ
 
 1. **Projeyi klonlayın:**
 ```bash
-git clone <repository-url>
-cd ZeroAtDesign
+git clone https://github.com/cemonat67/zero-design.git
+cd zero-design
 ```
 
 2. **Bağımlılıkları yükleyin:**
@@ -58,15 +58,25 @@ http://localhost:5000
 ## 📁 Proje Yapısı
 
 ```
-ZeroAtDesign/
+zero-design/
 ├── app.py                 # Ana Flask uygulaması
 ├── ai_agent.py           # AI Agent modülü
+├── blockchain_integration.py # Blockchain entegrasyonu
+├── database_manager.py   # Veritabanı yönetimi
+├── database_setup.py     # Veritabanı kurulumu
 ├── dpp_nft.py           # DPP/NFT entegrasyonu
 ├── requirements.txt      # Python bağımlılıkları
+├── zero_design.db       # SQLite veritabanı
 ├── data/                # Veri dosyaları
+│   ├── blockchain/      # Blockchain verileri
+│   └── dpp/            # DPP verileri
 ├── static/              # CSS, JS, resimler
 │   ├── css/
-│   │   └── style.css
+│   │   ├── style.css
+│   │   └── components.css
+│   ├── images/
+│   │   ├── logo.svg
+│   │   └── zero-design-logo.svg
 │   └── js/
 │       └── main.js
 └── templates/           # HTML şablonları
@@ -75,7 +85,18 @@ ZeroAtDesign/
     ├── benchmark.html
     ├── style_card.html
     ├── collection.html
-    └── dpp.html
+    ├── analytics.html
+    ├── analyze.html
+    ├── blockchain_status.html
+    ├── data_entry.html
+    ├── database.html
+    ├── design.html
+    ├── dpp.html
+    ├── export.html
+    ├── optimize.html
+    ├── report.html
+    ├── settings.html
+    └── csv_files/       # CSV veri dosyaları
 ```
 
 ## 🔧 API Endpoints
