@@ -1,0 +1,258 @@
+﻿category,name,type,unit,stage,description,min_co2_kg,max_co2_kg,avg_co2_kg,source,source_file
+Aksesuar Eklemeler,Boncuk / Payet,,,,Dekoratif ekleme,-0.4,0.2,-0.1,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Aksesuar Eklemeler,Boncuk / Payet,,kgCO2e_per_unit,,Dekoratif ekleme,0.2,0.4,0.3,,hazir_giyim_master_co2_from_json.csv
+Aksesuar Eklemeler,Rivet,,,,Metal perçin,-0.15,0.05,-0.05,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Aksesuar Eklemeler,Rivet,,kgCO2e_per_unit,,Metal perçin,0.05,0.15,0.1,,hazir_giyim_master_co2_from_json.csv
+Aksesuar Eklemeler,Studs (Zımbalar),,,,Metal dekor,-0.15,0.05,-0.05,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Aksesuar Eklemeler,Studs (Zımbalar),,kgCO2e_per_unit,,Metal dekor,0.05,0.15,0.1,,hazir_giyim_master_co2_from_json.csv
+Aksesuar Eklemeler,Taş Yapıştırma,,,,"Kristal, taş, strass",-0.45,0.25,-0.1,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Aksesuar Eklemeler,Taş Yapıştırma,,kgCO2e_per_unit,,"Kristal, taş, strass",0.25,0.45,0.35,,hazir_giyim_master_co2_from_json.csv
+Aksesuar Eklemeler,"Zincir, Metal Detay",,,,Dekoratif metal,-0.4,0.2,-0.1,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Aksesuar Eklemeler,"Zincir, Metal Detay",,kgCO2e_per_unit,,Dekoratif metal,0.2,0.4,0.3,,hazir_giyim_master_co2_from_json.csv
+Aplike & Eklemeler,Kumaş Aplike,,,,Ek kumaş parçaları ile desen,-0.35,0.2,-0.07499999999999998,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Aplike & Eklemeler,Kumaş Aplike,,kgCO2e_per_unit,,Ek kumaş parçaları ile desen,0.2,0.35,0.275,,hazir_giyim_master_co2_from_json.csv
+Aplike & Eklemeler,Laser-cut Aplike,,,,Lazerle kesilmiş aplike,-0.35,0.2,-0.07499999999999998,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Aplike & Eklemeler,Laser-cut Aplike,,kgCO2e_per_unit,,Lazerle kesilmiş aplike,0.2,0.35,0.275,,hazir_giyim_master_co2_from_json.csv
+Aplike & Eklemeler,Patch / Arma,,,,Dikişli veya yapıştırmalı arma,-0.3,0.15,-0.075,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Aplike & Eklemeler,Patch / Arma,,kgCO2e_per_unit,,Dikişli veya yapıştırmalı arma,0.15,0.3,0.225,,hazir_giyim_master_co2_from_json.csv
+Aplike & Eklemeler,PVC / PU Aplike,,,,Sentetik aplike,-0.4,0.25,-0.07500000000000001,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Aplike & Eklemeler,PVC / PU Aplike,,kgCO2e_per_unit,,Sentetik aplike,0.25,0.4,0.325,,hazir_giyim_master_co2_from_json.csv
+Baskı Teknikleri,Dijital Baskı,,,,Fotoğraf kalitesinde baskı,-0.4,0.25,-0.07500000000000001,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Baskı Teknikleri,Dijital Baskı,,kgCO2e_per_unit,,Fotoğraf kalitesinde baskı,0.25,0.4,0.325,,hazir_giyim_master_co2_from_json.csv
+Baskı Teknikleri,Discharge (Açık Ekran) Baskı,,,,Boya çıkarılarak desen oluşturma,-0.5,0.3,-0.1,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Baskı Teknikleri,Discharge (Açık Ekran) Baskı,,kgCO2e_per_unit,,Boya çıkarılarak desen oluşturma,0.3,0.5,0.4,,hazir_giyim_master_co2_from_json.csv
+Baskı Teknikleri,Folyo (Foil) Baskı,,,,Parlak metalik yüzey,-0.35,0.2,-0.07499999999999998,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Baskı Teknikleri,Folyo (Foil) Baskı,,kgCO2e_per_unit,,Parlak metalik yüzey,0.2,0.35,0.275,,hazir_giyim_master_co2_from_json.csv
+Baskı Teknikleri,Kabartma (Emboss) Baskı,,,,3D yüzeyli desen,-0.4,0.25,-0.07500000000000001,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Baskı Teknikleri,Kabartma (Emboss) Baskı,,kgCO2e_per_unit,,3D yüzeyli desen,0.25,0.4,0.325,,hazir_giyim_master_co2_from_json.csv
+Baskı Teknikleri,Rotasyon (Rotary Screen Print),,,,Döner silindirle sürekli desen baskı,-0.6,0.4,-0.09999999999999998,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Baskı Teknikleri,Rotasyon (Rotary Screen Print),,kgCO2e_per_unit,,Döner silindirle sürekli desen baskı,0.4,0.6000000000000001,0.5,,hazir_giyim_master_co2_from_json.csv
+Baskı Teknikleri,Serigrafi (Screen Print),,,,"Klasik baskı tekniği; dayanıklı, çok renkli baskılar",-0.5,0.35,-0.07500000000000001,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Baskı Teknikleri,Serigrafi (Screen Print),,kgCO2e_per_unit,,"Klasik baskı tekniği; dayanıklı, çok renkli baskılar",0.35,0.5,0.425,,hazir_giyim_master_co2_from_json.csv
+Baskı Teknikleri,Sim / Glitter Baskı,,,,Parıltılı efekt,-0.35,0.2,-0.07499999999999998,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Baskı Teknikleri,Sim / Glitter Baskı,,kgCO2e_per_unit,,Parıltılı efekt,0.2,0.35,0.275,,hazir_giyim_master_co2_from_json.csv
+Baskı Teknikleri,Sublimasyon,,,,Polyester bazlı kumaşa transfer,-0.45,0.3,-0.07500000000000001,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Baskı Teknikleri,Sublimasyon,,kgCO2e_per_unit,,Polyester bazlı kumaşa transfer,0.3,0.45,0.375,,hazir_giyim_master_co2_from_json.csv
+Bitim & Apre İşlemleri,Anti-Pilling Finish,,,,Tüylenme önleyici,-0.2,0.1,-0.05000000000000001,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Bitim & Apre İşlemleri,Anti-Pilling Finish,,kgCO2e_per_unit,,Tüylenme önleyici,0.1,0.2,0.15,,hazir_giyim_master_co2_from_json.csv
+Bitim & Apre İşlemleri,Parlak / Mat Kaplama,,,,Yüzey görünümü değiştirir,-0.4,0.25,-0.07500000000000001,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Bitim & Apre İşlemleri,Parlak / Mat Kaplama,,kgCO2e_per_unit,,Yüzey görünümü değiştirir,0.25,0.4,0.325,,hazir_giyim_master_co2_from_json.csv
+Bitim & Apre İşlemleri,Resin Finish,,,,Sertlik / tutum kazandırır,-0.5,0.3,-0.1,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Bitim & Apre İşlemleri,Resin Finish,,kgCO2e_per_unit,,Sertlik / tutum kazandırır,0.3,0.5,0.4,,hazir_giyim_master_co2_from_json.csv
+Bitim & Apre İşlemleri,Su itici (Water-repellent) Finish,,,,Su geçirmezlik,-0.5,0.3,-0.1,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Bitim & Apre İşlemleri,Su itici (Water-repellent) Finish,,kgCO2e_per_unit,,Su geçirmezlik,0.3,0.5,0.4,,hazir_giyim_master_co2_from_json.csv
+Bitim,Aksesuar Montajı (Etiket/Askı),,,,"Ana/yan etiket, askı aparatı, carelabel",-0.02,0.01,-0.005,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Bitim,Aksesuar Montajı (Etiket/Askı),,kgCO2e_per_unit,,"Ana/yan etiket, askı aparatı, carelabel",0.01,0.02,0.015,,hazir_giyim_master_co2_from_json.csv
+Bitim,Buhar Tüneli (Steam Tunnel),,,,Asılı ürünlerin kırışıklık giderme,-0.18,0.08,-0.05,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Bitim,Buhar Tüneli (Steam Tunnel),,kgCO2e_per_unit,,Asılı ürünlerin kırışıklık giderme,0.08,0.18,0.13,,hazir_giyim_master_co2_from_json.csv
+Bitim,Dekatür/Şekil Sabitleme,,,,Özellikle dokuma/ceketlerde şekil verme,-0.15,0.08,-0.035,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Bitim,Dekatür/Şekil Sabitleme,,kgCO2e_per_unit,,Özellikle dokuma/ceketlerde şekil verme,0.08,0.15,0.115,,hazir_giyim_master_co2_from_json.csv
+Bitim,Temizleme (İplik/Kılçık Alma),,,,Sarkan ipliklerin kesilmesi,-0.02,0.01,-0.005,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Bitim,Temizleme (İplik/Kılçık Alma),,kgCO2e_per_unit,,Sarkan ipliklerin kesilmesi,0.01,0.02,0.015,,hazir_giyim_master_co2_from_json.csv
+Bitim,Ütü/Pres - Buharlı Tablo,,,,Parça/parça ve son form presi,-0.2,0.1,-0.05,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Bitim,Ütü/Pres - Buharlı Tablo,,kgCO2e_per_unit,,Parça/parça ve son form presi,0.1,0.2,0.15,,hazir_giyim_master_co2_from_json.csv
+Bitim,Ütü/Pres - Kalıp/Presse,,,,Kalıp presle form verme,-0.25,0.12,-0.065,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Bitim,Ütü/Pres - Kalıp/Presse,,kgCO2e_per_unit,,Kalıp presle form verme,0.12,0.25,0.185,,hazir_giyim_master_co2_from_json.csv
+Dekoratif İşlemler,Burn-out (Yanık),,,,Kumaşın bir kısmını yakarak desen,-0.6,0.4,-0.09999999999999998,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Dekoratif İşlemler,Burn-out (Yanık),,kgCO2e_per_unit,,Kumaşın bir kısmını yakarak desen,0.4,0.6000000000000001,0.5,,hazir_giyim_master_co2_from_json.csv
+Dekoratif İşlemler,Flock Baskı,,,,Kadife efekt,-0.35,0.2,-0.07499999999999998,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Dekoratif İşlemler,Flock Baskı,,kgCO2e_per_unit,,Kadife efekt,0.2,0.35,0.275,,hazir_giyim_master_co2_from_json.csv
+Dekoratif İşlemler,Kabartma (Emboss/Deboss),,,,Yüzey kabartma / çökertme,-0.4,0.25,-0.07500000000000001,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Dekoratif İşlemler,Kabartma (Emboss/Deboss),,kgCO2e_per_unit,,Yüzey kabartma / çökertme,0.25,0.4,0.325,,hazir_giyim_master_co2_from_json.csv
+Dekoratif İşlemler,Lazer Kesim,,,,Desen kesim,-0.2,0.1,-0.05000000000000001,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Dekoratif İşlemler,Lazer Kesim,,kgCO2e_per_unit,,Desen kesim,0.1,0.2,0.15,,hazir_giyim_master_co2_from_json.csv
+Destek Süreçler,Bakım & Arıza Kayıtları,,,,Planlı bakım ve arıza duruşları,-0.01,0.005,-0.0025,,hazir_giyim_master_co2.csv
+Destek Süreçler,Bakım & Arıza Kayıtları,,kgCO2e_per_unit,,Planlı bakım ve arıza duruşları,0.005,0.01,0.0075,,hazir_giyim_master_co2_from_json.csv
+Destek Süreçler,Enerji & Su Sayaç İzleme,,,,Hattın elektrik/buhar/su tüketimi ölçümü,-0.02,0.005,-0.0075,,hazir_giyim_master_co2.csv
+Destek Süreçler,Enerji & Su Sayaç İzleme,,kgCO2e_per_unit,,Hattın elektrik/buhar/su tüketimi ölçümü,0.005,0.02,0.0125,,hazir_giyim_master_co2_from_json.csv
+Destek Süreçler,Fire & Rework İzlenebilirliği,,,,"Hata oranları, yeniden işleme kayıtları",-0.015,0.005,-0.004999999999999999,,hazir_giyim_master_co2.csv
+Destek Süreçler,Fire & Rework İzlenebilirliği,,kgCO2e_per_unit,,"Hata oranları, yeniden işleme kayıtları",0.005,0.015,0.01,,hazir_giyim_master_co2_from_json.csv
+Destek,Bakım & Yağlama,,,,Makine bakım işlemleri,-0.015,0.005,-0.004999999999999999,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Destek,Bakım & Yağlama,,kgCO2e_per_unit,,Makine bakım işlemleri,0.005,0.015,0.01,,hazir_giyim_master_co2_from_json.csv
+Destek,Rework/Tamir,,,,Hatalı ürünlerin onarımı,-0.06,0.02,-0.02,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Destek,Rework/Tamir,,kgCO2e_per_unit,,Hatalı ürünlerin onarımı,0.02,0.06,0.04,,hazir_giyim_master_co2_from_json.csv
+Destek,SMED / Setup Değişimi,,,,Makine ayar/kalıp değişimi,-0.03,0.01,-0.009999999999999998,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Destek,SMED / Setup Değişimi,,kgCO2e_per_unit,,Makine ayar/kalıp değişimi,0.01,0.03,0.02,,hazir_giyim_master_co2_from_json.csv
+Dikim,Bartack / Sürfile,,,,Stres noktalarında takviye,-0.02,0.01,-0.005,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Dikim,Bartack / Sürfile,,kgCO2e_per_unit,,Stres noktalarında takviye,0.01,0.02,0.015,,hazir_giyim_master_co2_from_json.csv
+Dikim,Düğme Dikme,,,,Düğmelerin makinayla dikilmesi,-0.02,0.01,-0.005,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Dikim,Düğme Dikme,,kgCO2e_per_unit,,Düğmelerin makinayla dikilmesi,0.01,0.02,0.015,,hazir_giyim_master_co2_from_json.csv
+Dikim,Düz Dikiş (Lockstitch),,,,Ana birleştirme dikişleri,-0.12,0.05,-0.035,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Dikim,Düz Dikiş (Lockstitch),,kgCO2e_per_unit,,Ana birleştirme dikişleri,0.05,0.12,0.08499999999999999,,hazir_giyim_master_co2_from_json.csv
+Dikim,Fermuar Montajı,,,,Ön/yan/cep fermuarı takma,-0.05,0.02,-0.015,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Dikim,Fermuar Montajı,,kgCO2e_per_unit,,Ön/yan/cep fermuarı takma,0.02,0.05,0.035,,hazir_giyim_master_co2_from_json.csv
+Dikim,Fitil/Ribana Uygulama,,,,Yaka/kol ucu ribana montajı,-0.05,0.02,-0.015,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Dikim,Fitil/Ribana Uygulama,,kgCO2e_per_unit,,Yaka/kol ucu ribana montajı,0.02,0.05,0.035,,hazir_giyim_master_co2_from_json.csv
+Dikim,Flatlock,,,,"Düz birleşim, düşük tahriş",-0.1,0.05,-0.025,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Dikim,Flatlock,,kgCO2e_per_unit,,"Düz birleşim, düşük tahriş",0.05,0.1,0.07500000000000001,,hazir_giyim_master_co2_from_json.csv
+Dikim,İlik Açma,,,,Düğme iliği açılması,-0.02,0.01,-0.005,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Dikim,İlik Açma,,kgCO2e_per_unit,,Düğme iliği açılması,0.01,0.02,0.015,,hazir_giyim_master_co2_from_json.csv
+Dikim,Kemer/Bel Bandı,,,,Bel bandı montaj ve kapama,-0.06,0.03,-0.015,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Dikim,Kemer/Bel Bandı,,kgCO2e_per_unit,,Bel bandı montaj ve kapama,0.03,0.06,0.045,,hazir_giyim_master_co2_from_json.csv
+Dikim,Kol Takma (Set-in/Raglan),,,,Kolun gövdeye montajı,-0.09,0.04,-0.025,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Dikim,Kol Takma (Set-in/Raglan),,kgCO2e_per_unit,,Kolun gövdeye montajı,0.04,0.09,0.065,,hazir_giyim_master_co2_from_json.csv
+Dikim,Kör Dikiş (Blind Hem),,,,Görünmez paça,-0.04,0.02,-0.01,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Dikim,Kör Dikiş (Blind Hem),,kgCO2e_per_unit,,Görünmez paça,0.02,0.04,0.03,,hazir_giyim_master_co2_from_json.csv
+Dikim,Overlock (3/4/5 İplik),,,,Kenar temizleme ve birleştirme,-0.06,0.03,-0.015,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Dikim,Overlock (3/4/5 İplik),,kgCO2e_per_unit,,Kenar temizleme ve birleştirme,0.03,0.06,0.045,,hazir_giyim_master_co2_from_json.csv
+Dikim,Paça Yapma (Hem),,,,Alt uç kapama,-0.05,0.02,-0.015,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Dikim,Paça Yapma (Hem),,kgCO2e_per_unit,,Alt uç kapama,0.02,0.05,0.035,,hazir_giyim_master_co2_from_json.csv
+Dikim,Perçin/Snap/Metal Aksesuar,,,,Perçin ve çıtçıt uygulama,-0.02,0.01,-0.005,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Dikim,Perçin/Snap/Metal Aksesuar,,kgCO2e_per_unit,,Perçin ve çıtçıt uygulama,0.01,0.02,0.015,,hazir_giyim_master_co2_from_json.csv
+Dikim,Reçme / Coverstitch,,,,"Paça, ribana, elastik uçlar",-0.09,0.04,-0.025,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Dikim,Reçme / Coverstitch,,kgCO2e_per_unit,,"Paça, ribana, elastik uçlar",0.04,0.09,0.065,,hazir_giyim_master_co2_from_json.csv
+Dikim,Yaka/Kragen Montajı,,,,Yaka takma ve şekillendirme,-0.07,0.03,-0.02,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Dikim,Yaka/Kragen Montajı,,kgCO2e_per_unit,,Yaka takma ve şekillendirme,0.03,0.07,0.05,,hazir_giyim_master_co2_from_json.csv
+Dikim,Yan Dikiş & İç Bacak,,,,Ana gövde birleştirme,-0.07,0.03,-0.02,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Dikim,Yan Dikiş & İç Bacak,,kgCO2e_per_unit,,Ana gövde birleştirme,0.03,0.07,0.05,,hazir_giyim_master_co2_from_json.csv
+Dikim,Zincir Dikiş (Chainstitch),,,,"Esnek dikiş, yan/kol altı",-0.08,0.04,-0.02,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Dikim,Zincir Dikiş (Chainstitch),,kgCO2e_per_unit,,"Esnek dikiş, yan/kol altı",0.04,0.08,0.06,,hazir_giyim_master_co2_from_json.csv
+Kalite/Test,Boyutsal Stabilite & Bükülme,,,,Bükülme/dönme testleri,-0.02,0.01,-0.005,,hazir_giyim_master_co2.csv
+Kalite/Test,Boyutsal Stabilite & Bükülme,,kgCO2e_per_unit,,Bükülme/dönme testleri,0.01,0.02,0.015,,hazir_giyim_master_co2_from_json.csv
+Kalite/Test,Çekme (Shrinkage) Testi,,,,Yıkama sonrası boyut değişimi ölçümü,-0.02,0.01,-0.005,,hazir_giyim_master_co2.csv
+Kalite/Test,Çekme (Shrinkage) Testi,,kgCO2e_per_unit,,Yıkama sonrası boyut değişimi ölçümü,0.01,0.02,0.015,,hazir_giyim_master_co2_from_json.csv
+Kalite/Test,İğne/Metal Policy & Kayıt,,,,"Kırık iğne takibi, metal dedektör yönetimi",-0.01,0.005,-0.0025,,hazir_giyim_master_co2.csv
+Kalite/Test,İğne/Metal Policy & Kayıt,,kgCO2e_per_unit,,"Kırık iğne takibi, metal dedektör yönetimi",0.005,0.01,0.0075,,hazir_giyim_master_co2_from_json.csv
+Kalite/Test,Renk Haslığı (Yıkama/Sürtme/Işık),,,,Renk sürdürme performansı,-0.02,0.01,-0.005,,hazir_giyim_master_co2.csv
+Kalite/Test,Renk Haslığı (Yıkama/Sürtme/Işık),,kgCO2e_per_unit,,Renk sürdürme performansı,0.01,0.02,0.015,,hazir_giyim_master_co2_from_json.csv
+Kaplama & Astar,Laminasyon,,,,İki yüzeyin lamine edilmesi,-0.7,0.4,-0.15,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Kaplama & Astar,Laminasyon,,kgCO2e_per_unit,,İki yüzeyin lamine edilmesi,0.4,0.7000000000000001,0.55,,hazir_giyim_master_co2_from_json.csv
+Kaplama & Astar,PU / PVC Kaplama,,,,Sentetik film kaplama,-0.5,0.3,-0.1,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Kaplama & Astar,PU / PVC Kaplama,,kgCO2e_per_unit,,Sentetik film kaplama,0.3,0.5,0.4,,hazir_giyim_master_co2_from_json.csv
+Kaplama & Astar,Wax Kaplama,,,,Balmumu kaplama,-0.4,0.2,-0.1,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Kaplama & Astar,Wax Kaplama,,kgCO2e_per_unit,,Balmumu kaplama,0.2,0.4,0.3,,hazir_giyim_master_co2_from_json.csv
+Kesim,Demetleme (Bundling) & Etiketleme,,,,Parçaların model/beden bazında demetlenmesi ve biletlenmesi,-0.015,0.005,-0.004999999999999999,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Kesim,Demetleme (Bundling) & Etiketleme,,kgCO2e_per_unit,,Parçaların model/beden bazında demetlenmesi ve biletlenmesi,0.005,0.015,0.01,,hazir_giyim_master_co2_from_json.csv
+Kesim,Kalıp/Perforaj İşaretleme,,,,"Notch, delik ve işaretlerin eklenmesi",-0.015,0.005,-0.004999999999999999,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Kesim,Kalıp/Perforaj İşaretleme,,kgCO2e_per_unit,,"Notch, delik ve işaretlerin eklenmesi",0.005,0.015,0.01,,hazir_giyim_master_co2_from_json.csv
+Kesim,Kenar Düzeltme & Çentik (Notching),,,,Dikiş referansı için çentik açma,-0.01,0.005,-0.0025,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Kesim,Kenar Düzeltme & Çentik (Notching),,kgCO2e_per_unit,,Dikiş referansı için çentik açma,0.005,0.01,0.0075,,hazir_giyim_master_co2_from_json.csv
+Kesim,Kesim - CNC (Otomatik),,,,Vakumlu masada CNC ile otomatik kesim,-0.08,0.03,-0.025,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Kesim,Kesim - CNC (Otomatik),,kgCO2e_per_unit,,Vakumlu masada CNC ile otomatik kesim,0.03,0.08,0.055,,hazir_giyim_master_co2_from_json.csv
+Kesim,Kesim - Manuel Bıçak (Dikey/Şerit),,,,Çok katlı kumaşın şerit/dikey bıçakla kesimi,-0.05,0.02,-0.015,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Kesim,Kesim - Manuel Bıçak (Dikey/Şerit),,kgCO2e_per_unit,,Çok katlı kumaşın şerit/dikey bıçakla kesimi,0.02,0.05,0.035,,hazir_giyim_master_co2_from_json.csv
+Kesim,Lazer Kesim,,,,Lazer ile hassas kesim ve mühürleme,-0.05,0.02,-0.015,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Kesim,Lazer Kesim,,kgCO2e_per_unit,,Lazer ile hassas kesim ve mühürleme,0.02,0.05,0.035,,hazir_giyim_master_co2_from_json.csv
+Kesim,Pastal Hazırlık (Marker),,,,Beden/derinlik dağılımına göre en verimli yerleşim planı oluşturma,-0.02,0.01,-0.005,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Kesim,Pastal Hazırlık (Marker),,kgCO2e_per_unit,,Beden/derinlik dağılımına göre en verimli yerleşim planı oluşturma,0.01,0.02,0.015,,hazir_giyim_master_co2_from_json.csv
+Kesim,Serim (Spreading) - Manuel,,,,Kat kat kumaş serimi; kenar hizalama,-0.03,0.01,-0.009999999999999998,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Kesim,Serim (Spreading) - Manuel,,kgCO2e_per_unit,,Kat kat kumaş serimi; kenar hizalama,0.01,0.03,0.02,,hazir_giyim_master_co2_from_json.csv
+Kesim,Serim (Spreading) - Otomatik,,,,Otomatik serim makinesi ile hızlı ve düz serim,-0.04,0.02,-0.01,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Kesim,Serim (Spreading) - Otomatik,,kgCO2e_per_unit,,Otomatik serim makinesi ile hızlı ve düz serim,0.02,0.04,0.03,,hazir_giyim_master_co2_from_json.csv
+Kesim,Tela Kesimi (Interlining),,,,Tela ve yardımcı malzemelerin kesimi,-0.03,0.01,-0.009999999999999998,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Kesim,Tela Kesimi (Interlining),,kgCO2e_per_unit,,Tela ve yardımcı malzemelerin kesimi,0.01,0.03,0.02,,hazir_giyim_master_co2_from_json.csv
+Kontrol & Paketleme,Endline QC (Hat Sonu),,,,Tamamlanmış ürünün görsel/işlevsel kontrolü,-0.02,0.01,-0.005,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Kontrol & Paketleme,Endline QC (Hat Sonu),,kgCO2e_per_unit,,Tamamlanmış ürünün görsel/işlevsel kontrolü,0.01,0.02,0.015,,hazir_giyim_master_co2_from_json.csv
+Kontrol & Paketleme,Final AQL Denetimi,,,,ANSI/ASQ Z1.4 vb. plana göre muayene,-0.02,0.01,-0.005,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Kontrol & Paketleme,Final AQL Denetimi,,kgCO2e_per_unit,,ANSI/ASQ Z1.4 vb. plana göre muayene,0.01,0.02,0.015,,hazir_giyim_master_co2_from_json.csv
+Kontrol & Paketleme,İğne/Metal Dedektörü,,,,İğne/metal parça tespiti,-0.01,0.005,-0.0025,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Kontrol & Paketleme,İğne/Metal Dedektörü,,kgCO2e_per_unit,,İğne/metal parça tespiti,0.005,0.01,0.0075,,hazir_giyim_master_co2_from_json.csv
+Kontrol & Paketleme,Inline QC (İstasyon İçi),,,,İstasyon bazlı kontrol ve düzeltme,-0.02,0.01,-0.005,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Kontrol & Paketleme,Inline QC (İstasyon İçi),,kgCO2e_per_unit,,İstasyon bazlı kontrol ve düzeltme,0.01,0.02,0.015,,hazir_giyim_master_co2_from_json.csv
+Kontrol & Paketleme,Katlama & Poşetleme,,,,Standart kat ve polybag/paperbag,-0.05,0.02,-0.015,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Kontrol & Paketleme,Katlama & Poşetleme,,kgCO2e_per_unit,,Standart kat ve polybag/paperbag,0.02,0.05,0.035,,hazir_giyim_master_co2_from_json.csv
+Kontrol & Paketleme,Kutuya Dizim & Paletleme,,,,"Kartonlama, koli etiketleri ve palet",-0.08,0.03,-0.025,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Kontrol & Paketleme,Kutuya Dizim & Paletleme,,kgCO2e_per_unit,,"Kartonlama, koli etiketleri ve palet",0.03,0.08,0.055,,hazir_giyim_master_co2_from_json.csv
+Kontrol & Paketleme,Ölçüm Kontrolü (Measurement),,,,Tabloya göre beden ölçü kontrolü,-0.02,0.01,-0.005,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Kontrol & Paketleme,Ölçüm Kontrolü (Measurement),,kgCO2e_per_unit,,Tabloya göre beden ölçü kontrolü,0.01,0.02,0.015,,hazir_giyim_master_co2_from_json.csv
+Kontrol & Paketleme,Set/Pack Hazırlama,,,,Çoklu paket/renk/beden seti hazırlama,-0.05,0.02,-0.015,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Kontrol & Paketleme,Set/Pack Hazırlama,,kgCO2e_per_unit,,Çoklu paket/renk/beden seti hazırlama,0.02,0.05,0.035,,hazir_giyim_master_co2_from_json.csv
+Kumaş & Malzeme Ön Hazırlık,Gramaj / En Ölçümü,,,,Kesim verimliliği ve marker doğruluğu için ölçüm,-0.01,0.005,-0.0025,,hazir_giyim_master_co2.csv
+Kumaş & Malzeme Ön Hazırlık,Gramaj / En Ölçümü,,kgCO2e_per_unit,,Kesim verimliliği ve marker doğruluğu için ölçüm,0.005,0.01,0.0075,,hazir_giyim_master_co2_from_json.csv
+Kumaş & Malzeme Ön Hazırlık,Kondisyonlama,,,,Kesim öncesi nem/sıcaklıkta dinlendirme,-0.01,0.005,-0.0025,,hazir_giyim_master_co2.csv
+Kumaş & Malzeme Ön Hazırlık,Kondisyonlama,,kgCO2e_per_unit,,Kesim öncesi nem/sıcaklıkta dinlendirme,0.005,0.01,0.0075,,hazir_giyim_master_co2_from_json.csv
+Kumaş & Malzeme Ön Hazırlık,Kumaş Kontrol (4-Point System),,,,"Top üzeri hata, delik, çizgi tespiti ve derecelendirme",-0.02,0.01,-0.005,,hazir_giyim_master_co2.csv
+Kumaş & Malzeme Ön Hazırlık,Kumaş Kontrol (4-Point System),,kgCO2e_per_unit,,"Top üzeri hata, delik, çizgi tespiti ve derecelendirme",0.01,0.02,0.015,,hazir_giyim_master_co2_from_json.csv
+Kumaş & Malzeme Ön Hazırlık,Shade Band / Renk Şal Yönetimi,,,,Farklı toplar arasında renk farkı kontrolü,-0.01,0.005,-0.0025,,hazir_giyim_master_co2.csv
+Kumaş & Malzeme Ön Hazırlık,Shade Band / Renk Şal Yönetimi,,kgCO2e_per_unit,,Farklı toplar arasında renk farkı kontrolü,0.005,0.01,0.0075,,hazir_giyim_master_co2_from_json.csv
+Lojistik Hazırlık,Koli Dizimi (Cartonization),,,,Karton ebat/istif optimizasyonu,-0.03,0.01,-0.009999999999999998,,hazir_giyim_master_co2.csv
+Lojistik Hazırlık,Koli Dizimi (Cartonization),,kgCO2e_per_unit,,Karton ebat/istif optimizasyonu,0.01,0.03,0.02,,hazir_giyim_master_co2_from_json.csv
+Lojistik Hazırlık,Paletleme & Streç,,,,Palet standardı ve streç film uygulaması,-0.05,0.02,-0.015,,hazir_giyim_master_co2.csv
+Lojistik Hazırlık,Paletleme & Streç,,kgCO2e_per_unit,,Palet standardı ve streç film uygulaması,0.02,0.05,0.035,,hazir_giyim_master_co2_from_json.csv
+Lojistik Hazırlık,Sevkiyat Etiketi & ASN,,,,Advance Shipment Notice ve etiket standardı,-0.015,0.005,-0.004999999999999999,,hazir_giyim_master_co2.csv
+Lojistik Hazırlık,Sevkiyat Etiketi & ASN,,kgCO2e_per_unit,,Advance Shipment Notice ve etiket standardı,0.005,0.015,0.01,,hazir_giyim_master_co2_from_json.csv
+Nakış & Süsleme,3D Nakış,,,,Kabartmalı nakış,-0.4,0.25,-0.07500000000000001,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Nakış & Süsleme,3D Nakış,,kgCO2e_per_unit,,Kabartmalı nakış,0.25,0.4,0.325,,hazir_giyim_master_co2_from_json.csv
+Nakış & Süsleme,Aplike Nakış,,,,Kumaş parçalarının işlenmesi,-0.45,0.3,-0.07500000000000001,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Nakış & Süsleme,Aplike Nakış,,kgCO2e_per_unit,,Kumaş parçalarının işlenmesi,0.3,0.45,0.375,,hazir_giyim_master_co2_from_json.csv
+Nakış & Süsleme,Boncuklu / Taşlı Nakış,,,,Dekoratif lüks nakış,-0.7,0.4,-0.15,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Nakış & Süsleme,Boncuklu / Taşlı Nakış,,kgCO2e_per_unit,,Dekoratif lüks nakış,0.4,0.7000000000000001,0.55,,hazir_giyim_master_co2_from_json.csv
+Nakış & Süsleme,Chenille Nakış,,,,Havlı ipliklerle dokulu nakış,-0.55,0.35,-0.1,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Nakış & Süsleme,Chenille Nakış,,kgCO2e_per_unit,,Havlı ipliklerle dokulu nakış,0.35,0.55,0.45,,hazir_giyim_master_co2_from_json.csv
+Nakış & Süsleme,Direkt Nakış,,,,Klasik nakış,-0.35,0.2,-0.07499999999999998,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Nakış & Süsleme,Direkt Nakış,,kgCO2e_per_unit,,Klasik nakış,0.2,0.35,0.275,,hazir_giyim_master_co2_from_json.csv
+Numune,Fit Sample,,,,Kalıp/ölçü doğrulama; beden fitting,-1.2,0.8,-0.2,,hazir_giyim_full_lifecycle_co2.csv
+Numune,Pre-Production Sample (PPS),,,,Kumaş + aksesuar + trim final kontrol; üretim öncesi son onay,-1.5,1.0,-0.25,,hazir_giyim_full_lifecycle_co2.csv
+Numune,Proto Sample,,,,"İlk tasarım denemesi; stil + kumaş denemesi, çoğu zaman alternatif kumaş kullanılır",-1.5,1.0,-0.25,,hazir_giyim_full_lifecycle_co2.csv
+Numune,Salesman Sample (SMS),,,,"Koleksiyon showroom, fuar, satış ekibi için",-4.0,2.0,-1.0,,hazir_giyim_full_lifecycle_co2.csv
+Numune,Shipment Sample,,,,Sevkiyat öncesi random carton’dan alınan ürün,-1.0,0.5,-0.25,,hazir_giyim_full_lifecycle_co2.csv
+Numune,Size Set,,,,XS–XL beden aralığında kontrol,-5.0,3.0,-1.0,,hazir_giyim_full_lifecycle_co2.csv
+Numune,TOP Sample,,,,Hat açıldıktan sonra çıkan ilk ürün; seri üretimden alınır,-1.2,0.8,-0.2,,hazir_giyim_full_lifecycle_co2.csv
+Özel Efektler,Glow-in-the-Dark,,,,Karanlıkta parlayan efekt,-0.4,0.25,-0.07500000000000001,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Özel Efektler,Glow-in-the-Dark,,kgCO2e_per_unit,,Karanlıkta parlayan efekt,0.25,0.4,0.325,,hazir_giyim_master_co2_from_json.csv
+Özel Efektler,Holografik Transfer,,,,Hologram görünümlü desen,-0.5,0.3,-0.1,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Özel Efektler,Holografik Transfer,,kgCO2e_per_unit,,Hologram görünümlü desen,0.3,0.5,0.4,,hazir_giyim_master_co2_from_json.csv
+Özel Efektler,Metalik Kaplama,,,,Altın / gümüş görünüm,-0.5,0.3,-0.1,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Özel Efektler,Metalik Kaplama,,kgCO2e_per_unit,,Altın / gümüş görünüm,0.3,0.5,0.4,,hazir_giyim_master_co2_from_json.csv
+Özel Efektler,UV Reactive Baskı,,,,Işık altında renk değiştirir,-0.4,0.25,-0.07500000000000001,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Özel Efektler,UV Reactive Baskı,,kgCO2e_per_unit,,Işık altında renk değiştirir,0.25,0.4,0.325,,hazir_giyim_master_co2_from_json.csv
+Paketleme Malzemeleri,Askı / Kılıf,,,,"Plastik/metal askı, toz kılıfı",-0.06,0.02,-0.02,,hazir_giyim_master_co2.csv
+Paketleme Malzemeleri,Askı / Kılıf,,kgCO2e_per_unit,,"Plastik/metal askı, toz kılıfı",0.02,0.06,0.04,,hazir_giyim_master_co2_from_json.csv
+Paketleme Malzemeleri,Karton (Inner/Outer),,,,"Karton kalite, e-flute, FSC tercih",-0.15,0.05,-0.05,,hazir_giyim_master_co2.csv
+Paketleme Malzemeleri,Karton (Inner/Outer),,kgCO2e_per_unit,,"Karton kalite, e-flute, FSC tercih",0.05,0.15,0.1,,hazir_giyim_master_co2_from_json.csv
+Paketleme Malzemeleri,Polybag,,,,Geri dönüştürülmüş PE tercih; boyut ve mikron standardı,-0.05,0.02,-0.015,,hazir_giyim_master_co2.csv
+Paketleme Malzemeleri,Polybag,,kgCO2e_per_unit,,Geri dönüştürülmüş PE tercih; boyut ve mikron standardı,0.02,0.05,0.035,,hazir_giyim_master_co2_from_json.csv
+Paketleme Malzemeleri,Silica Gel / Nem Tutucu,,,,Nem kontrol için paket içi kimyasal,-0.015,0.005,-0.004999999999999999,,hazir_giyim_master_co2.csv
+Paketleme Malzemeleri,Silica Gel / Nem Tutucu,,kgCO2e_per_unit,,Nem kontrol için paket içi kimyasal,0.005,0.015,0.01,,hazir_giyim_master_co2_from_json.csv
+Paketleme Malzemeleri,Sticker / Barkod / RFID,,,,UPC/EAN/RFID etiket ve yapıştırıcı,-0.02,0.005,-0.0075,,hazir_giyim_master_co2.csv
+Paketleme Malzemeleri,Sticker / Barkod / RFID,,kgCO2e_per_unit,,UPC/EAN/RFID etiket ve yapıştırıcı,0.005,0.02,0.0125,,hazir_giyim_master_co2_from_json.csv
+Parça Boyama,Acid Wash Dye,,,,Asit efektli boyama,-0.9,0.6,-0.15,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Parça Boyama,Acid Wash Dye,,kgCO2e_per_unit,,Asit efektli boyama,0.6000000000000001,0.9,0.75,,hazir_giyim_master_co2_from_json.csv
+Parça Boyama,Dip Dye / Ombre,,,,Kademeli renk geçişi,-0.8,0.5,-0.15,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Parça Boyama,Dip Dye / Ombre,,kgCO2e_per_unit,,Kademeli renk geçişi,0.5,0.8,0.65,,hazir_giyim_master_co2_from_json.csv
+Parça Boyama,Garment Dye,,,,Bitmiş ürünü boyama,-1.2,0.8,-0.2,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Parça Boyama,Garment Dye,,kgCO2e_per_unit,,Bitmiş ürünü boyama,0.8,1.2,1.0,,hazir_giyim_master_co2_from_json.csv
+Parça Boyama,Spray Dye,,,,Sprey efekt boyama,-0.7,0.4,-0.15,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Parça Boyama,Spray Dye,,kgCO2e_per_unit,,Sprey efekt boyama,0.4,0.7000000000000001,0.55,,hazir_giyim_master_co2_from_json.csv
+Parça Boyama,Tie-Dye,,,,"Batik, bağlama boyama",-0.9,0.6,-0.15,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Parça Boyama,Tie-Dye,,kgCO2e_per_unit,,"Batik, bağlama boyama",0.6000000000000001,0.9,0.75,,hazir_giyim_master_co2_from_json.csv
+Parça Yıkama & Efektler,Bleach Wash,,,,Açık renk efekt,-0.9,0.6,-0.15,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Parça Yıkama & Efektler,Bleach Wash,,kgCO2e_per_unit,,Açık renk efekt,0.6000000000000001,0.9,0.75,,hazir_giyim_master_co2_from_json.csv
+Parça Yıkama & Efektler,Destroyed / Ripped Wash,,,,"Yırtık, parçalanmış efekt",-0.9,0.6,-0.15,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Parça Yıkama & Efektler,Destroyed / Ripped Wash,,kgCO2e_per_unit,,"Yırtık, parçalanmış efekt",0.6000000000000001,0.9,0.75,,hazir_giyim_master_co2_from_json.csv
+Parça Yıkama & Efektler,Enzim Wash,,,,Enzimlerle yumuşatma,-0.6,0.4,-0.09999999999999998,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Parça Yıkama & Efektler,Enzim Wash,,kgCO2e_per_unit,,Enzimlerle yumuşatma,0.4,0.6000000000000001,0.5,,hazir_giyim_master_co2_from_json.csv
+Parça Yıkama & Efektler,Sand Wash,,,,Kum aşındırma,-0.6,0.4,-0.09999999999999998,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Parça Yıkama & Efektler,Sand Wash,,kgCO2e_per_unit,,Kum aşındırma,0.4,0.6000000000000001,0.5,,hazir_giyim_master_co2_from_json.csv
+Parça Yıkama & Efektler,Snow Wash,,,,Kar taneli desen efekti,-0.6,0.4,-0.09999999999999998,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Parça Yıkama & Efektler,Snow Wash,,kgCO2e_per_unit,,Kar taneli desen efekti,0.4,0.6000000000000001,0.5,,hazir_giyim_master_co2_from_json.csv
+Parça Yıkama & Efektler,Stone Wash,,,,Taşla eskitme,-0.7,0.5,-0.09999999999999998,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Parça Yıkama & Efektler,Stone Wash,,kgCO2e_per_unit,,Taşla eskitme,0.5,0.7000000000000001,0.6000000000000001,,hazir_giyim_master_co2_from_json.csv
+Parça Yıkama & Efektler,Vintage Wash,,,,Eskitilmiş görünüm,-0.8,0.5,-0.15,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Parça Yıkama & Efektler,Vintage Wash,,kgCO2e_per_unit,,Eskitilmiş görünüm,0.5,0.8,0.65,,hazir_giyim_master_co2_from_json.csv
+Sıcak Transfer & Folyo,Heat Transfer,,,,Isıyla transfer desen,-0.25,0.15,-0.05000000000000001,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Sıcak Transfer & Folyo,Heat Transfer,,kgCO2e_per_unit,,Isıyla transfer desen,0.15,0.25,0.2,,hazir_giyim_master_co2_from_json.csv
+Sıcak Transfer & Folyo,Plastisol Transfer,,,,Plastisol bazlı transfer baskı,-0.35,0.2,-0.07499999999999998,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Sıcak Transfer & Folyo,Plastisol Transfer,,kgCO2e_per_unit,,Plastisol bazlı transfer baskı,0.2,0.35,0.275,,hazir_giyim_master_co2_from_json.csv
+Sıcak Transfer & Folyo,PU / PVC Transfer,,,,Plastik bazlı transfer,-0.4,0.25,-0.07500000000000001,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Sıcak Transfer & Folyo,PU / PVC Transfer,,kgCO2e_per_unit,,Plastik bazlı transfer,0.25,0.4,0.325,,hazir_giyim_master_co2_from_json.csv
+Taşlama & Eskitme,El Taşlama,,,,Manuel eskitme,-0.35,0.2,-0.07499999999999998,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Taşlama & Eskitme,El Taşlama,,kgCO2e_per_unit,,Manuel eskitme,0.2,0.35,0.275,,hazir_giyim_master_co2_from_json.csv
+Taşlama & Eskitme,Kumlama (Sandblasting),,,,Yüzey aşındırma,-0.6,0.4,-0.09999999999999998,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Taşlama & Eskitme,Kumlama (Sandblasting),,kgCO2e_per_unit,,Yüzey aşındırma,0.4,0.6000000000000001,0.5,,hazir_giyim_master_co2_from_json.csv
+Taşlama & Eskitme,Lazer Eskitme,,,,Lazerle desen/eskitme,-0.2,0.1,-0.05000000000000001,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Taşlama & Eskitme,Lazer Eskitme,,kgCO2e_per_unit,,Lazerle desen/eskitme,0.1,0.2,0.15,,hazir_giyim_master_co2_from_json.csv
+Taşlama & Eskitme,Whiskers (Bıyık Efekti),,,,Denim’de büküm çizgileri,-0.25,0.15,-0.05000000000000001,,"bitmis_urun_islemleri.csv, bitmis_urun_islemleri_co2.csv, hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Taşlama & Eskitme,Whiskers (Bıyık Efekti),,kgCO2e_per_unit,,Denim’de büküm çizgileri,0.15,0.25,0.2,,hazir_giyim_master_co2_from_json.csv
+Triyaj/Preparasyon,Aksesuar Hazırlığı,,,,"Etiket, fermuar, düğme, ribana vb. hat besleme",-0.015,0.005,-0.004999999999999999,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Triyaj/Preparasyon,Aksesuar Hazırlığı,,kgCO2e_per_unit,,"Etiket, fermuar, düğme, ribana vb. hat besleme",0.005,0.015,0.01,,hazir_giyim_master_co2_from_json.csv
+Triyaj/Preparasyon,Cep/Plaket/Pat Hazırlığı,,,,"Cüzdan cep, plaket, pat katlama ve ütüleme",-0.05,0.02,-0.015,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Triyaj/Preparasyon,Cep/Plaket/Pat Hazırlığı,,kgCO2e_per_unit,,"Cüzdan cep, plaket, pat katlama ve ütüleme",0.02,0.05,0.035,,hazir_giyim_master_co2_from_json.csv
+Triyaj/Preparasyon,Hat Dengeleme & Besleme,,,,İş istasyonlarına WIP akışının ayarlanması,-0.015,0.005,-0.004999999999999999,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Triyaj/Preparasyon,Hat Dengeleme & Besleme,,kgCO2e_per_unit,,İş istasyonlarına WIP akışının ayarlanması,0.005,0.015,0.01,,hazir_giyim_master_co2_from_json.csv
+Triyaj/Preparasyon,Ön İşlem Nakış/Baskı,,,,Dikim öncesi nakış veya baskı uygulaması,-0.4,0.15,-0.125,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Triyaj/Preparasyon,Ön İşlem Nakış/Baskı,,kgCO2e_per_unit,,Dikim öncesi nakış veya baskı uygulaması,0.15,0.4,0.275,,hazir_giyim_master_co2_from_json.csv
+Triyaj/Preparasyon,Operasyon Planlama (SMV Bozumu),,,,Model için operasyonların sıralanması ve zaman etüdü,-0.015,0.005,-0.004999999999999999,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Triyaj/Preparasyon,Operasyon Planlama (SMV Bozumu),,kgCO2e_per_unit,,Model için operasyonların sıralanması ve zaman etüdü,0.005,0.015,0.01,,hazir_giyim_master_co2_from_json.csv
+Triyaj/Preparasyon,Telalama (Fusing),,,,Tela ile parçaların preslenerek yapıştırılması,-0.06,0.03,-0.015,,"hazir_giyim_full_lifecycle_co2.csv, hazir_giyim_master_co2.csv"
+Triyaj/Preparasyon,Telalama (Fusing),,kgCO2e_per_unit,,Tela ile parçaların preslenerek yapıştırılması,0.03,0.06,0.045,,hazir_giyim_master_co2_from_json.csv

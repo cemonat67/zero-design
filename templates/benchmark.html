@@ -1,0 +1,636 @@
+{% extends "base.html" %}
+
+{% block title %}Benchmark Tablosu - Zero@Design{% endblock %}
+
+{% block extra_css %}
+<style>
+/* Benchmark Tablosu Özel Stilleri */
+#benchmarkTable {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+#benchmarkTable thead th {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    padding: 1rem 0.75rem;
+    border: none;
+}
+
+#benchmarkTable tbody tr {
+    background-color: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+#benchmarkTable tbody tr:hover {
+    background-color: var(--hover-bg);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+#benchmarkTable tbody td {
+    color: var(--text-color) !important;
+    padding: 1rem 0.75rem;
+    vertical-align: middle;
+    border: none;
+    font-size: 0.9rem;
+}
+
+#benchmarkTable tbody td strong {
+    color: var(--text-color) !important;
+    font-weight: 600;
+}
+
+#benchmarkTable tbody td small {
+    color: var(--text-muted) !important;
+    font-size: 0.8rem;
+}
+
+/* Badge stilleri */
+.badge.bg-pink {
+    background: linear-gradient(135deg, #ff6b9d, #ff8fab) !important;
+    color: white !important;
+}
+
+.badge.bg-blue {
+    background: linear-gradient(135deg, #4facfe, #00f2fe) !important;
+    color: white !important;
+}
+
+.badge.bg-secondary {
+    background: linear-gradient(135deg, #667eea, #764ba2) !important;
+    color: white !important;
+}
+
+/* CO2 Badge renkleri */
+.badge.bg-success {
+    background: linear-gradient(135deg, #56ab2f, #a8e6cf) !important;
+    color: white !important;
+}
+
+.badge.bg-warning {
+    background: linear-gradient(135deg, #f093fb, #f5576c) !important;
+    color: white !important;
+}
+
+.badge.bg-danger {
+    background: linear-gradient(135deg, #ff416c, #ff4b2b) !important;
+    color: white !important;
+}
+
+/* Buton stilleri */
+.btn-outline-primary {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    background-color: transparent;
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.3);
+}
+
+/* Responsive tablo */
+.table-responsive {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark mode uyumluluğu */
+@media (prefers-color-scheme: dark) {
+    #benchmarkTable tbody td {
+        color: #e0e0e0 !important;
+    }
+    
+    #benchmarkTable tbody td strong {
+        color: #ffffff !important;
+    }
+    
+    #benchmarkTable tbody td small {
+        color: #b0b0b0 !important;
+    }
+}
+</style>
+{% endblock %}
+
+{% block page_header %}
+<div class="page-header-content text-center">
+    <h1 class="page-title">Benchmark</h1>
+    <p class="page-subtitle">Performans karşılaştırması ve sektör analizi</p>
+</div>
+{% endblock %}
+
+{% block content %}
+<!-- Action Buttons -->
+<div class="mb-4">
+    <div class="d-flex justify-content-end gap-2">
+        <button class="btn btn-outline-light btn-sm" onclick="exportData()">
+            <i class="fas fa-download me-1"></i>Dışa Aktar
+        </button>
+        <button class="btn btn-primary btn-sm" onclick="refreshData()">
+            <i class="fas fa-sync-alt me-1"></i>Yenile
+        </button>
+    </div>
+</div>
+
+<!-- Statistics Cards -->
+<div class="stats-grid mb-4">
+    <div class="stat-card">
+        <div class="stat-header">
+            <div class="stat-title">Toplam Ürün</div>
+            <div class="stat-icon" style="color: var(--chart-blue);">
+                <i class="fas fa-tshirt"></i>
+            </div>
+        </div>
+        <div class="stat-value" id="totalProducts">-</div>
+        <div class="stat-unit">adet</div>
+    </div>
+    
+    <div class="stat-card">
+        <div class="stat-header">
+            <div class="stat-title">Ortalama CO₂</div>
+            <div class="stat-icon" style="color: var(--chart-red);">
+                <i class="fas fa-cloud"></i>
+            </div>
+        </div>
+        <div class="stat-value" id="avgCO2">-</div>
+        <div class="stat-unit">kg CO₂e</div>
+    </div>
+    
+    <div class="stat-card">
+        <div class="stat-header">
+            <div class="stat-title">En Düşük Emisyon</div>
+            <div class="stat-icon" style="color: var(--chart-green);">
+                <i class="fas fa-leaf"></i>
+            </div>
+        </div>
+        <div class="stat-value" id="minCO2">-</div>
+        <div class="stat-unit">kg CO₂e</div>
+    </div>
+    
+    <div class="stat-card">
+        <div class="stat-header">
+            <div class="stat-title">En Yüksek Emisyon</div>
+            <div class="stat-icon" style="color: var(--chart-orange);">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+        </div>
+        <div class="stat-value" id="maxCO2">-</div>
+        <div class="stat-unit">kg CO₂e</div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-table me-2"></i>Benchmark Verileri
+                </h5>
+                <p class="text-muted small mb-0 mt-2">LCA çalışmaları ve sektör raporlarından derlenen CO₂ emisyon değerleri</p>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="fas fa-search"></i>
+                            </span>
+                            <input type="text" class="form-control" id="searchInput" placeholder="Ürün ara...">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-select" id="genderFilter">
+                            <option value="">Tüm Cinsiyetler</option>
+                            <option value="Women">Kadın</option>
+                            <option value="Men">Erkek</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-select" id="categoryFilter">
+                            <option value="">Tüm Kategoriler</option>
+                            <option value="Tops">Üst Giyim</option>
+                            <option value="Bottoms">Alt Giyim</option>
+                            <option value="Outerwear">Dış Giyim</option>
+                            <option value="Dresses">Elbise</option>
+                            <option value="Other">Diğer</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-select" id="sortSelect">
+                            <option value="name">İsme göre sırala</option>
+                            <option value="co2_asc">CO₂ (Düşük → Yüksek)</option>
+                            <option value="co2_desc">CO₂ (Yüksek → Düşük)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="table-responsive">
+                    <table class="table table-hover" id="benchmarkTable">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Ürün Adı</th>
+                                <th>Cinsiyet</th>
+                                <th>Kategori</th>
+                                <th>Ürün Tipi</th>
+                                <th>CO₂ Emisyonu (kg)</th>
+                                <th>Lif Kompozisyonu</th>
+                                <th>Ağırlık (g)</th>
+                                <th>Aksiyon</th>
+                            </tr>
+                        </thead>
+                        <tbody id="benchmarkTableBody">
+                            <!-- Veriler JavaScript ile yüklenecek -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-chart-line me-2"></i>CO₂ Emisyon Karşılaştırması
+                </h5>
+            </div>
+            <div class="card-body">
+                <canvas id="co2Chart" width="400" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-info-circle me-2"></i>Benchmark Bilgileri
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <h6 class="text-muted">Veri Kaynakları</h6>
+                    <ul class="list-unstyled small">
+                        <li><i class="fas fa-book text-primary me-2"></i>LCA Çalışmaları</li>
+                        <li><i class="fas fa-industry text-primary me-2"></i>Sektör Raporları</li>
+                        <li><i class="fas fa-globe text-primary me-2"></i>Uluslararası Standartlar</li>
+                    </ul>
+                </div>
+                
+                <div class="mb-3">
+                    <h6 class="text-muted">Hesaplama Kapsamı</h6>
+                    <ul class="list-unstyled small">
+                        <li><i class="fas fa-seedling text-success me-2"></i>Ham madde üretimi</li>
+                        <li><i class="fas fa-cogs text-success me-2"></i>İşleme süreçleri</li>
+                        <li><i class="fas fa-truck text-success me-2"></i>Lojistik</li>
+                        <li><i class="fas fa-tshirt text-success me-2"></i>Konfeksiyon</li>
+                    </ul>
+                </div>
+                
+                <div class="alert alert-info">
+                    <i class="fas fa-lightbulb me-2"></i>
+                    <strong>İpucu:</strong> Geri dönüştürülmüş malzemeler genellikle %40-70 daha düşük karbon ayak izi sağlar.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Detay Modal -->
+<div class="modal fade" id="productDetailModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Ürün Detayları</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Detaylar JavaScript ile yüklenecek -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                <button type="button" class="btn btn-primary" onclick="createStyleCard()">
+                    <i class="fas fa-palette me-1"></i>Stil Kartı Oluştur
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+let benchmarkData = [];
+let currentProduct = null;
+
+// Sayfa yüklendiğinde verileri getir
+document.addEventListener('DOMContentLoaded', function() {
+    loadBenchmarkData();
+    setupEventListeners();
+});
+
+async function loadBenchmarkData() {
+    try {
+        const response = await fetch('/api/benchmark-data');
+        const data = await response.json();
+        benchmarkData = data.products;
+        renderTable();
+        renderChart();
+        updateStatistics();
+    } catch (error) {
+        console.error('Veri yükleme hatası:', error);
+    }
+}
+
+function updateStatistics() {
+    if (benchmarkData.length === 0) return;
+    
+    const totalProducts = benchmarkData.length;
+    const co2Values = benchmarkData.map(p => p.co2_emission);
+    const avgCO2 = (co2Values.reduce((a, b) => a + b, 0) / totalProducts).toFixed(1);
+    const minCO2 = Math.min(...co2Values).toFixed(1);
+    const maxCO2 = Math.max(...co2Values).toFixed(1);
+    
+    document.getElementById('totalProducts').textContent = totalProducts;
+    document.getElementById('avgCO2').textContent = avgCO2;
+    document.getElementById('minCO2').textContent = minCO2;
+    document.getElementById('maxCO2').textContent = maxCO2;
+}
+
+function exportData() {
+    // CSV export functionality
+    const csvContent = "data:text/csv;charset=utf-8," 
+        + "Ürün Adı,Cinsiyet,Kategori,CO₂ Emisyonu,Lif Kompozisyonu,Ağırlık\n"
+        + benchmarkData.map(p => 
+            `"${p.name}","${p.gender}","${getCategoryDisplayName(p.category)}","${p.co2_emission}","${p.fiber_composition}","${p.weight}"`
+        ).join("\n");
+    
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "benchmark_data.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+function refreshData() {
+    loadBenchmarkData();
+}
+
+function setupEventListeners() {
+    document.getElementById('searchInput').addEventListener('input', filterTable);
+    document.getElementById('genderFilter').addEventListener('change', filterTable);
+    document.getElementById('categoryFilter').addEventListener('change', filterTable);
+    document.getElementById('sortSelect').addEventListener('change', sortTable);
+}
+
+function renderTable() {
+    const tbody = document.getElementById('benchmarkTableBody');
+    tbody.innerHTML = '';
+    
+    let filteredData = [...benchmarkData];
+    
+    // Apply filters
+    const searchTerm = document.getElementById('searchInput')?.value.toLowerCase() || '';
+    const genderFilter = document.getElementById('genderFilter')?.value || '';
+    const categoryFilter = document.getElementById('categoryFilter')?.value || '';
+    
+    if (searchTerm) {
+        filteredData = filteredData.filter(product => 
+            product.name.toLowerCase().includes(searchTerm) ||
+            product.product_type.toLowerCase().includes(searchTerm)
+        );
+    }
+    
+    if (genderFilter) {
+        filteredData = filteredData.filter(product => product.gender === genderFilter);
+    }
+    
+    if (categoryFilter) {
+        filteredData = filteredData.filter(product => product.category === categoryFilter);
+    }
+    
+    // Apply sorting
+    const sortBy = document.getElementById('sortSelect')?.value || 'name';
+    filteredData.sort((a, b) => {
+        switch(sortBy) {
+            case 'co2_asc':
+                return a.co2_emission - b.co2_emission;
+            case 'co2_desc':
+                return b.co2_emission - a.co2_emission;
+            default:
+                return a.name.localeCompare(b.name);
+        }
+    });
+    
+    filteredData.forEach(product => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>
+                <strong>${product.name}</strong>
+            </td>
+            <td>
+                <span class="badge ${product.gender === 'Women' ? 'bg-pink' : 'bg-blue'}">${product.gender === 'Women' ? 'Kadın' : 'Erkek'}</span>
+            </td>
+            <td>
+                <span class="badge bg-secondary">${getCategoryDisplayName(product.category)}</span>
+            </td>
+            <td>
+                ${product.product_type}
+            </td>
+            <td>
+                <span class="badge ${getCO2Badge(product.co2_emission)}">${product.co2_emission} kg</span>
+            </td>
+            <td>
+                <small class="text-muted">${product.fiber_composition}</small>
+            </td>
+            <td>
+                ${product.weight}g
+            </td>
+            <td>
+                <button class="btn btn-sm btn-outline-primary" onclick="showProductDetail(${product.id})">
+                    <i class="fas fa-eye"></i> Detay
+                </button>
+            </td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+function getCategoryDisplayName(category) {
+    const displayNames = {
+        'Tops': 'Üst Giyim',
+        'Bottoms': 'Alt Giyim',
+        'Outerwear': 'Dış Giyim',
+        'Dresses': 'Elbise',
+        'Other': 'Diğer'
+    };
+    return displayNames[category] || category;
+}
+
+function getCO2Badge(co2Value) {
+    if (co2Value < 5) return 'co2-low';
+    if (co2Value < 10) return 'co2-medium';
+    return 'co2-high';
+}
+
+function filterTable() {
+    renderTable();
+}
+
+function sortTable() {
+    renderTable();
+}
+
+function renderChart() {
+    const ctx = document.getElementById('co2Chart').getContext('2d');
+    
+    // Group products by category and calculate average CO2 emissions
+    const categoryData = {};
+    benchmarkData.forEach(product => {
+        const categoryName = getCategoryDisplayName(product.category);
+        if (!categoryData[categoryName]) {
+            categoryData[categoryName] = {
+                total: 0,
+                count: 0,
+                products: []
+            };
+        }
+        categoryData[categoryName].total += product.co2_emission;
+        categoryData[categoryName].count += 1;
+        categoryData[categoryName].products.push(product);
+    });
+    
+    const labels = Object.keys(categoryData);
+    const averageEmissions = labels.map(category => 
+        (categoryData[category].total / categoryData[category].count).toFixed(2)
+    );
+    
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Ortalama CO₂ Emisyonu (kg)',
+                    data: averageEmissions,
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.8)',
+                        'rgba(255, 99, 132, 0.8)',
+                        'rgba(255, 206, 86, 0.8)',
+                        'rgba(75, 192, 192, 0.8)',
+                        'rgba(153, 102, 255, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)'
+                    ],
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Ürün Kategorilerine Göre Ortalama CO₂ Emisyonları'
+                },
+                legend: {
+                    position: 'top',
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'CO₂ Emisyonu (kg)'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Ürün Kategorileri'
+                    }
+                }
+            }
+        }
+    });
+}
+
+function showProductDetail(productId) {
+    const product = benchmarkData.find(p => p.id === productId);
+    if (!product) return;
+    
+    currentProduct = product;
+    
+    document.getElementById('modalTitle').textContent = `${product.name} - Detaylı Analiz`;
+    
+    const modalBody = document.getElementById('modalBody');
+    modalBody.innerHTML = `
+        <div class="row">
+            <div class="col-md-6">
+                <h6>Ürün Bilgileri</h6>
+                <ul class="list-unstyled">
+                    <li><strong>Cinsiyet:</strong> ${product.gender === 'Women' ? 'Kadın' : 'Erkek'}</li>
+                    <li><strong>Kategori:</strong> ${getCategoryDisplayName(product.category)}</li>
+                    <li><strong>Ürün Tipi:</strong> ${product.product_type}</li>
+                    <li><strong>Ağırlık:</strong> ${product.weight}g</li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <h6>Çevresel Etki</h6>
+                <ul class="list-unstyled">
+                    <li><strong>CO₂ Emisyonu:</strong> <span class="badge ${getCO2Badge(product.co2_emission)}">${product.co2_emission} kg</span></li>
+                    <li><strong>Fiber Kompozisyonu:</strong> ${product.fiber_composition}</li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-12">
+                <h6>Sürdürülebilirlik Önerileri</h6>
+                <div class="alert alert-info">
+                    <ul class="mb-0">
+                        <li>Organik pamuk kullanımı CO₂ emisyonunu %20-30 azaltabilir</li>
+                        <li>Geri dönüştürülmüş malzemeler çevresel etkiyi minimize eder</li>
+                        <li>Yerel üretim nakliye emisyonlarını düşürür</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    new bootstrap.Modal(document.getElementById('productDetailModal')).show();
+}
+
+function createStyleCard() {
+    if (currentProduct) {
+        // Stil kartı sayfasına yönlendir ve ürün bilgilerini aktar
+        const params = new URLSearchParams({
+            product: currentProduct.name,
+            material: currentProduct.materials[0]
+        });
+        window.location.href = `/style-card?${params.toString()}`;
+    }
+}
+</script>
+{% endblock %}

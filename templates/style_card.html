@@ -1,0 +1,654 @@
+{% extends "base.html" %}
+
+{% block title %}Stil Kartı - Zero@Design{% endblock %}
+
+{% block page_header %}
+<div class="page-header-content text-center">
+    <h1 class="page-title">Style Card — Stil Kartları</h1>
+    <p class="page-subtitle">Tasarım stil rehberleri ve görsel kimlik</p>
+</div>
+{% endblock %}
+
+{% block content %}
+<form id="styleCardForm">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-info-circle me-2"></i>Temel Bilgiler
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Ürün Adı *</label>
+                            <input type="text" class="form-control" id="productName" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Cinsiyet *</label>
+                            <select class="form-select" id="productGender" required>
+                                <option value="">Seçiniz...</option>
+                                <option value="Women">Kadın</option>
+                                <option value="Men">Erkek</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Ürün Kategorisi *</label>
+                            <select class="form-select" id="productCategory" required>
+                                <option value="">Önce cinsiyet seçiniz...</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Ürün Tipi *</label>
+                            <select class="form-select" id="productType" required>
+                                <option value="">Önce kategori seçiniz...</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Hedef Pazar</label>
+                            <select class="form-select" id="targetMarket">
+                                <option value="yerel">Yerel</option>
+                                <option value="ulusal">Ulusal</option>
+                                <option value="avrupa">Avrupa</option>
+                                <option value="global">Global</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Sezon</label>
+                            <select class="form-select" id="season">
+                                <option value="ilkbahar">İlkbahar</option>
+                                <option value="yaz">Yaz</option>
+                                <option value="sonbahar">Sonbahar</option>
+                                <option value="kis">Kış</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Gramaj (g/m²)</label>
+                            <input type="number" class="form-control" id="weight" min="50" max="800">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-layer-group me-2"></i>Lif Kompozisyonu
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div id="fiberComposition">
+                        <div class="fiber-row row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Lif Tipi</label>
+                                <select class="form-select fiber-type">
+                                    <option value="">Seçiniz...</option>
+                                    <option value="pamuk">Pamuk</option>
+                                    <option value="organik-pamuk">Organik Pamuk</option>
+                                    <option value="polyester">Polyester</option>
+                                    <option value="geri-donusturulmus-polyester">Geri Dönüştürülmüş Polyester</option>
+                                    <option value="viskon">Viskon</option>
+                                    <option value="tencel">Tencel</option>
+                                    <option value="yun">Yün</option>
+                                    <option value="keten">Keten</option>
+                                    <option value="elastan">Elastan</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Yüzde (%)</label>
+                                <input type="number" class="form-control fiber-percentage" min="1" max="100">
+                            </div>
+                            <div class="col-md-2 d-flex align-items-end">
+                                <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeFiberRow(this)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="button" class="btn btn-outline-primary btn-sm" onclick="addFiberRow()">
+                        <i class="fas fa-plus me-1"></i>Lif Ekle
+                    </button>
+                    
+                    <div class="mt-3">
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>
+                            <strong>Toplam:</strong> <span id="totalPercentage">0</span>% 
+                            <span id="percentageWarning" class="text-danger ms-2" style="display: none;">
+                                (Toplam %100 olmalıdır)
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-cogs me-2"></i>İşlem Süreçleri
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Boyama İşlemleri</h6>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="naturalDye">
+                                <label class="form-check-label" for="naturalDye">
+                                    Doğal Boyar Madde
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="lowImpactDye">
+                                <label class="form-check-label" for="lowImpactDye">
+                                    Düşük Etkili Boyar Madde
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="waterBasedDye">
+                                <label class="form-check-label" for="waterBasedDye">
+                                    Su Bazlı Boyama
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <h6>Finishing İşlemleri</h6>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="enzymaticWash">
+                                <label class="form-check-label" for="enzymaticWash">
+                                    Enzimatik Yıkama
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="ozoneTreatment">
+                                <label class="form-check-label" for="ozoneTreatment">
+                                    Ozon Uygulaması
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="laserTreatment">
+                                <label class="form-check-label" for="laserTreatment">
+                                    Lazer İşlemi
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-calculator me-2"></i>CO₂ Hesaplama
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="text-center mb-3">
+                        <div class="display-4 text-primary" id="totalCO2">0.0</div>
+                        <small class="text-muted">kg CO₂ eşdeğeri</small>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <h6>Dağılım</h6>
+                        <canvas id="co2BreakdownChart" width="300" height="200"></canvas>
+                    </div>
+                    
+                    <div id="co2Breakdown">
+                        <!-- CO₂ dağılımı buraya gelecek -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-robot me-2"></i>AI Önerileri
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <button type="button" class="btn btn-primary btn-sm w-100 mb-3" onclick="getAISuggestions()">
+                        <i class="fas fa-magic me-1"></i>Önerileri Getir
+                    </button>
+                    
+                    <div id="aiSuggestions" style="display: none;">
+                        <!-- AI önerileri buraya gelecek -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-award me-2"></i>Sürdürülebilirlik Skoru
+                    </h5>
+                </div>
+                <div class="card-body text-center">
+                    <div class="display-1" id="sustainabilityScore">-</div>
+                    <div id="sustainabilityGrade" class="h4 mb-2">-</div>
+                    <small class="text-muted">100 üzerinden</small>
+                    
+                    <div class="mt-3">
+                        <div id="sustainabilityBadges">
+                            <!-- Rozetler buraya gelecek -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body text-center">
+                    <button type="submit" class="btn btn-success btn-lg me-3">
+                        <i class="fas fa-save me-2"></i>Stil Kartını Kaydet
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary btn-lg" onclick="resetForm()">
+                        <i class="fas fa-undo me-2"></i>Sıfırla
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+let co2Chart = null;
+
+document.addEventListener('DOMContentLoaded', function() {
+    setupEventListeners();
+    calculateCO2();
+    
+    // URL parametrelerinden ürün bilgilerini al
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('product')) {
+        document.getElementById('productName').value = urlParams.get('product');
+        document.getElementById('productCategory').value = urlParams.get('product').toLowerCase();
+    }
+});
+
+function setupEventListeners() {
+    // Form değişikliklerini dinle
+    document.getElementById('styleCardForm').addEventListener('input', calculateCO2);
+    document.getElementById('styleCardForm').addEventListener('change', calculateCO2);
+    document.getElementById('styleCardForm').addEventListener('submit', saveStyleCard);
+}
+
+function addFiberRow() {
+    const fiberComposition = document.getElementById('fiberComposition');
+    const newRow = document.createElement('div');
+    newRow.className = 'fiber-row row mb-3';
+    newRow.innerHTML = `
+        <div class="col-md-6">
+            <select class="form-select fiber-type">
+                <option value="">Seçiniz...</option>
+                <option value="pamuk">Pamuk</option>
+                <option value="organik-pamuk">Organik Pamuk</option>
+                <option value="polyester">Polyester</option>
+                <option value="geri-donusturulmus-polyester">Geri Dönüştürülmüş Polyester</option>
+                <option value="viskon">Viskon</option>
+                <option value="tencel">Tencel</option>
+                <option value="yun">Yün</option>
+                <option value="keten">Keten</option>
+                <option value="elastan">Elastan</option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <input type="number" class="form-control fiber-percentage" min="1" max="100">
+        </div>
+        <div class="col-md-2 d-flex align-items-end">
+            <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeFiberRow(this)">
+                <i class="fas fa-trash"></i>
+            </button>
+        </div>
+    `;
+    fiberComposition.appendChild(newRow);
+    
+    // Yeni eklenen elementlere event listener ekle
+    newRow.addEventListener('input', calculateCO2);
+    newRow.addEventListener('change', calculateCO2);
+}
+
+function removeFiberRow(button) {
+    const fiberRows = document.querySelectorAll('.fiber-row');
+    if (fiberRows.length > 1) {
+        button.closest('.fiber-row').remove();
+        calculateCO2();
+    }
+}
+
+function calculateCO2() {
+    // Lif yüzdelerini kontrol et
+    const percentages = Array.from(document.querySelectorAll('.fiber-percentage'))
+        .map(input => parseFloat(input.value) || 0);
+    
+    const totalPercentage = percentages.reduce((sum, val) => sum + val, 0);
+    document.getElementById('totalPercentage').textContent = totalPercentage;
+    
+    const warning = document.getElementById('percentageWarning');
+    if (totalPercentage !== 100 && totalPercentage > 0) {
+        warning.style.display = 'inline';
+    } else {
+        warning.style.display = 'none';
+    }
+    
+    // CO₂ hesaplama
+    let totalCO2 = 0;
+    const breakdown = {
+        fiber: 0,
+        dyeing: 0,
+        finishing: 0,
+        transport: 0
+    };
+    
+    // Lif bazlı CO₂ hesaplama
+    const fiberRows = document.querySelectorAll('.fiber-row');
+    fiberRows.forEach(row => {
+        const fiberType = row.querySelector('.fiber-type').value;
+        const percentage = parseFloat(row.querySelector('.fiber-percentage').value) || 0;
+        
+        if (fiberType && percentage > 0) {
+            const co2Factor = getFiberCO2Factor(fiberType);
+            breakdown.fiber += (co2Factor * percentage / 100);
+        }
+    });
+    
+    // İşlem bazlı CO₂ hesaplama
+    if (document.getElementById('naturalDye').checked) {
+        breakdown.dyeing += 0.5;
+    } else if (document.getElementById('lowImpactDye').checked) {
+        breakdown.dyeing += 1.2;
+    } else {
+        breakdown.dyeing += 2.0;
+    }
+    
+    // Finishing işlemleri
+    if (document.getElementById('enzymaticWash').checked) breakdown.finishing += 0.3;
+    if (document.getElementById('ozoneTreatment').checked) breakdown.finishing += 0.2;
+    if (document.getElementById('laserTreatment').checked) breakdown.finishing += 0.1;
+    
+    // Lojistik
+    const targetMarket = document.getElementById('targetMarket').value;
+    breakdown.transport = getTransportCO2(targetMarket);
+    
+    totalCO2 = breakdown.fiber + breakdown.dyeing + breakdown.finishing + breakdown.transport;
+    
+    // Sonuçları göster
+    document.getElementById('totalCO2').textContent = totalCO2.toFixed(1);
+    updateCO2Breakdown(breakdown);
+    updateSustainabilityScore(totalCO2);
+    renderCO2Chart(breakdown);
+}
+
+function getFiberCO2Factor(fiberType) {
+    const factors = {
+        'pamuk': 5.9,
+        'organik-pamuk': 3.8,
+        'polyester': 9.5,
+        'geri-donusturulmus-polyester': 4.2,
+        'viskon': 11.5,
+        'tencel': 2.8,
+        'yun': 22.7,
+        'keten': 2.1,
+        'elastan': 15.8
+    };
+    return factors[fiberType] || 5.0;
+}
+
+function getTransportCO2(market) {
+    const factors = {
+        'yerel': 0.5,
+        'ulusal': 1.2,
+        'avrupa': 2.8,
+        'global': 4.5
+    };
+    return factors[market] || 1.0;
+}
+
+function updateCO2Breakdown(breakdown) {
+    const breakdownDiv = document.getElementById('co2Breakdown');
+    breakdownDiv.innerHTML = `
+        <div class="small">
+            <div class="d-flex justify-content-between mb-1">
+                <span>Lif:</span>
+                <span>${breakdown.fiber.toFixed(1)} kg</span>
+            </div>
+            <div class="d-flex justify-content-between mb-1">
+                <span>Boyama:</span>
+                <span>${breakdown.dyeing.toFixed(1)} kg</span>
+            </div>
+            <div class="d-flex justify-content-between mb-1">
+                <span>Finishing:</span>
+                <span>${breakdown.finishing.toFixed(1)} kg</span>
+            </div>
+            <div class="d-flex justify-content-between mb-1">
+                <span>Lojistik:</span>
+                <span>${breakdown.transport.toFixed(1)} kg</span>
+            </div>
+        </div>
+    `;
+}
+
+function updateSustainabilityScore(co2) {
+    let score = Math.max(0, 100 - (co2 * 5));
+    let grade = 'F';
+    let badgeClass = 'danger';
+    
+    if (score >= 90) { grade = 'A+'; badgeClass = 'success'; }
+    else if (score >= 80) { grade = 'A'; badgeClass = 'success'; }
+    else if (score >= 70) { grade = 'B'; badgeClass = 'warning'; }
+    else if (score >= 60) { grade = 'C'; badgeClass = 'warning'; }
+    else if (score >= 50) { grade = 'D'; badgeClass = 'danger'; }
+    
+    document.getElementById('sustainabilityScore').textContent = Math.round(score);
+    document.getElementById('sustainabilityGrade').textContent = grade;
+    document.getElementById('sustainabilityGrade').className = `h4 mb-2 text-${badgeClass}`;
+    
+    // Rozetler
+    const badges = [];
+    if (document.getElementById('naturalDye').checked) badges.push('Doğal Boyar');
+    if (document.getElementById('enzymaticWash').checked) badges.push('Eko Yıkama');
+    if (document.querySelectorAll('.fiber-type option[value*="organik"]:checked, .fiber-type option[value*="geri-donusturulmus"]:checked').length > 0) {
+        badges.push('Sürdürülebilir Lif');
+    }
+    
+    const badgesDiv = document.getElementById('sustainabilityBadges');
+    badgesDiv.innerHTML = badges.map(badge => 
+        `<span class="badge bg-success me-1 mb-1">${badge}</span>`
+    ).join('');
+}
+
+function renderCO2Chart(breakdown) {
+    const ctx = document.getElementById('co2BreakdownChart').getContext('2d');
+    
+    if (co2Chart) {
+        co2Chart.destroy();
+    }
+    
+    co2Chart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Lif', 'Boyama', 'Finishing', 'Lojistik'],
+            datasets: [{
+                data: [breakdown.fiber, breakdown.dyeing, breakdown.finishing, breakdown.transport],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 205, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)'
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        fontSize: 10
+                    }
+                }
+            }
+        }
+    });
+}
+
+async function getAISuggestions() {
+    const productCategory = document.getElementById('productCategory').value;
+    const fiberTypes = Array.from(document.querySelectorAll('.fiber-type'))
+        .map(select => select.value)
+        .filter(value => value);
+    
+    if (!productCategory || fiberTypes.length === 0) {
+        alert('Lütfen ürün kategorisi ve en az bir lif tipi seçin');
+        return;
+    }
+    
+    try {
+        const response = await fetch('/api/ai-suggestions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                product_type: productCategory,
+                current_material: fiberTypes.join(', ')
+            })
+        });
+        
+        const data = await response.json();
+        displayAISuggestions(data.suggestions);
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Öneriler alınırken hata oluştu');
+    }
+}
+
+function displayAISuggestions(suggestions) {
+    const suggestionsDiv = document.getElementById('aiSuggestions');
+    suggestionsDiv.innerHTML = '';
+    
+    suggestions.forEach(suggestion => {
+        const suggestionCard = document.createElement('div');
+        suggestionCard.className = 'card mb-2';
+        suggestionCard.innerHTML = `
+            <div class="card-body p-2">
+                <h6 class="card-title small">
+                    <i class="fas fa-lightbulb text-warning me-1"></i>
+                    ${suggestion.suggestion}
+                </h6>
+                <p class="card-text small text-muted mb-1">${suggestion.reason}</p>
+                <span class="badge bg-success small">${suggestion.co2_reduction} azalma</span>
+            </div>
+        `;
+        suggestionsDiv.appendChild(suggestionCard);
+    });
+    
+    suggestionsDiv.style.display = 'block';
+}
+
+async function saveStyleCard(event) {
+    event.preventDefault();
+    
+    // Form verilerini topla
+    const formData = {
+        productName: document.getElementById('productName').value,
+        productCategory: document.getElementById('productCategory').value,
+        targetMarket: document.getElementById('targetMarket').value,
+        season: document.getElementById('season').value,
+        weight: document.getElementById('weight').value,
+        fiberComposition: [],
+        processes: {
+            dyeing: {
+                naturalDye: document.getElementById('naturalDye').checked,
+                lowImpactDye: document.getElementById('lowImpactDye').checked,
+                waterBasedDye: document.getElementById('waterBasedDye').checked
+            },
+            finishing: {
+                enzymaticWash: document.getElementById('enzymaticWash').checked,
+                ozoneTreatment: document.getElementById('ozoneTreatment').checked,
+                laserTreatment: document.getElementById('laserTreatment').checked
+            }
+        },
+        totalCO2: parseFloat(document.getElementById('totalCO2').textContent),
+        sustainabilityScore: parseInt(document.getElementById('sustainabilityScore').textContent)
+    };
+    
+    // Lif kompozisyonunu topla
+    const fiberRows = document.querySelectorAll('.fiber-row');
+    fiberRows.forEach(row => {
+        const fiberType = row.querySelector('.fiber-type').value;
+        const percentage = parseFloat(row.querySelector('.fiber-percentage').value);
+        
+        if (fiberType && percentage > 0) {
+            formData.fiberComposition.push({
+                type: fiberType,
+                percentage: percentage
+            });
+        }
+    });
+    
+    // Validasyon
+    if (!formData.productName || !formData.productCategory) {
+        alert('Lütfen ürün adı ve kategorisini girin');
+        return;
+    }
+    
+    const totalPercentage = formData.fiberComposition.reduce((sum, fiber) => sum + fiber.percentage, 0);
+    if (totalPercentage !== 100) {
+        alert('Lif yüzdeleri toplamı %100 olmalıdır');
+        return;
+    }
+    
+    try {
+        const response = await fetch('/api/save-style-card', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        });
+        
+        const result = await response.json();
+        
+        if (result.status === 'success') {
+            alert('Stil kartı başarıyla kaydedildi!');
+            // Koleksiyon sayfasına yönlendir
+            window.location.href = '/collection';
+        } else {
+            alert('Kaydetme sırasında hata oluştu');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Kaydetme sırasında hata oluştu');
+    }
+}
+
+function resetForm() {
+    if (confirm('Formu sıfırlamak istediğinizden emin misiniz?')) {
+        document.getElementById('styleCardForm').reset();
+        
+        // Ekstra lif satırlarını kaldır
+        const fiberRows = document.querySelectorAll('.fiber-row');
+        for (let i = 1; i < fiberRows.length; i++) {
+            fiberRows[i].remove();
+        }
+        
+        calculateCO2();
+    }
+}
+</script>
+{% endblock %}

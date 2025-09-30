@@ -1,0 +1,126 @@
+﻿id,top_category,category,operation,description,product_groups,notes,co2_min,co2_max,co2_unit
+1,Bitmiş Ürün İşlemleri,Baskı Teknikleri,Serigrafi (Screen Print),"Klasik baskı tekniği; dayanıklı, çok renkli baskılar","Tişört, Sweatshirt, Çocuk Giyim",nan,0.35000000000000003,0.5,kgCO2e_per_unit
+2,Bitmiş Ürün İşlemleri,Baskı Teknikleri,Rotasyon (Rotary Screen Print),Döner silindirle sürekli desen baskı,"Denim, Dış Giyim, Büyük parçalar",nan,0.4,0.6000000000000001,kgCO2e_per_unit
+3,Bitmiş Ürün İşlemleri,Baskı Teknikleri,Dijital Baskı,Fotoğraf kalitesinde baskı,"Moda koleksiyonları, Premium tişört, Elbise",nan,0.25,0.4,kgCO2e_per_unit
+4,Bitmiş Ürün İşlemleri,Baskı Teknikleri,Sublimasyon,Polyester bazlı kumaşa transfer,"Spor giyim, Forma, Aktif giyim",nan,0.30000000000000004,0.45,kgCO2e_per_unit
+5,Bitmiş Ürün İşlemleri,Baskı Teknikleri,Folyo (Foil) Baskı,Parlak metalik yüzey,"Kadın giyim, Moda, Aksesuar",nan,0.2,0.35000000000000003,kgCO2e_per_unit
+6,Bitmiş Ürün İşlemleri,Baskı Teknikleri,Discharge (Açık Ekran) Baskı,Boya çıkarılarak desen oluşturma,"Tişört, Sweatshirt",nan,0.30000000000000004,0.5,kgCO2e_per_unit
+7,Bitmiş Ürün İşlemleri,Baskı Teknikleri,Kabartma (Emboss) Baskı,3D yüzeyli desen,"Moda tişört, Özel koleksiyon",nan,0.25,0.4,kgCO2e_per_unit
+8,Bitmiş Ürün İşlemleri,Baskı Teknikleri,Sim / Glitter Baskı,Parıltılı efekt,Kadın & Çocuk giyim,nan,0.2,0.35000000000000003,kgCO2e_per_unit
+9,Bitmiş Ürün İşlemleri,Nakış & Süsleme,Direkt Nakış,Klasik nakış,"Polo, Gömlek, Şapka, Çocuk giyim",nan,0.2,0.35000000000000003,kgCO2e_per_unit
+10,Bitmiş Ürün İşlemleri,Nakış & Süsleme,Aplike Nakış,Kumaş parçalarının işlenmesi,"Sweatshirt, Denim, Ceket",nan,0.30000000000000004,0.45,kgCO2e_per_unit
+11,Bitmiş Ürün İşlemleri,Nakış & Süsleme,Chenille Nakış,Havlı ipliklerle dokulu nakış,"Kolej montu, Sweatshirt",nan,0.35000000000000003,0.55,kgCO2e_per_unit
+12,Bitmiş Ürün İşlemleri,Nakış & Süsleme,3D Nakış,Kabartmalı nakış,"Spor şapka, Polo",nan,0.25,0.4,kgCO2e_per_unit
+13,Bitmiş Ürün İşlemleri,Nakış & Süsleme,Boncuklu / Taşlı Nakış,Dekoratif lüks nakış,"Kadın abiye, Özel koleksiyon",nan,0.4,0.7000000000000001,kgCO2e_per_unit
+14,Bitmiş Ürün İşlemleri,Aplike & Eklemeler,Kumaş Aplike,Ek kumaş parçaları ile desen,"Denim jacket, Sweatshirt",nan,0.2,0.35000000000000003,kgCO2e_per_unit
+15,Bitmiş Ürün İşlemleri,Aplike & Eklemeler,Patch / Arma,Dikişli veya yapıştırmalı arma,"Tişört, Denim, Spor giyim",nan,0.15,0.30000000000000004,kgCO2e_per_unit
+16,Bitmiş Ürün İşlemleri,Aplike & Eklemeler,Laser-cut Aplike,Lazerle kesilmiş aplike,"Moda, Genç giyim",nan,0.2,0.35000000000000003,kgCO2e_per_unit
+17,Bitmiş Ürün İşlemleri,Aplike & Eklemeler,PVC / PU Aplike,Sentetik aplike,"Spor giyim, Streetwear",nan,0.25,0.4,kgCO2e_per_unit
+18,Bitmiş Ürün İşlemleri,Parça Boyama,Garment Dye,Bitmiş ürünü boyama,"Tişört, Sweatshirt, Denim",nan,0.8,1.2,kgCO2e_per_unit
+19,Bitmiş Ürün İşlemleri,Parça Boyama,Dip Dye / Ombre,Kademeli renk geçişi,"Tişört, Elbise, Çocuk giyim",nan,0.5,0.8,kgCO2e_per_unit
+20,Bitmiş Ürün İşlemleri,Parça Boyama,Tie-Dye,"Batik, bağlama boyama","Moda trend, Çocuk, Festival giyim",nan,0.6000000000000001,0.9,kgCO2e_per_unit
+21,Bitmiş Ürün İşlemleri,Parça Boyama,Spray Dye,Sprey efekt boyama,"Casual giyim, Denim",nan,0.4,0.7000000000000001,kgCO2e_per_unit
+22,Bitmiş Ürün İşlemleri,Parça Boyama,Acid Wash Dye,Asit efektli boyama,"Denim, Sweatshirt",nan,0.6000000000000001,0.9,kgCO2e_per_unit
+23,Bitmiş Ürün İşlemleri,Parça Yıkama & Efektler,Stone Wash,Taşla eskitme,"Denim, Casual giyim",nan,0.5,0.7000000000000001,kgCO2e_per_unit
+24,Bitmiş Ürün İşlemleri,Parça Yıkama & Efektler,Enzim Wash,Enzimlerle yumuşatma,"Tişört, Sweatshirt, Denim",nan,0.4,0.6000000000000001,kgCO2e_per_unit
+25,Bitmiş Ürün İşlemleri,Parça Yıkama & Efektler,Bleach Wash,Açık renk efekt,"Denim, Moda tişört",nan,0.6000000000000001,0.9,kgCO2e_per_unit
+26,Bitmiş Ürün İşlemleri,Parça Yıkama & Efektler,Sand Wash,Kum aşındırma,"Denim, Casual",nan,0.4,0.6000000000000001,kgCO2e_per_unit
+27,Bitmiş Ürün İşlemleri,Parça Yıkama & Efektler,Vintage Wash,Eskitilmiş görünüm,"Denim, Moda",nan,0.5,0.8,kgCO2e_per_unit
+28,Bitmiş Ürün İşlemleri,Parça Yıkama & Efektler,Destroyed / Ripped Wash,"Yırtık, parçalanmış efekt","Denim, Streetwear",nan,0.6000000000000001,0.9,kgCO2e_per_unit
+29,Bitmiş Ürün İşlemleri,Parça Yıkama & Efektler,Snow Wash,Kar taneli desen efekti,"Denim, Moda",nan,0.4,0.6000000000000001,kgCO2e_per_unit
+30,Bitmiş Ürün İşlemleri,Kaplama & Astar,PU / PVC Kaplama,Sentetik film kaplama,"Dış giyim, Çanta, Aksesuar",nan,0.30000000000000004,0.5,kgCO2e_per_unit
+31,Bitmiş Ürün İşlemleri,Kaplama & Astar,Wax Kaplama,Balmumu kaplama,"Dış giyim, Denim",nan,0.2,0.4,kgCO2e_per_unit
+32,Bitmiş Ürün İşlemleri,Kaplama & Astar,Laminasyon,İki yüzeyin lamine edilmesi,"Teknik giyim, Dış giyim",nan,0.4,0.7000000000000001,kgCO2e_per_unit
+33,Bitmiş Ürün İşlemleri,Taşlama & Eskitme,Kumlama (Sandblasting),Yüzey aşındırma,"Denim, İş giyim",nan,0.4,0.6000000000000001,kgCO2e_per_unit
+34,Bitmiş Ürün İşlemleri,Taşlama & Eskitme,El Taşlama,Manuel eskitme,"Denim, Casual",nan,0.2,0.35000000000000003,kgCO2e_per_unit
+35,Bitmiş Ürün İşlemleri,Taşlama & Eskitme,Lazer Eskitme,Lazerle desen/eskitme,"Denim, Moda",nan,0.1,0.2,kgCO2e_per_unit
+36,Bitmiş Ürün İşlemleri,Taşlama & Eskitme,Whiskers (Bıyık Efekti),Denim’de büküm çizgileri,"Denim pantolon, Ceket",nan,0.15,0.25,kgCO2e_per_unit
+37,Bitmiş Ürün İşlemleri,Bitim & Apre İşlemleri,Anti-Pilling Finish,Tüylenme önleyici,"Tişört, Sweatshirt",nan,0.1,0.2,kgCO2e_per_unit
+38,Bitmiş Ürün İşlemleri,Bitim & Apre İşlemleri,Su itici (Water-repellent) Finish,Su geçirmezlik,"Dış giyim, Outdoor",nan,0.30000000000000004,0.5,kgCO2e_per_unit
+39,Bitmiş Ürün İşlemleri,Bitim & Apre İşlemleri,Parlak / Mat Kaplama,Yüzey görünümü değiştirir,"Moda, Aksesuar",nan,0.25,0.4,kgCO2e_per_unit
+40,Bitmiş Ürün İşlemleri,Bitim & Apre İşlemleri,Resin Finish,Sertlik / tutum kazandırır,"Denim, Dış giyim",nan,0.30000000000000004,0.5,kgCO2e_per_unit
+41,Bitmiş Ürün İşlemleri,Sıcak Transfer & Folyo,Heat Transfer,Isıyla transfer desen,"Spor giyim, Tişört",nan,0.15,0.25,kgCO2e_per_unit
+42,Bitmiş Ürün İşlemleri,Sıcak Transfer & Folyo,Plastisol Transfer,Plastisol bazlı transfer baskı,"Spor giyim, Aktif giyim",nan,0.2,0.35000000000000003,kgCO2e_per_unit
+43,Bitmiş Ürün İşlemleri,Sıcak Transfer & Folyo,PU / PVC Transfer,Plastik bazlı transfer,"Streetwear, Spor giyim",nan,0.25,0.4,kgCO2e_per_unit
+44,Bitmiş Ürün İşlemleri,Dekoratif İşlemler,Flock Baskı,Kadife efekt,"Tişört, Sweatshirt",nan,0.2,0.35000000000000003,kgCO2e_per_unit
+45,Bitmiş Ürün İşlemleri,Dekoratif İşlemler,Kabartma (Emboss/Deboss),Yüzey kabartma / çökertme,"Moda, Premium giyim",nan,0.25,0.4,kgCO2e_per_unit
+46,Bitmiş Ürün İşlemleri,Dekoratif İşlemler,Lazer Kesim,Desen kesim,"Denim, Streetwear",nan,0.1,0.2,kgCO2e_per_unit
+47,Bitmiş Ürün İşlemleri,Dekoratif İşlemler,Burn-out (Yanık),Kumaşın bir kısmını yakarak desen,"Moda, Premium, Casual",nan,0.4,0.6000000000000001,kgCO2e_per_unit
+48,Bitmiş Ürün İşlemleri,Aksesuar Eklemeler,Studs (Zımbalar),Metal dekor,"Denim, Streetwear, Aksesuar",nan,0.05,0.15,kgCO2e_per_unit
+49,Bitmiş Ürün İşlemleri,Aksesuar Eklemeler,Rivet,Metal perçin,"Denim, Çanta, Ceket",nan,0.05,0.15,kgCO2e_per_unit
+50,Bitmiş Ürün İşlemleri,Aksesuar Eklemeler,Boncuk / Payet,Dekoratif ekleme,"Kadın abiye, Çocuk",nan,0.2,0.4,kgCO2e_per_unit
+51,Bitmiş Ürün İşlemleri,Aksesuar Eklemeler,Taş Yapıştırma,"Kristal, taş, strass","Kadın giyim, Moda",nan,0.25,0.45,kgCO2e_per_unit
+52,Bitmiş Ürün İşlemleri,Aksesuar Eklemeler,"Zincir, Metal Detay",Dekoratif metal,"Denim, Streetwear",nan,0.2,0.4,kgCO2e_per_unit
+53,Bitmiş Ürün İşlemleri,Özel Efektler,Metalik Kaplama,Altın / gümüş görünüm,"Moda, Premium",nan,0.30000000000000004,0.5,kgCO2e_per_unit
+54,Bitmiş Ürün İşlemleri,Özel Efektler,UV Reactive Baskı,Işık altında renk değiştirir,"Streetwear, Moda",nan,0.25,0.4,kgCO2e_per_unit
+55,Bitmiş Ürün İşlemleri,Özel Efektler,Glow-in-the-Dark,Karanlıkta parlayan efekt,"Çocuk giyim, Spor giyim",nan,0.25,0.4,kgCO2e_per_unit
+56,Bitmiş Ürün İşlemleri,Özel Efektler,Holografik Transfer,Hologram görünümlü desen,"Moda, Genç giyim",nan,0.30000000000000004,0.5,kgCO2e_per_unit
+57,Konfeksiyon,Kesim,Pastal Hazırlık (Marker),Beden/derinlik dağılımına göre en verimli yerleşim planı oluşturma,Tüm giyim grupları,Dijital marker yazılımı/plotter; enerji tüketimi düşük,0.01,0.02,kgCO2e_per_unit
+58,Konfeksiyon,Kesim,Serim (Spreading) - Manuel,Kat kat kumaş serimi; kenar hizalama,Tüm giyim grupları,Serim makinası/konveyör opsiyonlu,0.01,0.03,kgCO2e_per_unit
+59,Konfeksiyon,Kesim,Serim (Spreading) - Otomatik,Otomatik serim makinesi ile hızlı ve düz serim,Tüm giyim grupları,"Daha stabil, fire azalır",0.02,0.04,kgCO2e_per_unit
+60,Konfeksiyon,Kesim,Kesim - Manuel Bıçak (Dikey/Şerit),Çok katlı kumaşın şerit/dikey bıçakla kesimi,Tüm giyim grupları,Operatör becerisine bağlı kesim doğruluğu,0.02,0.05,kgCO2e_per_unit
+61,Konfeksiyon,Kesim,Kesim - CNC (Otomatik),Vakumlu masada CNC ile otomatik kesim,Tüm giyim grupları,Yüksek hassasiyet; fire düşer,0.03,0.08,kgCO2e_per_unit
+62,Konfeksiyon,Kesim,Kalıp/Perforaj İşaretleme,"Notch, delik ve işaretlerin eklenmesi",Tüm giyim grupları,Pnömatik/elektrikli ekipman,0.005,0.015,kgCO2e_per_unit
+63,Konfeksiyon,Kesim,Kenar Düzeltme & Çentik (Notching),Dikiş referansı için çentik açma,Tüm giyim grupları,Hata azaltır,0.005,0.01,kgCO2e_per_unit
+64,Konfeksiyon,Kesim,Demetleme (Bundling) & Etiketleme,Parçaların model/beden bazında demetlenmesi ve biletlenmesi,Tüm giyim grupları,İzlenebilirlik için önemlidir,0.005,0.015,kgCO2e_per_unit
+65,Konfeksiyon,Kesim,Tela Kesimi (Interlining),Tela ve yardımcı malzemelerin kesimi,"Gömlek, Ceket, Dış giyim",Isı ile yapışma öncesi,0.01,0.03,kgCO2e_per_unit
+66,Konfeksiyon,Kesim,Lazer Kesim,Lazer ile hassas kesim ve mühürleme,"Teknik giyim, Aksesuar, Sentetik",Kenar mühürleme sağlar,0.02,0.05,kgCO2e_per_unit
+67,Konfeksiyon,Triyaj/Preparasyon,Operasyon Planlama (SMV Bozumu),Model için operasyonların sıralanması ve zaman etüdü,Tüm giyim grupları,IE mühendisliği; hat dengeleme,0.005,0.015,kgCO2e_per_unit
+68,Konfeksiyon,Triyaj/Preparasyon,Hat Dengeleme & Besleme,İş istasyonlarına WIP akışının ayarlanması,Tüm giyim grupları,Verimlilik artışı sağlar,0.005,0.015,kgCO2e_per_unit
+69,Konfeksiyon,Triyaj/Preparasyon,Telalama (Fusing),Tela ile parçaların preslenerek yapıştırılması,"Gömlek, Ceket, Dış giyim",Sürekli bant pres/kalıp pres,0.03,0.06,kgCO2e_per_unit
+70,Konfeksiyon,Triyaj/Preparasyon,Cep/Plaket/Pat Hazırlığı,"Cüzdan cep, plaket, pat katlama ve ütüleme","Gömlek, Ceket, Denim",Kalıp/şablonla standartlaştırma,0.02,0.05,kgCO2e_per_unit
+71,Konfeksiyon,Triyaj/Preparasyon,Ön İşlem Nakış/Baskı,Dikim öncesi nakış veya baskı uygulaması,"Tişört, Sweatshirt, Çocuk",İşleme göre değişir (bkz. ilgili tablolar),0.15,0.4,kgCO2e_per_unit
+72,Konfeksiyon,Triyaj/Preparasyon,Aksesuar Hazırlığı,"Etiket, fermuar, düğme, ribana vb. hat besleme",Tüm giyim grupları,Malzeme ayrıştırma ve kalite kontrol,0.005,0.015,kgCO2e_per_unit
+73,Konfeksiyon,Dikim,Overlock (3/4/5 İplik),Kenar temizleme ve birleştirme,"Tişört, Sweatshirt, Örme",Makine gücü ve SMV’ye bağlı,0.03,0.06,kgCO2e_per_unit
+74,Konfeksiyon,Dikim,Düz Dikiş (Lockstitch),Ana birleştirme dikişleri,Tüm giyim grupları,SMV arttıkça CO2 artar,0.05,0.12,kgCO2e_per_unit
+75,Konfeksiyon,Dikim,Zincir Dikiş (Chainstitch),"Esnek dikiş, yan/kol altı","Örme, Denim",Spor giyimde yaygın,0.04,0.08,kgCO2e_per_unit
+76,Konfeksiyon,Dikim,Reçme / Coverstitch,"Paça, ribana, elastik uçlar","Tişört, Sweatshirt, Spor",Çift iğne kapama,0.04,0.09,kgCO2e_per_unit
+77,Konfeksiyon,Dikim,Flatlock,"Düz birleşim, düşük tahriş",Spor/Performans Giyim,Çok iğneli işlem,0.05,0.1,kgCO2e_per_unit
+78,Konfeksiyon,Dikim,Bartack / Sürfile,Stres noktalarında takviye,"Denim, İş Giyim",Kısa operasyon,0.01,0.02,kgCO2e_per_unit
+79,Konfeksiyon,Dikim,Fitil/Ribana Uygulama,Yaka/kol ucu ribana montajı,Örme grupları,Reçme ile birlikte,0.02,0.05,kgCO2e_per_unit
+80,Konfeksiyon,Dikim,Yaka/Kragen Montajı,Yaka takma ve şekillendirme,"Gömlek, Tişört, Ceket",Pres destekli olabilir,0.03,0.07,kgCO2e_per_unit
+81,Konfeksiyon,Dikim,Kol Takma (Set-in/Raglan),Kolun gövdeye montajı,Tüm giyim grupları,Model tipine bağlı,0.04,0.09,kgCO2e_per_unit
+82,Konfeksiyon,Dikim,Yan Dikiş & İç Bacak,Ana gövde birleştirme,Tüm giyim grupları,Lockstitch/Chainstitch,0.03,0.07,kgCO2e_per_unit
+83,Konfeksiyon,Dikim,Fermuar Montajı,Ön/yan/cep fermuarı takma,"Denim, Dış giyim, Etek",Kalıp hassasiyeti önemli,0.02,0.05,kgCO2e_per_unit
+84,Konfeksiyon,Dikim,Kemer/Bel Bandı,Bel bandı montaj ve kapama,"Denim, Pantolon, Etek",Reçme/lockstitch kombin,0.03,0.06,kgCO2e_per_unit
+85,Konfeksiyon,Dikim,Paça Yapma (Hem),Alt uç kapama,Tüm giyim grupları,Reçme/Blind stitch,0.02,0.05,kgCO2e_per_unit
+86,Konfeksiyon,Dikim,Kör Dikiş (Blind Hem),Görünmez paça,"Takım elbise, Abiye",Özel makine,0.02,0.04,kgCO2e_per_unit
+87,Konfeksiyon,Dikim,Düğme Dikme,Düğmelerin makinayla dikilmesi,"Gömlek, Ceket, Dış giyim",Otomatik düğme makinası,0.01,0.02,kgCO2e_per_unit
+88,Konfeksiyon,Dikim,İlik Açma,Düğme iliği açılması,"Gömlek, Ceket",Kilitli otomatik ilik,0.01,0.02,kgCO2e_per_unit
+89,Konfeksiyon,Dikim,Perçin/Snap/Metal Aksesuar,Perçin ve çıtçıt uygulama,"Denim, Dış giyim",Pnömatik pres,0.01,0.02,kgCO2e_per_unit
+90,Konfeksiyon,Bitim,Temizleme (İplik/Kılçık Alma),Sarkan ipliklerin kesilmesi,Tüm giyim grupları,Kısmi manuel,0.01,0.02,kgCO2e_per_unit
+91,Konfeksiyon,Bitim,Ütü/Pres - Buharlı Tablo,Parça/parça ve son form presi,Tüm giyim grupları,Buhar kazanı enerjisi dahil,0.1,0.2,kgCO2e_per_unit
+92,Konfeksiyon,Bitim,Ütü/Pres - Kalıp/Presse,Kalıp presle form verme,"Ceket, Dış giyim",Daha sabit form,0.12,0.25,kgCO2e_per_unit
+93,Konfeksiyon,Bitim,Buhar Tüneli (Steam Tunnel),Asılı ürünlerin kırışıklık giderme,"Tişört, Sweatshirt, Örme",Yüksek adet/verim,0.08,0.18,kgCO2e_per_unit
+94,Konfeksiyon,Bitim,Dekatür/Şekil Sabitleme,Özellikle dokuma/ceketlerde şekil verme,"Ceket, Takım",Basınç ve ısı,0.08,0.15,kgCO2e_per_unit
+95,Konfeksiyon,Bitim,Aksesuar Montajı (Etiket/Askı),"Ana/yan etiket, askı aparatı, carelabel",Tüm giyim grupları,Malzeme CO2’si hariç,0.01,0.02,kgCO2e_per_unit
+96,Konfeksiyon,Kontrol & Paketleme,Inline QC (İstasyon İçi),İstasyon bazlı kontrol ve düzeltme,Tüm giyim grupları,Hata erken yakalanır,0.01,0.02,kgCO2e_per_unit
+97,Konfeksiyon,Kontrol & Paketleme,Endline QC (Hat Sonu),Tamamlanmış ürünün görsel/işlevsel kontrolü,Tüm giyim grupları,AQL öncesi filtre,0.01,0.02,kgCO2e_per_unit
+98,Konfeksiyon,Kontrol & Paketleme,Ölçüm Kontrolü (Measurement),Tabloya göre beden ölçü kontrolü,Tüm giyim grupları,Rastgele/100% seçime göre,0.01,0.02,kgCO2e_per_unit
+99,Konfeksiyon,Kontrol & Paketleme,İğne/Metal Dedektörü,İğne/metal parça tespiti,"Çocuk, Denim, Özel istekli ürünler",Gıda/çocukta sıkı zorunlu,0.005,0.01,kgCO2e_per_unit
+100,Konfeksiyon,Kontrol & Paketleme,Final AQL Denetimi,ANSI/ASQ Z1.4 vb. plana göre muayene,Tüm giyim grupları,Sevkiyat onayı,0.01,0.02,kgCO2e_per_unit
+101,Konfeksiyon,Kontrol & Paketleme,Katlama & Poşetleme,Standart kat ve polybag/paperbag,Tüm giyim grupları,Malzeme CO2’si hariç,0.02,0.05,kgCO2e_per_unit
+102,Konfeksiyon,Kontrol & Paketleme,Set/Pack Hazırlama,Çoklu paket/renk/beden seti hazırlama,"Çocuk, İç giyim, Çoklu paket ürünler",Etiketleme dahil,0.02,0.05,kgCO2e_per_unit
+103,Konfeksiyon,Kontrol & Paketleme,Kutuya Dizim & Paletleme,"Kartonlama, koli etiketleri ve palet",Tüm giyim grupları,Lojistik öncesi son aşama,0.03,0.08,kgCO2e_per_unit
+104,Konfeksiyon,Destek,Rework/Tamir,Hatalı ürünlerin onarımı,Tüm giyim grupları,Ek operasyon süresi,0.02,0.06,kgCO2e_per_unit
+105,Konfeksiyon,Destek,SMED / Setup Değişimi,Makine ayar/kalıp değişimi,Tüm giyim grupları,Seri geçişlerinde,0.01,0.03,kgCO2e_per_unit
+106,Konfeksiyon,Destek,Bakım & Yağlama,Makine bakım işlemleri,Tüm giyim grupları,Periyodik bakım,0.005,0.015,kgCO2e_per_unit
+107,Konfeksiyon,Kumaş & Malzeme Ön Hazırlık,Kumaş Kontrol (4-Point System),"Top üzeri hata, delik, çizgi tespiti ve derecelendirme",Tüm giyim grupları,Hata puanları DPP’ye yazılır,0.01,0.02,kgCO2e_per_unit
+108,Konfeksiyon,Kumaş & Malzeme Ön Hazırlık,Gramaj / En Ölçümü,Kesim verimliliği ve marker doğruluğu için ölçüm,Tüm giyim grupları,nan,0.005,0.01,kgCO2e_per_unit
+109,Konfeksiyon,Kumaş & Malzeme Ön Hazırlık,Kondisyonlama,Kesim öncesi nem/sıcaklıkta dinlendirme,Elastanlı/Dokuma/Örme,Özellikle elastan % içerikli kumaşlarda,0.005,0.01,kgCO2e_per_unit
+110,Konfeksiyon,Kumaş & Malzeme Ön Hazırlık,Shade Band / Renk Şal Yönetimi,Farklı toplar arasında renk farkı kontrolü,Tüm giyim grupları,Top eşleştirme ve lot yönetimi,0.005,0.01,kgCO2e_per_unit
+111,Konfeksiyon,Kalite/Test,Çekme (Shrinkage) Testi,Yıkama sonrası boyut değişimi ölçümü,Tüm giyim grupları,ISO 6330 referans alınabilir,0.01,0.02,kgCO2e_per_unit
+112,Konfeksiyon,Kalite/Test,Renk Haslığı (Yıkama/Sürtme/Işık),Renk sürdürme performansı,Tüm giyim grupları,ISO 105 serisi,0.01,0.02,kgCO2e_per_unit
+113,Konfeksiyon,Kalite/Test,İğne/Metal Policy & Kayıt,"Kırık iğne takibi, metal dedektör yönetimi","Çocuk, Denim, AB regülasyonlu ürünler",Zorunlu prosedürler,0.005,0.01,kgCO2e_per_unit
+114,Konfeksiyon,Kalite/Test,Boyutsal Stabilite & Bükülme,Bükülme/dönme testleri,"Örme, Jersey",nan,0.01,0.02,kgCO2e_per_unit
+115,Konfeksiyon,Paketleme Malzemeleri,Polybag,Geri dönüştürülmüş PE tercih; boyut ve mikron standardı,Tüm giyim grupları,Malzeme CO2 dahil,0.02,0.05,kgCO2e_per_unit
+116,Konfeksiyon,Paketleme Malzemeleri,Karton (Inner/Outer),"Karton kalite, e-flute, FSC tercih",Tüm giyim grupları,Malzeme CO2 dahil,0.05,0.15,kgCO2e_per_unit
+117,Konfeksiyon,Paketleme Malzemeleri,Askı / Kılıf,"Plastik/metal askı, toz kılıfı","Dış giyim, Formal",Malzeme CO2 dahil,0.02,0.06,kgCO2e_per_unit
+118,Konfeksiyon,Paketleme Malzemeleri,Silica Gel / Nem Tutucu,Nem kontrol için paket içi kimyasal,Tüm giyim grupları,Alternatif: Kağıt bazlı nem tutucu,0.005,0.015,kgCO2e_per_unit
+119,Konfeksiyon,Paketleme Malzemeleri,Sticker / Barkod / RFID,UPC/EAN/RFID etiket ve yapıştırıcı,Büyük perakende markaları,RFID malzeme CO2 dahil,0.005,0.02,kgCO2e_per_unit
+120,Konfeksiyon,Lojistik Hazırlık,Koli Dizimi (Cartonization),Karton ebat/istif optimizasyonu,Tüm giyim grupları,Taşıma verimini artırır,0.01,0.03,kgCO2e_per_unit
+121,Konfeksiyon,Lojistik Hazırlık,Paletleme & Streç,Palet standardı ve streç film uygulaması,Tüm giyim grupları,Malzeme CO2 dahil,0.02,0.05,kgCO2e_per_unit
+122,Konfeksiyon,Lojistik Hazırlık,Sevkiyat Etiketi & ASN,Advance Shipment Notice ve etiket standardı,Tüm giyim grupları,EDI/ERP entegrasyonu,0.005,0.015,kgCO2e_per_unit
+123,Konfeksiyon,Destek Süreçler,Enerji & Su Sayaç İzleme,Hattın elektrik/buhar/su tüketimi ölçümü,Tüm giyim grupları,DPP/CO2 için zorunlu veri,0.005,0.02,kgCO2e_per_unit
+124,Konfeksiyon,Destek Süreçler,Bakım & Arıza Kayıtları,Planlı bakım ve arıza duruşları,Tüm giyim grupları,OEE ve CO2 ilişkisi,0.005,0.01,kgCO2e_per_unit
+125,Konfeksiyon,Destek Süreçler,Fire & Rework İzlenebilirliği,"Hata oranları, yeniden işleme kayıtları",Tüm giyim grupları,CO2 etkisini artırır,0.005,0.015,kgCO2e_per_unit

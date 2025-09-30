@@ -1,0 +1,863 @@
+{% extends "base.html" %}
+
+{% block title %}Koleksiyon Dashboard - Zero@Design{% endblock %}
+
+{% block page_header %}
+<div class="page-header-content text-center">
+    <h1 class="page-title">Collection</h1>
+    <p class="page-subtitle">Koleksiyon yönetimi ve ürün organizasyonu</p>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .collection-container {
+        padding: 2rem 0;
+    }
+    
+    .collection-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    
+    .collection-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        padding: 1.5rem;
+        text-align: center;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-sm);
+    }
+    
+    .collection-card:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+        border-color: var(--primary-color);
+    }
+    
+    .collection-card .icon {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        color: var(--primary-color);
+    }
+    
+    .collection-card .value {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 0.5rem;
+    }
+    
+    .collection-card .label {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+    }
+    
+    .chart-container {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        box-shadow: var(--shadow-sm);
+    }
+    
+    .chart-container h5 {
+        color: var(--text-primary);
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .chart-container .icon {
+        color: var(--primary-color);
+    }
+    
+    .table-container {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+        margin-bottom: 2rem;
+    }
+    
+    .table-header {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: white;
+        padding: 1rem 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .table-header h5 {
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .modern-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: var(--card-bg);
+    }
+    
+    .modern-table thead th {
+        background: var(--bg-secondary);
+        color: var(--text-primary);
+        padding: 1rem;
+        text-align: left;
+        font-weight: 600;
+        border-bottom: 2px solid var(--border-color);
+    }
+    
+    .modern-table tbody td {
+        padding: 1rem;
+        border-bottom: 1px solid var(--border-color);
+        color: var(--text-primary);
+    }
+    
+    .modern-table tbody tr:hover {
+        background: var(--hover-bg);
+    }
+    
+    .modern-btn {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: var(--border-radius);
+        font-weight: 500;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .modern-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-md);
+        color: white;
+    }
+    
+    .modern-btn.btn-sm {
+        padding: 0.375rem 0.75rem;
+        font-size: 0.875rem;
+    }
+    
+    .modern-form-control {
+        background: var(--input-bg);
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        padding: 0.75rem;
+        color: var(--text-primary);
+        transition: all 0.3s ease;
+    }
+    
+    .modern-form-control:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.1);
+    }
+    
+    .modern-form-range {
+        background: var(--input-bg);
+        border-radius: var(--border-radius);
+        height: 6px;
+        outline: none;
+        -webkit-appearance: none;
+    }
+    
+    .modern-form-range::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--primary-color);
+        cursor: pointer;
+        box-shadow: var(--shadow-sm);
+    }
+    
+    .modern-form-range::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--primary-color);
+        cursor: pointer;
+        border: none;
+        box-shadow: var(--shadow-sm);
+    }
+    
+    .modern-badge {
+        padding: 0.375rem 0.75rem;
+        border-radius: var(--border-radius);
+        font-size: 0.75rem;
+        font-weight: 500;
+    }
+    
+    .badge-success {
+        background: var(--success-color);
+        color: white;
+    }
+    
+    .badge-warning {
+        background: var(--warning-color);
+        color: white;
+    }
+    
+    .badge-danger {
+        background: var(--danger-color);
+        color: white;
+    }
+    
+    .badge-info {
+        background: var(--info-color);
+        color: white;
+    }
+    
+    .badge-light {
+        background: var(--bg-secondary);
+        color: var(--text-primary);
+    }
+    
+    .optimization-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        padding: 1rem;
+        margin-bottom: 0.5rem;
+        transition: all 0.3s ease;
+    }
+    
+    .optimization-card:hover {
+        border-color: var(--primary-color);
+        box-shadow: var(--shadow-sm);
+    }
+    
+    .no-data-message {
+        text-align: center;
+        padding: 3rem 1rem;
+        color: var(--text-secondary);
+    }
+    
+    .no-data-message .icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        opacity: 0.5;
+    }
+    
+    .modal-content {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+    }
+    
+    .modal-header {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: white;
+        border-bottom: 1px solid var(--border-color);
+    }
+    
+    .modal-body {
+        background: var(--card-bg);
+        color: var(--text-primary);
+    }
+    
+    .modal-footer {
+        background: var(--bg-secondary);
+        border-top: 1px solid var(--border-color);
+    }
+    
+    @media (max-width: 768px) {
+        .collection-stats {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .chart-container {
+            padding: 1rem;
+        }
+        
+        .modern-table {
+            font-size: 0.875rem;
+        }
+        
+        .modern-table thead th,
+        .modern-table tbody td {
+            padding: 0.75rem 0.5rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="collection-container">
+    <div class="collection-stats">
+        <div class="collection-card">
+            <div class="icon">
+                <i class="fas fa-tshirt"></i>
+            </div>
+            <div class="value" id="totalProducts">0</div>
+            <div class="label">Toplam Ürün</div>
+        </div>
+        
+        <div class="collection-card">
+            <div class="icon">
+                <i class="fas fa-leaf"></i>
+            </div>
+            <div class="value" id="avgCO2">0.0</div>
+            <div class="label">Ortalama CO₂ (kg)</div>
+        </div>
+        
+        <div class="collection-card">
+            <div class="icon">
+                <i class="fas fa-calculator"></i>
+            </div>
+            <div class="value" id="totalCO2">0.0</div>
+            <div class="label">Toplam CO₂ (kg)</div>
+        </div>
+        
+        <div class="collection-card">
+            <div class="icon">
+                <i class="fas fa-award"></i>
+            </div>
+            <div class="value" id="avgScore">0</div>
+            <div class="label">Ortalama Skor</div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <div class="chart-container">
+                <h5>
+                    <i class="fas fa-chart-bar icon"></i>Ürün Bazlı CO₂ Analizi
+                </h5>
+                <canvas id="productCO2Chart" width="400" height="200"></canvas>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="chart-container">
+                <h5>
+                    <i class="fas fa-pie-chart icon"></i>CO₂ Dağılımı
+                </h5>
+                <canvas id="co2DistributionChart" width="300" height="300"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <div class="table-header">
+            <h5>
+                <i class="fas fa-list"></i>Stil Kartları
+            </h5>
+            <a href="/style-card" class="modern-btn btn-sm">
+                <i class="fas fa-plus"></i>Yeni Stil Kartı
+            </a>
+        </div>
+        <div class="table-responsive">
+            <table class="modern-table" id="styleCardsTable">
+                <thead>
+                    <tr>
+                        <th>Ürün Adı</th>
+                        <th>Kategori</th>
+                        <th>Ana Lif</th>
+                        <th>CO₂ (kg)</th>
+                        <th>Skor</th>
+                        <th>Tarih</th>
+                        <th>Aksiyon</th>
+                    </tr>
+                </thead>
+                <tbody id="styleCardsTableBody">
+                    <!-- Veriler JavaScript ile yüklenecek -->
+                </tbody>
+            </table>
+        </div>
+        
+        <div id="noDataMessage" class="no-data-message" style="display: none;">
+            <div class="icon">
+                <i class="fas fa-inbox"></i>
+            </div>
+            <h5>Henüz stil kartı bulunmuyor</h5>
+            <p>İlk stil kartınızı oluşturmak için yukarıdaki butona tıklayın.</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="chart-container">
+                <h5>
+                    <i class="fas fa-chart-line icon"></i>Trend Analizi
+                </h5>
+                <canvas id="trendChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="chart-container">
+                <h5>
+                    <i class="fas fa-robot icon"></i>Koleksiyon Optimizasyonu
+                </h5>
+                <div class="mb-3">
+                    <label class="form-label">Hedef CO₂ Azaltma (%)</label>
+                    <input type="range" class="modern-form-range" id="reductionTarget" min="5" max="50" value="15">
+                    <div class="d-flex justify-content-between">
+                        <small>%5</small>
+                        <small id="reductionValue">%15</small>
+                        <small>%50</small>
+                    </div>
+                </div>
+                
+                <button class="modern-btn w-100 mb-3" onclick="optimizeCollection()">
+                    <i class="fas fa-magic"></i>Koleksiyonu Optimize Et
+                </button>
+                
+                <div id="optimizationResults" style="display: none;">
+                    <h6>Optimizasyon Önerileri:</h6>
+                    <div id="optimizationList"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Stil Kartı Detay Modal -->
+<div class="modal fade" id="styleCardDetailModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Stil Kartı Detayları</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Detaylar JavaScript ile yüklenecek -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                <button type="button" class="btn btn-primary" onclick="editStyleCard()">
+                    <i class="fas fa-edit me-1"></i>Düzenle
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+let styleCards = [];
+let currentStyleCard = null;
+let charts = {};
+
+document.addEventListener('DOMContentLoaded', function() {
+    loadStyleCards();
+    setupEventListeners();
+});
+
+function setupEventListeners() {
+    document.getElementById('reductionTarget').addEventListener('input', function() {
+        document.getElementById('reductionValue').textContent = '%' + this.value;
+    });
+}
+
+async function loadStyleCards() {
+    try {
+        const response = await fetch('/api/style-cards');
+        const data = await response.json();
+        styleCards = data.style_cards;
+        
+        if (styleCards.length === 0) {
+            document.getElementById('noDataMessage').style.display = 'block';
+            document.getElementById('styleCardsTable').style.display = 'none';
+        } else {
+            document.getElementById('noDataMessage').style.display = 'none';
+            document.getElementById('styleCardsTable').style.display = 'table';
+            renderStyleCardsTable();
+            updateStatistics();
+            renderCharts();
+        }
+    } catch (error) {
+        console.error('Veri yükleme hatası:', error);
+    }
+}
+
+function renderStyleCardsTable() {
+    const tbody = document.getElementById('styleCardsTableBody');
+    tbody.innerHTML = '';
+    
+    styleCards.forEach((card, index) => {
+        const mainFiber = card.fiberComposition && card.fiberComposition.length > 0 
+            ? card.fiberComposition[0].type 
+            : 'Belirtilmemiş';
+        
+        const createdDate = new Date(card.created_at).toLocaleDateString('tr-TR');
+        
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td><strong>${card.productName}</strong></td>
+            <td><span class="badge bg-light text-dark">${card.productCategory}</span></td>
+            <td>${mainFiber}</td>
+            <td><span class="badge ${getCO2BadgeClass(card.totalCO2)}">${card.totalCO2} kg</span></td>
+            <td><span class="badge ${getScoreBadgeClass(card.sustainabilityScore)}">${card.sustainabilityScore}</span></td>
+            <td><small class="text-muted">${createdDate}</small></td>
+            <td>
+                <button class="btn btn-sm btn-outline-primary" onclick="showStyleCardDetail(${index})">
+                    <i class="fas fa-eye"></i>
+                </button>
+            </td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+function getCO2BadgeClass(co2) {
+    if (co2 < 5) return 'co2-low';
+    if (co2 < 10) return 'co2-medium';
+    return 'co2-high';
+}
+
+function getScoreBadgeClass(score) {
+    if (score >= 80) return 'bg-success';
+    if (score >= 60) return 'bg-warning';
+    return 'bg-danger';
+}
+
+function updateStatistics() {
+    const totalProducts = styleCards.length;
+    const totalCO2 = styleCards.reduce((sum, card) => sum + card.totalCO2, 0);
+    const avgCO2 = totalProducts > 0 ? totalCO2 / totalProducts : 0;
+    const avgScore = totalProducts > 0 
+        ? styleCards.reduce((sum, card) => sum + card.sustainabilityScore, 0) / totalProducts 
+        : 0;
+    
+    document.getElementById('totalProducts').textContent = totalProducts;
+    document.getElementById('totalCO2').textContent = totalCO2.toFixed(1);
+    document.getElementById('avgCO2').textContent = avgCO2.toFixed(1);
+    document.getElementById('avgScore').textContent = Math.round(avgScore);
+}
+
+function renderCharts() {
+    renderProductCO2Chart();
+    renderCO2DistributionChart();
+    renderTrendChart();
+}
+
+function renderProductCO2Chart() {
+    const ctx = document.getElementById('productCO2Chart').getContext('2d');
+    
+    if (charts.productCO2) {
+        charts.productCO2.destroy();
+    }
+    
+    const labels = styleCards.map(card => card.productName);
+    const co2Data = styleCards.map(card => card.totalCO2);
+    const scoreData = styleCards.map(card => card.sustainabilityScore);
+    
+    charts.productCO2 = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'CO₂ Emisyonu (kg)',
+                    data: co2Data,
+                    backgroundColor: 'rgba(255, 99, 132, 0.8)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1,
+                    yAxisID: 'y'
+                },
+                {
+                    label: 'Sürdürülebilirlik Skoru',
+                    data: scoreData,
+                    type: 'line',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderWidth: 2,
+                    yAxisID: 'y1'
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Ürün Bazlı CO₂ ve Sürdürülebilirlik Skoru'
+                }
+            },
+            scales: {
+                y: {
+                    type: 'linear',
+                    display: true,
+                    position: 'left',
+                    title: {
+                        display: true,
+                        text: 'CO₂ (kg)'
+                    }
+                },
+                y1: {
+                    type: 'linear',
+                    display: true,
+                    position: 'right',
+                    title: {
+                        display: true,
+                        text: 'Skor'
+                    },
+                    grid: {
+                        drawOnChartArea: false,
+                    },
+                }
+            }
+        }
+    });
+}
+
+function renderCO2DistributionChart() {
+    const ctx = document.getElementById('co2DistributionChart').getContext('2d');
+    
+    if (charts.co2Distribution) {
+        charts.co2Distribution.destroy();
+    }
+    
+    // CO₂ aralıklarına göre dağılım
+    const ranges = {
+        'Düşük (0-5 kg)': 0,
+        'Orta (5-10 kg)': 0,
+        'Yüksek (10+ kg)': 0
+    };
+    
+    styleCards.forEach(card => {
+        if (card.totalCO2 < 5) ranges['Düşük (0-5 kg)']++;
+        else if (card.totalCO2 < 10) ranges['Orta (5-10 kg)']++;
+        else ranges['Yüksek (10+ kg)']++;
+    });
+    
+    charts.co2Distribution = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: Object.keys(ranges),
+            datasets: [{
+                data: Object.values(ranges),
+                backgroundColor: [
+                    'rgba(46, 125, 50, 0.8)',
+                    'rgba(255, 193, 7, 0.8)',
+                    'rgba(220, 53, 69, 0.8)'
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'CO₂ Emisyon Dağılımı'
+                },
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+}
+
+function renderTrendChart() {
+    const ctx = document.getElementById('trendChart').getContext('2d');
+    
+    if (charts.trend) {
+        charts.trend.destroy();
+    }
+    
+    // Tarih sırasına göre sırala
+    const sortedCards = [...styleCards].sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+    
+    const labels = sortedCards.map(card => new Date(card.created_at).toLocaleDateString('tr-TR'));
+    const co2Trend = sortedCards.map(card => card.totalCO2);
+    const scoreTrend = sortedCards.map(card => card.sustainabilityScore);
+    
+    charts.trend = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'CO₂ Trendi',
+                    data: co2Trend,
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderWidth: 2,
+                    yAxisID: 'y'
+                },
+                {
+                    label: 'Skor Trendi',
+                    data: scoreTrend,
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderWidth: 2,
+                    yAxisID: 'y1'
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Zaman İçinde Trend Analizi'
+                }
+            },
+            scales: {
+                y: {
+                    type: 'linear',
+                    display: true,
+                    position: 'left',
+                    title: {
+                        display: true,
+                        text: 'CO₂ (kg)'
+                    }
+                },
+                y1: {
+                    type: 'linear',
+                    display: true,
+                    position: 'right',
+                    title: {
+                        display: true,
+                        text: 'Skor'
+                    },
+                    grid: {
+                        drawOnChartArea: false,
+                    },
+                }
+            }
+        }
+    });
+}
+
+function showStyleCardDetail(index) {
+    currentStyleCard = styleCards[index];
+    
+    document.getElementById('modalTitle').textContent = `${currentStyleCard.productName} - Detaylar`;
+    
+    const modalBody = document.getElementById('modalBody');
+    modalBody.innerHTML = `
+        <div class="row">
+            <div class="col-md-6">
+                <h6>Temel Bilgiler</h6>
+                <table class="table table-sm">
+                    <tr><td>Kategori:</td><td>${currentStyleCard.productCategory}</td></tr>
+                    <tr><td>Hedef Pazar:</td><td>${currentStyleCard.targetMarket}</td></tr>
+                    <tr><td>Sezon:</td><td>${currentStyleCard.season}</td></tr>
+                    <tr><td>Gramaj:</td><td>${currentStyleCard.weight || 'Belirtilmemiş'} g/m²</td></tr>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <h6>Performans</h6>
+                <table class="table table-sm">
+                    <tr><td>CO₂ Emisyonu:</td><td><span class="badge ${getCO2BadgeClass(currentStyleCard.totalCO2)}">${currentStyleCard.totalCO2} kg</span></td></tr>
+                    <tr><td>Sürdürülebilirlik Skoru:</td><td><span class="badge ${getScoreBadgeClass(currentStyleCard.sustainabilityScore)}">${currentStyleCard.sustainabilityScore}</span></td></tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="mt-3">
+            <h6>Lif Kompozisyonu</h6>
+            <div class="d-flex flex-wrap gap-2">
+                ${currentStyleCard.fiberComposition ? currentStyleCard.fiberComposition.map(fiber => 
+                    `<span class="badge bg-light text-dark">${fiber.type}: %${fiber.percentage}</span>`
+                ).join('') : 'Belirtilmemiş'}
+            </div>
+        </div>
+        
+        <div class="mt-3">
+            <h6>İşlem Süreçleri</h6>
+            <div class="row">
+                <div class="col-md-6">
+                    <strong>Boyama:</strong>
+                    <ul class="list-unstyled small">
+                        ${currentStyleCard.processes?.dyeing?.naturalDye ? '<li><i class="fas fa-check text-success me-1"></i>Doğal Boyar Madde</li>' : ''}
+                        ${currentStyleCard.processes?.dyeing?.lowImpactDye ? '<li><i class="fas fa-check text-success me-1"></i>Düşük Etkili Boyar</li>' : ''}
+                        ${currentStyleCard.processes?.dyeing?.waterBasedDye ? '<li><i class="fas fa-check text-success me-1"></i>Su Bazlı Boyama</li>' : ''}
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <strong>Finishing:</strong>
+                    <ul class="list-unstyled small">
+                        ${currentStyleCard.processes?.finishing?.enzymaticWash ? '<li><i class="fas fa-check text-success me-1"></i>Enzimatik Yıkama</li>' : ''}
+                        ${currentStyleCard.processes?.finishing?.ozoneTreatment ? '<li><i class="fas fa-check text-success me-1"></i>Ozon Uygulaması</li>' : ''}
+                        ${currentStyleCard.processes?.finishing?.laserTreatment ? '<li><i class="fas fa-check text-success me-1"></i>Lazer İşlemi</li>' : ''}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    new bootstrap.Modal(document.getElementById('styleCardDetailModal')).show();
+}
+
+function optimizeCollection() {
+    const reductionTarget = parseInt(document.getElementById('reductionTarget').value);
+    
+    // Basit optimizasyon önerileri
+    const suggestions = [];
+    
+    styleCards.forEach(card => {
+        if (card.totalCO2 > 8) {
+            suggestions.push({
+                product: card.productName,
+                suggestion: "Geri dönüştürülmüş lif oranını artırın",
+                potential: "30-50% CO₂ azalma"
+            });
+        }
+        
+        if (!card.processes?.dyeing?.naturalDye && !card.processes?.dyeing?.lowImpactDye) {
+            suggestions.push({
+                product: card.productName,
+                suggestion: "Düşük etkili boyar madde kullanın",
+                potential: "15-25% CO₂ azalma"
+            });
+        }
+        
+        if (card.targetMarket === 'global') {
+            suggestions.push({
+                product: card.productName,
+                suggestion: "Yerel tedarik zinciri tercih edin",
+                potential: "20-35% CO₂ azalma"
+            });
+        }
+    });
+    
+    const optimizationList = document.getElementById('optimizationList');
+    optimizationList.innerHTML = '';
+    
+    suggestions.slice(0, 5).forEach(suggestion => {
+        const suggestionCard = document.createElement('div');
+        suggestionCard.className = 'optimization-card';
+        suggestionCard.innerHTML = `
+            <h6 class="card-title small">
+                <i class="fas fa-lightbulb text-warning me-1"></i>
+                ${suggestion.product}
+            </h6>
+            <p class="card-text small text-muted mb-1">${suggestion.suggestion}</p>
+            <span class="modern-badge badge-success small">${suggestion.potential}</span>
+        `;
+        optimizationList.appendChild(suggestionCard);
+    });
+    
+    document.getElementById('optimizationResults').style.display = 'block';
+}
+
+function editStyleCard() {
+    if (currentStyleCard) {
+        // Stil kartı düzenleme sayfasına yönlendir
+        window.location.href = `/style-card?edit=${currentStyleCard.id}`;
+    }
+}
+</script>
+{% endblock %}

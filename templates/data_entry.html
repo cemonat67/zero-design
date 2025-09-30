@@ -1,0 +1,504 @@
+{% extends "base.html" %}
+
+{% block title %}Veri Giriş - Zero@Design{% endblock %}
+
+{% block extra_css %}
+<style>
+    :root{
+      --bosch-red:#D51635; --bosch-green:#005530; --bosch-navy:#02154e; --bosch-orange:#f9ba00;
+      --bg:#0f1623; --bg-muted:#111a2a; --card:#0f172a; --ink:#e5e7eb; --muted:#94a3b8; --ring:rgba(2,21,78,.35);
+      --ok:#16a34a; --warn:#f59e0b; --err:#ef4444;
+      --radius:16px;
+    }
+    .data-entry-container {
+        background: linear-gradient(180deg, #0d1421, #0b1320);
+        min-height: 100vh;
+        padding: 20px 0;
+    }
+    .shadow{box-shadow:0 10px 30px rgba(2,21,78,.35)}
+    .blur{backdrop-filter:saturate(160%) blur(6px)}
+    .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}
+    .tab{padding:8px 12px;border-radius:10px;background:#0e1a32;border:1px solid #203154;color:#cbd5e1;cursor:pointer}
+    .tab.active{background:linear-gradient(180deg,#152647,#0f1f3a);border-color:#355084}
+    .grid{display:grid;gap:16px}
+    .grid.cols-12{grid-template-columns:repeat(12,1fr)}
+    .card{background:radial-gradient(1200px 600px at -10% -10%, #0f213d 0%, #0c172c 40%, #0a1426 100%);border:1px solid #1a2944;border-radius:var(--radius);padding:16px}
+    .card h3{margin:0 0 8px 0;font-size:16px}
+    .kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+    .kpi{background:#0e1a32;border:1px solid #1e2f50;border-radius:14px;padding:14px}
+    .kpi .label{font-size:12px;color:var(--muted)}
+    .kpi .value{font-size:28px;font-weight:700;margin-top:4px}
+    .btn{display:inline-flex;align-items:center;gap:8px;border-radius:12px;border:1px solid #2a3e66;background:#112241;color:#e2e8f0;padding:10px 14px;cursor:pointer}
+    .btn.primary{background:linear-gradient(180deg,#23406f,#17335c);border-color:#2f4b7d}
+    .btn.green{background:linear-gradient(180deg,#0f4b2a,#0c3d22);border-color:#136b3a}
+    .btn.orange{background:linear-gradient(180deg,#7a4b00,#5e3800);border-color:#9a6a10}
+    .btn.ghost{background:#0b162b;border-color:#1f2f4d}
+    .btn:disabled{opacity:.6;cursor:not-allowed}
+    .actions{display:flex;flex-wrap:wrap;gap:8px}
+    .row{display:flex;gap:8px;flex-wrap:wrap}
+    .field{display:flex;flex-direction:column;gap:6px;min-width:160px}
+    .field label{font-size:12px;color:#a5b4fc}
+    .input, select, textarea{background:#0b162b;border:1px solid #25385f;color:#e2e8f0;border-radius:12px;padding:10px 12px}
+    textarea{min-height:76px;resize:vertical}
+    .table{width:100%;border-collapse:separate;border-spacing:0 8px}
+    .table th{font-size:12px;color:var(--muted);font-weight:600;text-align:left;padding:8px 10px}
+    .table td{padding:10px;background:#0f1c34;border:1px solid #22345a;border-left-width:1px}
+    .table tr td:first-child{border-radius:12px 0 0 12px}
+    .table tr td:last-child{border-radius:0 12px 12px 0}
+    .tag{display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:4px 8px;border-radius:999px;border:1px solid #2a3e66;background:#0c1a30}
+    .right{justify-content:flex-end}
+    .flex{display:flex}
+    .between{justify-content:space-between}
+    .hidden{display:none}
+    .toast{position:fixed;bottom:20px;right:20px;background:#0b182d;border:1px solid #2a3e66;color:#e2e8f0;padding:12px 14px;border-radius:12px;opacity:0;transform:translateY(10px);transition:.25s all}
+    .toast.show{opacity:1;transform:translateY(0)}
+    .modal{position:fixed;inset:0;background:rgba(2,8,23,.6);display:none;align-items:center;justify-content:center;padding:20px}
+    .modal .content{background:#0b162b;border:1px solid #29406e;border-radius:16px;max-width:900px;width:100%;padding:16px}
+    code.block{display:block;white-space:pre-wrap;background:#081225;border:1px solid #1c2c4d;border-radius:12px;padding:12px;max-height:60vh;overflow:auto}
+    .help{font-size:12px;color:var(--muted)}
+    .divider{height:1px;background:#1a2742;margin:8px 0}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="data-entry-container">
+  <div class="container">
+    <header>
+      <h1 style="margin:16px 0 6px 0;font-size:28px;color:#e5e7eb;">Veri Giriş — Eco‑Design @ Source</h1>
+      <div class="help">Girdiğiniz veriler veritabanına kaydedilir. JSON/CSV dışa aktarabilirsiniz.</div>
+      <div class="tabs">
+        <button class="tab active" data-tab="form">Form</button>
+        <button class="tab" data-tab="preview">Önizleme</button>
+        <button class="tab" data-tab="history">Geçmiş</button>
+        <button class="tab" data-tab="settings">Ayarlar</button>
+      </div>
+    </header>
+
+  <main class="container grid cols-12">
+    <!-- LEFT: FORM -->
+    <section id="tab-form" class="card" style="grid-column:span 8">
+      <h3>Stil / Ürün Bilgileri</h3>
+      <div class="row">
+        <div class="field" style="flex:1 1 220px">
+          <label>Stil Kodu</label>
+          <input id="styleCode" class="input" placeholder="EX-SS25-TS-001"/>
+        </div>
+        <div class="field" style="flex:2 1 340px">
+          <label>Ürün Adı</label>
+          <input id="styleName" class="input" placeholder="Men's Organic Cotton Tee"/>
+        </div>
+        <div class="field" style="min-width:160px">
+          <label>Koleksiyon</label>
+          <select id="collection">
+            <option>SS25</option><option>FW25</option><option>SS26</option>
+          </select>
+        </div>
+        <div class="field" style="min-width:160px">
+          <label>Kategori</label>
+          <select id="category">
+            {% for category in categories %}
+            <option value="{{ category }}">{{ category }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="field" style="min-width:160px">
+          <label>Beden</label>
+          <input id="size" class="input" placeholder="M"/>
+        </div>
+        <div class="field" style="min-width:160px">
+          <label>Hedef Pazar</label>
+          <input id="market" class="input" placeholder="EU"/>
+        </div>
+        <div class="field" style="min-width:160px">
+          <label>Net Ağırlık (g)</label>
+          <input id="netWeight" type="number" class="input" placeholder="180"/>
+        </div>
+        <div class="field" style="min-width:160px">
+          <label>Adet Başına Paketleme (g)</label>
+          <input id="packWeight" type="number" class="input" placeholder="35"/>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+      <h3>Lif Kompozisyonu</h3>
+      <div class="help">Yüzde toplamı 100 olmalıdır. Lif faktörleri varsayılan kütüphaneden gelir; dilerseniz düzenleyin.</div>
+      <table class="table" id="fiberTable">
+        <thead>
+          <tr>
+            <th style="width:24%">Fiber</th>
+            <th style="width:16%">% (yüzde)</th>
+            <th style="width:18%">Emisyon Faktörü (kgCO₂e/kg)</th>
+            <th style="width:20%">Kumaş Ağırlığı (g)</th>
+            <th>Açıklama</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div class="actions"><button class="btn" id="addFiber">+ Lif Satırı Ekle</button></div>
+
+      <div class="divider"></div>
+      <h3>İşlemler (Boya / Baskı / Apre / Enerji)</h3>
+      <div class="help">Her işlem için birim emisyonu (kgCO₂e/adet) ya da (kgCO₂e/kg) girin. Basit hesap için önerilen değerler otomatik gelir.</div>
+      <table class="table" id="procTable">
+        <thead>
+          <tr>
+            <th style="width:26%">İşlem</th>
+            <th style="width:18%">Tip</th>
+            <th style="width:18%">Faktör</th>
+            <th style="width:18%">Birim</th>
+            <th>Açıklama</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div class="actions"><button class="btn" id="addProc">+ İşlem Satırı Ekle</button></div>
+
+      <div class="divider"></div>
+      <h3>Notlar</h3>
+      <textarea id="notes" placeholder="Sertifikalar, tedarikçiler, süreç detayları…"></textarea>
+
+      <div class="divider"></div>
+      <div class="actions">
+        <button class="btn primary" id="saveDraft">Taslağı Kaydet</button>
+        <button class="btn green" id="calcBtn">Hesapla</button>
+        <button class="btn" id="exportJson">JSON Dışa Aktar</button>
+        <button class="btn orange" id="exportCsv">CSV Dışa Aktar</button>
+        <button class="btn ghost" id="clearForm">Formu Temizle</button>
+      </div>
+    </section>
+
+    <!-- RIGHT: LIVE PREVIEW / KPIs -->
+    <aside class="card" style="grid-column:span 4">
+      <h3>Özet & KPI</h3>
+      <div class="kpis" id="kpiWrap">
+        <div class="kpi"><div class="label">Toplam CO₂e (t)</div><div class="value" id="kpiCo2">0.00</div></div>
+        <div class="kpi"><div class="label">Tasarım Skoru</div><div class="value" id="kpiScore">0.0</div></div>
+        <div class="kpi"><div class="label">Sürdürülebilirlik (%)</div><div class="value" id="kpiSus">0</div></div>
+        <div class="kpi"><div class="label">Maliyet Optimizasyonu (%)</div><div class="value" id="kpiCost">0</div></div>
+      </div>
+      <div class="divider"></div>
+      <div class="row"><label class="tag"><input type="checkbox" id="normalizeLC" checked/> Yaşam döngüsü bazında normalize et</label></div>
+      <div class="divider"></div>
+      <h3>Hızlı Validasyon</h3>
+      <ul id="validation" class="help" style="margin:0 0 12px 16px"></ul>
+      <div class="actions">
+        <button class="btn green" id="validateBtn">Validasyonu Çalıştır</button>
+        <button class="btn" id="genDPP">DPP/NFT JSON</button>
+      </div>
+    </aside>
+
+    <!-- PREVIEW TAB -->
+    <section id="tab-preview" class="card hidden" style="grid-column:span 12">
+      <h3>Önizleme — Yapısal JSON</h3>
+      <code class="block" id="previewJson">{ }</code>
+    </section>
+
+    <!-- HISTORY TAB -->
+    <section id="tab-history" class="card hidden" style="grid-column:span 12">
+      <h3>Geçmiş</h3>
+      <div class="help">Kaydedilmiş taslaklarınız burada listelenir. Seçerek yükleyebilirsiniz.</div>
+      <div id="historyList" class="row"></div>
+    </section>
+
+    <!-- SETTINGS TAB -->
+    <section id="tab-settings" class="card hidden" style="grid-column:span 12">
+      <h3>Ayarlanan Emisyon Faktörleri (Lif)</h3>
+      <div class="help">Bu değerler lif kütüphanesi olarak kullanılır (kgCO₂e/kg). Değişiklikler localStorage'a kaydedilir.</div>
+      <table class="table" id="libTable">
+        <thead><tr><th>Fiber</th><th>Faktör</th><th></th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <div class="actions"><button class="btn" id="addLib">+ Fiber Ekle</button><button class="btn green" id="saveLib">Kütüphaneyi Kaydet</button></div>
+    </section>
+  </main>
+
+  <!-- MODAL -->
+  <div class="modal" id="modal">
+    <div class="content">
+      <div class="between flex" style="align-items:center;margin-bottom:8px">
+        <h3 style="margin:0">JSON Çıktısı</h3>
+        <button class="btn" id="closeModal">Kapat</button>
+      </div>
+      <code class="block" id="modalCode"></code>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">Kayıt edildi</div>
+
+  <script>
+    // ---------- Utilities ----------
+    const $ = (sel, root=document) => root.querySelector(sel);
+    const $$ = (sel, root=document) => [...root.querySelectorAll(sel)];
+    const fmt = n => (isNaN(n)? '0.00' : (Math.round(n*100)/100).toFixed(2));
+    const uid = () => Math.random().toString(36).slice(2,9);
+
+    // Database'den gelen kumaş tipleri
+    const FABRIC_TYPES = [
+      {% for fabric_type in fabric_types %}"{{ fabric_type }}"{% if not loop.last %},{% endif %}{% endfor %}
+    ];
+
+    const DEFAULT_LIB = {
+      "Organic Cotton": 2.1,
+      "Cotton": 2.7,
+      "Recycled Polyester": 1.8,
+      "Polyester": 3.3,
+      "Elastane": 9.0,
+      "Viscose (Regenerated)": 3.0,
+      "Wool": 15.0,
+      "Linen": 2.0,
+      "Nylon": 5.4
+    };
+
+    // Database'den gelen kumaş tiplerini DEFAULT_LIB'e ekle
+    FABRIC_TYPES.forEach(type => {
+      if (!DEFAULT_LIB[type]) {
+        DEFAULT_LIB[type] = 2.1; // Varsayılan değer
+      }
+    });
+
+    const PROC_SUGGEST = [
+      {name:"Reactive Dyeing", type:"process", factor:0.12, unit:"kgCO2e/kg"},
+      {name:"Digital Printing", type:"process", factor:0.25, unit:"kgCO2e/kg"},
+      {name:"Heat Setting", type:"energy", factor:0.05, unit:"kgCO2e/adet"},
+      {name:"Packing & Logistics (avg)", type:"logistics", factor:0.08, unit:"kgCO2e/adet"}
+    ];
+
+    // ---------- State ----------
+    let LIB = JSON.parse(localStorage.getItem('z@d.lib')||'null') || DEFAULT_LIB;
+
+    // ---------- Tabs ----------
+    $$('.tab').forEach(t=>t.addEventListener('click',()=>{
+      $$('.tab').forEach(x=>x.classList.remove('active'));
+      t.classList.add('active');
+      const id = t.dataset.tab;
+      ['form','preview','history','settings'].forEach(k=>$('#tab-'+k).classList.add('hidden'));
+      $('#tab-'+id).classList.remove('hidden');
+      if(id==='history') renderHistory();
+      if(id==='preview') $('#previewJson').textContent = JSON.stringify(collectData(), null, 2);
+      if(id==='settings') renderLib();
+    }));
+
+    // ---------- Fibers table ----------
+    const fiberTbody = $('#fiberTable tbody');
+    function addFiberRow(data={fiber:'Organic Cotton', pct:100, ef:LIB['Organic Cotton']||2.1, weight:150, note:''}){
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td><input class="input fiber" list="fiberList" value="${data.fiber}"></td>
+        <td><input type="number" class="input pct" value="${data.pct}"></td>
+        <td><input type="number" step="0.01" class="input ef" value="${data.ef}"></td>
+        <td><input type="number" class="input weight" value="${data.weight}"></td>
+        <td><input class="input note" value="${data.note||''}"></td>
+        <td><button class="btn ghost del">Sil</button></td>`;
+      fiberTbody.appendChild(tr);
+      tr.querySelector('.del').onclick=()=>{tr.remove();calcAll();};
+      ['input','change'].forEach(ev=>tr.addEventListener(ev,()=>calcAll()));
+    }
+
+    // datalist for fibers
+    const dl = document.createElement('datalist'); dl.id='fiberList'; document.body.appendChild(dl);
+    function refreshFiberList(){
+      dl.innerHTML = Object.keys(LIB).map(k=>`<option value="${k}"></option>`).join('');
+    }
+    refreshFiberList();
+
+    $('#addFiber').onclick = ()=> addFiberRow({fiber:'Organic Cotton', pct:50, ef:LIB['Organic Cotton']||2.1, weight:150});
+
+    // ---------- Processes table ----------
+    const procTbody = $('#procTable tbody');
+    function addProcRow(data={name:'Reactive Dyeing', type:'process', factor:0.12, unit:'kgCO2e/kg', note:''}){
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td><input class="input pname" list="procList" value="${data.name}"></td>
+        <td>
+          <select class="ptype">
+            <option ${data.type==='process'?'selected':''}>process</option>
+            <option ${data.type==='energy'?'selected':''}>energy</option>
+            <option ${data.type==='logistics'?'selected':''}>logistics</option>
+          </select>
+        </td>
+        <td><input type="number" step="0.01" class="input pfactor" value="${data.factor}"></td>
+        <td>
+          <select class="punit">
+            <option ${data.unit==='kgCO2e/kg'?'selected':''}>kgCO2e/kg</option>
+            <option ${data.unit==='kgCO2e/adet'?'selected':''}>kgCO2e/adet</option>
+          </select>
+        </td>
+        <td><input class="input pnote" value="${data.note||''}"></td>
+        <td><button class="btn ghost del">Sil</button></td>`;
+      procTbody.appendChild(tr);
+      tr.querySelector('.del').onclick=()=>{tr.remove();calcAll();};
+      ['input','change'].forEach(ev=>tr.addEventListener(ev,()=>calcAll()));
+    }
+    const pdl = document.createElement('datalist'); pdl.id='procList'; document.body.appendChild(pdl);
+    function refreshProcList(){ pdl.innerHTML = PROC_SUGGEST.map(p=>`<option value="${p.name}"></option>`).join(''); }
+    refreshProcList();
+    $('#addProc').onclick = ()=> addProcRow();
+
+    // seed rows
+    addFiberRow({fiber:'Organic Cotton', pct:95, ef:LIB['Organic Cotton']||2.1, weight:160});
+    addFiberRow({fiber:'Elastane', pct:5, ef:LIB['Elastane']||9.0, weight:8});
+    PROC_SUGGEST.forEach(p=>addProcRow(p));
+
+    // ---------- Collect, Calculate ----------
+    function collectData(){
+      const fibers = $$('#fiberTable tbody tr').map(tr=>({
+        fiber: tr.querySelector('.fiber').value.trim(),
+        pct: +tr.querySelector('.pct').value || 0,
+        ef: +tr.querySelector('.ef').value || 0,
+        weight_g: +tr.querySelector('.weight').value || 0,
+        note: tr.querySelector('.note').value.trim()
+      }));
+      const procs = $$('#procTable tbody tr').map(tr=>({
+        name: tr.querySelector('.pname').value.trim(),
+        type: tr.querySelector('.ptype').value,
+        factor: +tr.querySelector('.pfactor').value || 0,
+        unit: tr.querySelector('.punit').value,
+        note: tr.querySelector('.pnote').value.trim()
+      }));
+      const data = {
+        meta:{
+          styleCode: $('#styleCode').value.trim(),
+          styleName: $('#styleName').value.trim(),
+          collection: $('#collection').value,
+          category: $('#category').value,
+          size: $('#size').value.trim(),
+          market: $('#market').value.trim(),
+          netWeight_g: +$('#netWeight').value || 0,
+          packWeight_g: +$('#packWeight').value || 0,
+          normalizeLC: $('#normalizeLC').checked,
+          timestamp: new Date().toISOString()
+        },
+        fibers, procs,
+        notes: $('#notes').value.trim()
+      };
+      // calc
+      const weightKg = (data.meta.netWeight_g || 0)/1000;
+      let co2Fibers = 0;
+      fibers.forEach(f=>{ // convert fiber portion by pct
+        const kg = weightKg * (f.pct/100);
+        co2Fibers += kg * f.ef;
+      });
+      let co2Procs = 0;
+      procs.forEach(p=>{
+        if(p.unit==='kgCO2e/kg') co2Procs += (p.factor * weightKg);
+        else co2Procs += p.factor; // per piece
+      });
+      const total = co2Fibers + co2Procs + (data.meta.packWeight_g/1000 * 1.8 * 0.02); // tiny packaging add-on
+      const score = Math.max(0, 10 - (total*2));
+      const sus = Math.max(0, Math.min(100, 100 - total*12));
+      const costOpt = Math.max(0, Math.min(100, 20 + (score*6)));
+      data.kpi = { total_t: total/1000, total_kg: total, score, sustainability_pct: sus, cost_opt_pct: costOpt };
+      return data;
+    }
+
+    function calcAll(){
+      const d = collectData();
+      $('#kpiCo2').textContent = fmt(d.kpi.total_t);
+      $('#kpiScore').textContent = fmt(d.kpi.score);
+      $('#kpiSus').textContent = Math.round(d.kpi.sustainability_pct);
+      $('#kpiCost').textContent = Math.round(d.kpi.cost_opt_pct);
+      $('#previewJson').textContent = JSON.stringify(d, null, 2);
+    }
+
+    $('#calcBtn').onclick = calcAll;
+
+    // ---------- Validation ----------
+    function validate(){
+      const d = collectData();
+      const msgs=[];
+      const pctSum = d.fibers.reduce((s,f)=>s+(+f.pct||0),0);
+      if(pctSum !== 100) msgs.push(`Lif yüzdesi ${pctSum} — 100 olmalı.`);
+      if(!d.meta.styleCode) msgs.push('Stil Kodu boş.');
+      if(d.fibers.length===0) msgs.push('En az bir lif ekleyin.');
+      if(d.procs.length===0) msgs.push('En az bir işlem ekleyin.');
+      $('#validation').innerHTML = msgs.length? msgs.map(m=>`<li>• ${m}</li>`).join('') : '<span style="color:#34d399">Tebrikler — temel kontroller geçti.</span>';
+      return msgs.length===0;
+    }
+    $('#validateBtn').onclick = validate;
+
+    // ---------- Save & History ----------
+    function toast(msg){ const t=$('#toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),1800); }
+    $('#saveDraft').onclick=()=>{
+      const d=collectData(); const id=d.meta.styleCode||('draft-'+uid());
+      const all=JSON.parse(localStorage.getItem('z@d.drafts')||'{}');
+      all[id]=d; localStorage.setItem('z@d.drafts',JSON.stringify(all));
+      toast('Taslak kaydedildi'); renderHistory();
+    };
+    function renderHistory(){
+      const all=JSON.parse(localStorage.getItem('z@d.drafts')||'{}');
+      const box=$('#historyList'); box.innerHTML='';
+      Object.entries(all).forEach(([k,v])=>{
+        const b=document.createElement('button'); b.className='btn'; b.textContent=k; b.onclick=()=>{loadDraft(k)}; box.appendChild(b);
+      });
+      if(!Object.keys(all).length){ box.innerHTML='<span class="help">Kayıtlı taslak yok.</span>'; }
+    }
+    function loadDraft(key){
+      const all=JSON.parse(localStorage.getItem('z@d.drafts')||'{}');
+      const d=all[key]; if(!d) return;
+      $('#styleCode').value=d.meta.styleCode||'';
+      $('#styleName').value=d.meta.styleName||'';
+      $('#collection').value=d.meta.collection||'SS25';
+      $('#category').value=d.meta.category||'T-Shirt';
+      $('#size').value=d.meta.size||'';
+      $('#market').value=d.meta.market||'';
+      $('#netWeight').value=d.meta.netWeight_g||0;
+      $('#packWeight').value=d.meta.packWeight_g||0;
+      $('#normalizeLC').checked=!!d.meta.normalizeLC;
+      fiberTbody.innerHTML=''; d.fibers.forEach(addFiberRow);
+      procTbody.innerHTML=''; d.procs.forEach(addProcRow);
+      $('#notes').value=d.notes||'';
+      calcAll(); toast('Taslak yüklendi');
+    }
+
+    // ---------- Export ----------
+    function openModal(json){ $('#modalCode').textContent = JSON.stringify(json,null,2); $('#modal').style.display='flex'; }
+    $('#closeModal').onclick = ()=> $('#modal').style.display='none';
+    $('#genDPP').onclick = ()=>{ const d=collectData(); openModal({ dpp_version:'1.0', schema:'zero@design', payload:d }); };
+    $('#exportJson').onclick = ()=>{
+      const blob = new Blob([JSON.stringify(collectData(),null,2)],{type:'application/json'});
+      const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='zero-design-style.json'; a.click();
+    };
+    $('#exportCsv').onclick = ()=>{
+      const d=collectData();
+      const head=['field','value'];
+      const rows=[['styleCode',d.meta.styleCode],['styleName',d.meta.styleName],['collection',d.meta.collection],['category',d.meta.category],['size',d.meta.size],['market',d.meta.market],['netWeight_g',d.meta.netWeight_g],['packWeight_g',d.meta.packWeight_g],['normalizeLC',d.meta.normalizeLC],['total_kg',fmt(d.kpi.total_kg)],['score',fmt(d.kpi.score)],['sustainability_pct',d.kpi.sustainability_pct.toFixed(0)]];
+      const csv=[head.join(','),...rows.map(r=>r.map(x=>`"${x}"`).join(','))].join('\n');
+      const blob = new Blob([csv],{type:'text/csv'});
+      const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='zero-design-style.csv'; a.click();
+    };
+
+    // ---------- Clear ----------
+    $('#clearForm').onclick=()=>{ if(!confirm('Formu temizlemek istiyor musunuz?')) return; location.reload(); };
+
+    // ---------- Library (settings) ----------
+    function renderLib(){
+      const tbody=$('#libTable tbody'); tbody.innerHTML='';
+      Object.entries(LIB).forEach(([name,f])=> addLibRow({name, factor:f}));
+    }
+    function addLibRow(data={name:'New Fiber', factor:2.0}){
+      const tr=document.createElement('tr');
+      tr.innerHTML=`<td><input class="input lname" value="${data.name}"></td>
+        <td><input type="number" step="0.01" class="input lfactor" value="${data.factor}"></td>
+        <td><button class="btn ghost del">Sil</button></td>`;
+      $('#libTable tbody').appendChild(tr);
+      tr.querySelector('.del').onclick=()=>tr.remove();
+    }
+    $('#addLib').onclick=()=>addLibRow();
+    $('#saveLib').onclick=()=>{
+      const rows=$$('#libTable tbody tr').map(tr=>({name:tr.querySelector('.lname').value.trim(), factor:+tr.querySelector('.lfactor').value||0}));
+      LIB={}; rows.forEach(r=>{ if(r.name) LIB[r.name]=r.factor; });
+      localStorage.setItem('z@d.lib',JSON.stringify(LIB));
+      refreshFiberList();
+      toast('Kütüphane kaydedildi');
+    };
+
+    // initial calc
+    calcAll();
+  </script>
+  </div>
+</div>
+{% endblock %}

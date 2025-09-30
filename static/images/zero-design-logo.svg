@@ -1,0 +1,37 @@
+<svg width="200" height="80" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .logo-text {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-weight: 700;
+        fill: #ffffff;
+      }
+      .logo-zero {
+        font-size: 28px;
+      }
+      .logo-at {
+        font-size: 28px;
+        fill: #ffffff;
+      }
+      .logo-design {
+        font-size: 28px;
+      }
+      .logo-underline {
+        fill: #f59e0b;
+      }
+    </style>
+  </defs>
+  
+  <!-- Background (optional, can be removed for transparent) -->
+  <rect width="200" height="80" fill="transparent"/>
+  
+  <!-- Zero@ text -->
+  <text x="10" y="35" class="logo-text logo-zero">Zero</text>
+  <text x="75" y="35" class="logo-text logo-at">@</text>
+  
+  <!-- Design text -->
+  <text x="10" y="65" class="logo-text logo-design">Design</text>
+  
+  <!-- Orange underline -->
+  <rect x="10" y="68" width="120" height="3" class="logo-underline"/>
+</svg>

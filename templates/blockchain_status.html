@@ -1,0 +1,294 @@
+{% extends "base.html" %}
+
+{% block title %}Blockchain Status - Zero@Design{% endblock %}
+
+{% block page_header %}
+<div class="page-header-content text-center">
+    <h1 class="page-title">Blockchain Status</h1>
+    <p class="page-subtitle">Blokzincir ağ durumu ve işlem takibi</p>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<!-- Inline CSS'ler components.css'e taşındı -->
+{% endblock %}
+
+{% block content %}
+<div class="blockchain-container">
+    <!-- Blockchain Metrics -->
+    <div class="blockchain-stats">
+        <div class="metric-card">
+            <div class="metric-value" id="totalDPPs">0</div>
+            <div class="metric-label">Toplam DPP</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value" id="verifiedDPPs">0</div>
+            <div class="metric-label">Doğrulanmış DPP</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value" id="currentBlock">0</div>
+            <div class="metric-label">Mevcut Block</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value" id="gasUsed">0</div>
+            <div class="metric-label">Toplam Gas</div>
+        </div>
+    </div>
+
+    <!-- Contract Information -->
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5><i class="fas fa-file-contract me-2"></i>Smart Contract Bilgileri</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-borderless">
+                        <tr>
+                            <td><strong>Contract Adresi:</strong></td>
+                            <td><span class="hash-text" id="contractAddress">--</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Chain ID:</strong></td>
+                            <td><span id="chainId">--</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>RPC URL:</strong></td>
+                            <td><span id="rpcUrl">--</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Network:</strong></td>
+                            <td><span class="badge bg-success">Development</span></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5><i class="fas fa-chart-line me-2"></i>Blockchain İstatistikleri</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="blockchainChart" width="800" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Transactions -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5><i class="fas fa-history me-2"></i>Son İşlemler</h5>
+                    <button class="btn btn-sm btn-outline-primary" onclick="refreshTransactions()">
+                        <i class="fas fa-sync-alt"></i> Yenile
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div id="transactionsList">
+                        <!-- Transactions will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DPP Verification Tool -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5><i class="fas fa-search me-2"></i>DPP Blockchain Doğrulama</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" id="dppIdInput" 
+                                   placeholder="DPP ID girin...">
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn btn-primary w-100" onclick="verifyDPP()">
+                                <i class="fas fa-check-circle me-2"></i>Doğrula
+                            </button>
+                        </div>
+                    </div>
+                    <div id="verificationResult" class="mt-3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script>
+        // Blockchain status yönetimi
+        let blockchainStats = {};
+        let chart = null;
+
+        // Sayfa yüklendiğinde
+        document.addEventListener('DOMContentLoaded', function() {
+            loadBlockchainStats();
+            loadRecentTransactions();
+            initChart();
+            
+            // Her 30 saniyede bir güncelle
+            setInterval(loadBlockchainStats, 30000);
+        });
+
+        // Blockchain istatistiklerini yükle
+        async function loadBlockchainStats() {
+            try {
+                const response = await fetch('/api/blockchain-stats');
+                const data = await response.json();
+                
+                if (data.success) {
+                    blockchainStats = data.stats;
+                    updateUI();
+                }
+            } catch (error) {
+                console.error('Blockchain stats yüklenirken hata:', error);
+            }
+        }
+
+        // UI'yi güncelle
+        function updateUI() {
+            document.getElementById('totalDPPs').textContent = blockchainStats.total_dpps || 0;
+            document.getElementById('verifiedDPPs').textContent = blockchainStats.verified_dpps || 0;
+            document.getElementById('currentBlock').textContent = blockchainStats.current_block || 0;
+            document.getElementById('gasUsed').textContent = '150K'; // Mock data
+            
+            document.getElementById('contractAddress').textContent = blockchainStats.contract_address || '--';
+            document.getElementById('chainId').textContent = blockchainStats.chain_id || '--';
+            document.getElementById('rpcUrl').textContent = blockchainStats.rpc_url || '--';
+            
+            const lastUpdate = new Date(blockchainStats.last_update || Date.now());
+            document.getElementById('lastUpdate').textContent = lastUpdate.toLocaleString('tr-TR');
+        }
+
+        // Chart başlat
+        function initChart() {
+            const ctx = document.getElementById('blockchainChart').getContext('2d');
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00'],
+                    datasets: [{
+                        label: 'DPP Kayıtları',
+                        data: [0, 2, 5, 8, 12, 15],
+                        borderColor: '#667eea',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        // Son işlemleri yükle
+        async function loadRecentTransactions() {
+            const transactionsList = document.getElementById('transactionsList');
+            
+            // Mock data - gerçek implementasyonda API'den gelecek
+            const mockTransactions = [
+                {
+                    dpp_id: 'dpp-001',
+                    transaction_hash: '0x1234567890abcdef...',
+                    timestamp: new Date().toISOString(),
+                    status: 'confirmed'
+                },
+                {
+                    dpp_id: 'dpp-002',
+                    transaction_hash: '0xabcdef1234567890...',
+                    timestamp: new Date(Date.now() - 300000).toISOString(),
+                    status: 'confirmed'
+                }
+            ];
+            
+            transactionsList.innerHTML = mockTransactions.map(tx => `
+                <div class="transaction-item">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>DPP ID:</strong> ${tx.dpp_id}<br>
+                            <span class="hash-text">Hash: ${tx.transaction_hash}</span>
+                        </div>
+                        <div class="text-end">
+                            <span class="badge bg-success">${tx.status}</span><br>
+                            <small class="text-muted">${new Date(tx.timestamp).toLocaleString('tr-TR')}</small>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // İşlemleri yenile
+        function refreshTransactions() {
+            loadRecentTransactions();
+            loadBlockchainStats();
+        }
+
+        // DPP doğrula
+        async function verifyDPP() {
+            const dppId = document.getElementById('dppIdInput').value.trim();
+            const resultDiv = document.getElementById('verificationResult');
+            
+            if (!dppId) {
+                resultDiv.innerHTML = '<div class="alert alert-warning">Lütfen bir DPP ID girin.</div>';
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/api/dpp/${dppId}`);
+                const data = await response.json();
+                
+                if (data.success && data.blockchain_verification) {
+                    const verification = data.blockchain_verification;
+                    
+                    if (verification.verified) {
+                        resultDiv.innerHTML = `
+                            <div class="alert alert-success">
+                                <h6><i class="fas fa-check-circle me-2"></i>DPP Blockchain'de Doğrulandı</h6>
+                                <p><strong>DPP ID:</strong> ${dppId}</p>
+                                <p><strong>Doğrulama Zamanı:</strong> ${new Date(verification.verification_timestamp).toLocaleString('tr-TR')}</p>
+                            </div>
+                        `;
+                    } else {
+                        resultDiv.innerHTML = `
+                            <div class="alert alert-warning">
+                                <h6><i class="fas fa-exclamation-triangle me-2"></i>DPP Blockchain'de Bulunamadı</h6>
+                                <p>${verification.message}</p>
+                            </div>
+                        `;
+                    }
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="alert alert-danger">
+                            <h6><i class="fas fa-times-circle me-2"></i>Doğrulama Hatası</h6>
+                            <p>${data.error || 'Bilinmeyen hata'}</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="alert alert-danger">
+                        <h6><i class="fas fa-times-circle me-2"></i>Bağlantı Hatası</h6>
+                        <p>Blockchain doğrulaması yapılamadı: ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+    </script>
+{% endblock %}

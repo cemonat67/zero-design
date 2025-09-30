@@ -1,0 +1,6 @@
+﻿file,map_name,map_category,map_unit,map_type,map_stage,map_description,map_source,map_co2,map_min,map_max,original_columns
+bitmis_urun_islemleri_co2.csv,İşlem Türü,Kategori,,,,Açıklama,,CO2 (kgCO2e/ürün),,,"Kategori, İşlem Türü, Açıklama, Uygulanan Ürün Grupları, CO2 (kgCO2e/ürün)"
+bitmis_urun_islemleri.csv,İşlem Türü,Kategori,,,,Açıklama,,,,,"Kategori, İşlem Türü, Açıklama, Uygulanan Ürün Grupları"
+hazir_giyim_full_lifecycle_co2.csv,İşlem,Kategori,,,,Açıklama,,CO2 (kgCO2e/ürün),,,"Üst Kategori, Kategori, İşlem, Açıklama, Uygulanan Ürün Grupları, CO2 (kgCO2e/ürün), Not"
+hazir_giyim_master_co2_from_json.csv,operation,category,co2_unit,,,description,,co2_min,co2_min,co2_max,"id, top_category, category, operation, description, product_groups, notes, co2_min, co2_max, co2_unit"
+hazir_giyim_master_co2.csv,İşlem,Kategori,,,,Açıklama,,CO2 (kgCO2e/ürün),,,"Üst Kategori, Kategori, İşlem, Açıklama, Uygulanan Ürün Grupları, CO2 (kgCO2e/ürün), Not"

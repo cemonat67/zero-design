@@ -1,0 +1,58 @@
+{
+  "dpp_id": "b63a7554-adb8-44ca-8ef3-03efd0b9a4f6",
+  "schema_version": "1.0",
+  "issuer": "Zero@Design Platform",
+  "created_at": "2025-09-27T22:45:28.778729",
+  "product_hash": "a07216a0d3eaf0be115c2d37546d770e31e2ddb050f3a9d6711510853e674fdd",
+  "product_info": {
+    "name": "Eco Cotton T-Shirt",
+    "category": "T-Shirt",
+    "brand": "Zero@Design",
+    "season": "Spring 2024",
+    "collection": "Sustainable Collection"
+  },
+  "sustainability": {
+    "co2_footprint": {
+      "total_kg": 4.2,
+      "breakdown": {
+        "fabric": 1.8,
+        "production": 1.5,
+        "transport": 0.9
+      },
+      "calculation_method": "Zero@Design LCA Model v1.0"
+    },
+    "sustainability_score": 88,
+    "certifications": [
+      "GOTS",
+      "OEKO-TEX"
+    ],
+    "recyclability": "Unknown"
+  },
+  "materials": {
+    "fiber_composition": [],
+    "total_weight": 0,
+    "material_origins": []
+  },
+  "production": {
+    "processes": [],
+    "manufacturing_location": "",
+    "production_date": "",
+    "batch_number": ""
+  },
+  "supply_chain": {
+    "suppliers": [],
+    "transportation": {},
+    "traceability_level": "Basic"
+  },
+  "lifecycle": {
+    "care_instructions": [],
+    "expected_lifespan": "",
+    "end_of_life": "Unknown"
+  },
+  "verification": {
+    "verified": false,
+    "verification_date": null,
+    "verifier": null,
+    "verification_method": "Pending"
+  }
+}

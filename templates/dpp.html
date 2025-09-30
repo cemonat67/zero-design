@@ -1,0 +1,494 @@
+{% extends "base.html" %}
+
+{% block title %}Digital Product Passport - Zero@Design{% endblock %}
+
+{% block page_header %}
+<div class="page-header-content text-center">
+    <h1 class="page-title">DPP</h1>
+    <p class="page-subtitle">Dijital Ürün Pasaportu yönetimi ve takibi</p>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <!-- Action Buttons -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-end gap-2">
+                <button class="btn btn-primary" onclick="createSampleDPP()">
+                    <i class="fas fa-plus me-2"></i>Örnek DPP Oluştur
+                </button>
+                <button class="btn btn-outline-secondary" onclick="loadDPPList()">
+                    <i class="fas fa-refresh me-2"></i>Yenile
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- DPP List -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white border-bottom">
+                    <h5 class="mb-0">
+                        <i class="fas fa-list me-2"></i>
+                        Kayıtlı DPP'ler
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div id="dppListContainer">
+                        <div class="text-center py-4">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Yükleniyor...</span>
+                            </div>
+                            <p class="mt-2 text-muted">DPP'ler yükleniyor...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DPP Detail Modal -->
+    <div class="modal fade" id="dppDetailModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-passport me-2"></i>
+                        DPP Detayları
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="dppDetailContent">
+                        <!-- DPP detayları buraya yüklenecek -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary" onclick="downloadDPP()">
+                        <i class="fas fa-download me-2"></i>DPP İndir
+                    </button>
+                    <button type="button" class="btn btn-success" onclick="createNFT()">
+                        <i class="fas fa-coins me-2"></i>NFT Oluştur
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NFT Preview Modal -->
+    <div class="modal fade" id="nftPreviewModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-coins me-2"></i>
+                        NFT Önizleme
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="nftPreviewContent">
+                        <!-- NFT önizleme buraya yüklenecek -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="mintNFT()">
+                        <i class="fas fa-hammer me-2"></i>NFT Mint Et
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+let currentDPP = null;
+let currentNFTMetadata = null;
+
+// Sayfa yüklendiğinde DPP listesini getir
+document.addEventListener('DOMContentLoaded', function() {
+    loadDPPList();
+});
+
+// DPP listesini yükle
+async function loadDPPList() {
+    try {
+        const response = await fetch('/api/dpp-list');
+        const data = await response.json();
+        
+        const container = document.getElementById('dppListContainer');
+        
+        if (data.success && data.dpps.length > 0) {
+            let html = '<div class="table-responsive">';
+            html += '<table class="table table-hover">';
+            html += '<thead class="table-light">';
+            html += '<tr>';
+            html += '<th>Ürün Adı</th>';
+            html += '<th>Kategori</th>';
+            html += '<th>CO₂ Ayak İzi</th>';
+            html += '<th>Sürdürülebilirlik Skoru</th>';
+            html += '<th>Oluşturulma Tarihi</th>';
+            html += '<th>İşlemler</th>';
+            html += '</tr>';
+            html += '</thead>';
+            html += '<tbody>';
+            
+            data.dpps.forEach(dpp => {
+                const date = new Date(dpp.created_at).toLocaleDateString('tr-TR');
+                html += `<tr>`;
+                html += `<td><strong>${dpp.product_name}</strong></td>`;
+                html += `<td><span class="badge bg-secondary">${dpp.category}</span></td>`;
+                html += `<td><span class="text-danger">${dpp.co2_footprint} kg CO₂</span></td>`;
+                html += `<td><span class="badge bg-success">${dpp.sustainability_score}/100</span></td>`;
+                html += `<td>${date}</td>`;
+                html += `<td>`;
+                html += `<button class="btn btn-sm btn-outline-primary me-2" onclick="viewDPP('${dpp.dpp_id}')">`;
+                html += `<i class="fas fa-eye"></i> Görüntüle`;
+                html += `</button>`;
+                html += `<button class="btn btn-sm btn-outline-success" onclick="previewNFT('${dpp.dpp_id}')">`;
+                html += `<i class="fas fa-coins"></i> NFT`;
+                html += `</button>`;
+                html += `</td>`;
+                html += `</tr>`;
+            });
+            
+            html += '</tbody>';
+            html += '</table>';
+            html += '</div>';
+            
+            container.innerHTML = html;
+        } else {
+            container.innerHTML = `
+                <div class="text-center py-4">
+                    <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+                    <h5 class="text-muted">Henüz DPP oluşturulmamış</h5>
+                    <p class="text-muted">Başlamak için bir stil kartından DPP oluşturun</p>
+                    <button class="btn btn-primary" onclick="createSampleDPP()">
+                        <i class="fas fa-plus me-2"></i>Örnek DPP Oluştur
+                    </button>
+                </div>
+            `;
+        }
+    } catch (error) {
+        console.error('DPP listesi yüklenirken hata:', error);
+        document.getElementById('dppListContainer').innerHTML = `
+            <div class="alert alert-danger">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                DPP listesi yüklenirken hata oluştu: ${error.message}
+            </div>
+        `;
+    }
+}
+
+// DPP detaylarını görüntüle
+async function viewDPP(dppId) {
+    try {
+        const response = await fetch(`/api/dpp/${dppId}`);
+        const data = await response.json();
+        
+        if (data.success) {
+            currentDPP = data.dpp;
+            displayDPPDetails(data.dpp);
+            new bootstrap.Modal(document.getElementById('dppDetailModal')).show();
+        } else {
+            alert('DPP yüklenirken hata: ' + data.error);
+        }
+    } catch (error) {
+        console.error('DPP yüklenirken hata:', error);
+        alert('DPP yüklenirken hata oluştu');
+    }
+}
+
+// DPP detaylarını göster
+function displayDPPDetails(dpp) {
+    const container = document.getElementById('dppDetailContent');
+    
+    let html = `
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h6 class="mb-0"><i class="fas fa-info-circle me-2"></i>Ürün Bilgileri</h6>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>DPP ID:</strong> <code>${dpp.dpp_id}</code></p>
+                        <p><strong>Ürün Adı:</strong> ${dpp.product_info.name}</p>
+                        <p><strong>Kategori:</strong> ${dpp.product_info.category}</p>
+                        <p><strong>Marka:</strong> ${dpp.product_info.brand}</p>
+                        <p><strong>Sezon:</strong> ${dpp.product_info.season}</p>
+                        <p><strong>Koleksiyon:</strong> ${dpp.product_info.collection}</p>
+                    </div>
+                </div>
+                
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h6 class="mb-0"><i class="fas fa-leaf me-2"></i>Sürdürülebilirlik</h6>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Toplam CO₂:</strong> <span class="text-danger">${dpp.sustainability.co2_footprint.total_kg} kg</span></p>
+                        <p><strong>Sürdürülebilirlik Skoru:</strong> <span class="badge bg-success">${dpp.sustainability.sustainability_score}/100</span></p>
+                        <p><strong>Hesaplama Yöntemi:</strong> ${dpp.sustainability.co2_footprint.calculation_method}</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h6 class="mb-0"><i class="fas fa-industry me-2"></i>Malzeme Kompozisyonu</h6>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Toplam Ağırlık:</strong> ${dpp.materials.total_weight}g</p>
+                        <div class="mt-2">
+                            <strong>Lif Kompozisyonu:</strong>
+                            <ul class="list-unstyled mt-2">
+    `;
+    
+    dpp.materials.fiber_composition.forEach(fiber => {
+        html += `<li><span class="badge bg-secondary me-2">${fiber.percentage}%</span>${fiber.fiber}</li>`;
+    });
+    
+    html += `
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h6 class="mb-0"><i class="fas fa-cogs me-2"></i>Üretim Bilgileri</h6>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Üretim Yeri:</strong> ${dpp.production.manufacturing_location}</p>
+                        <p><strong>Üretim Tarihi:</strong> ${dpp.production.production_date}</p>
+                        <p><strong>Parti Numarası:</strong> ${dpp.production.batch_number}</p>
+                        <div class="mt-2">
+                            <strong>İşlemler:</strong>
+                            <ul class="list-unstyled mt-2">
+    `;
+    
+    dpp.production.processes.forEach(process => {
+        html += `<li><i class="fas fa-check text-success me-2"></i>${process}</li>`;
+    });
+    
+    html += `
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h6 class="mb-0"><i class="fas fa-chart-pie me-2"></i>CO₂ Dağılımı</h6>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="dppCO2Chart" width="400" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    container.innerHTML = html;
+    
+    // CO₂ grafiğini çiz
+    setTimeout(() => {
+        drawDPPCO2Chart(dpp.sustainability.co2_footprint.breakdown);
+    }, 100);
+}
+
+// DPP CO₂ grafiğini çiz
+function drawDPPCO2Chart(breakdown) {
+    const ctx = document.getElementById('dppCO2Chart');
+    if (!ctx) return;
+    
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: Object.keys(breakdown),
+            datasets: [{
+                data: Object.values(breakdown),
+                backgroundColor: [
+                    '#28a745',
+                    '#17a2b8',
+                    '#ffc107',
+                    '#dc3545',
+                    '#6f42c1'
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+}
+
+// NFT önizleme
+async function previewNFT(dppId) {
+    try {
+        const response = await fetch(`/api/nft-metadata/${dppId}`);
+        const metadata = await response.json();
+        
+        if (!metadata.error) {
+            currentNFTMetadata = metadata;
+            displayNFTPreview(metadata);
+            new bootstrap.Modal(document.getElementById('nftPreviewModal')).show();
+        } else {
+            alert('NFT metadata yüklenirken hata: ' + metadata.error);
+        }
+    } catch (error) {
+        console.error('NFT metadata yüklenirken hata:', error);
+        alert('NFT metadata yüklenirken hata oluştu');
+    }
+}
+
+// NFT önizlemesini göster
+function displayNFTPreview(metadata) {
+    const container = document.getElementById('nftPreviewContent');
+    
+    let html = `
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h6 class="mb-0"><i class="fas fa-image me-2"></i>NFT Görsel</h6>
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="nft-placeholder bg-light rounded p-4 mb-3" style="height: 300px; display: flex; align-items: center; justify-content: center;">
+                            <div>
+                                <i class="fas fa-image fa-4x text-muted mb-3"></i>
+                                <p class="text-muted">NFT Görseli</p>
+                                <small class="text-muted">Dinamik olarak oluşturulacak</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h6 class="mb-0"><i class="fas fa-tags me-2"></i>NFT Metadata</h6>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>İsim:</strong> ${metadata.name}</p>
+                        <p><strong>Açıklama:</strong> ${metadata.description}</p>
+                        <p><strong>Blockchain:</strong> <span class="badge bg-primary">Polygon</span></p>
+                        
+                        <div class="mt-3">
+                            <strong>Özellikler:</strong>
+                            <div class="row mt-2">
+    `;
+    
+    metadata.attributes.forEach(attr => {
+        html += `
+            <div class="col-6 mb-2">
+                <div class="border rounded p-2">
+                    <small class="text-muted d-block">${attr.trait_type}</small>
+                    <strong>${attr.value}</strong>
+                </div>
+            </div>
+        `;
+    });
+    
+    html += `
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    container.innerHTML = html;
+}
+
+// Örnek DPP oluştur
+async function createSampleDPP() {
+    const sampleData = {
+        product_name: 'Eco T-Shirt',
+        product_type: 'T-shirt',
+        brand: 'Zero@Design',
+        season: 'SS24',
+        collection: 'Sustainable Basics',
+        total_co2: 8.5,
+        co2_breakdown: {
+            materials: 5.2,
+            production: 2.1,
+            transportation: 1.2
+        },
+        sustainability_score: 85,
+        fiber_composition: [
+            {fiber: 'Organic Cotton', percentage: 95},
+            {fiber: 'Elastane', percentage: 5}
+        ],
+        weight: 150,
+        processes: ['Dyeing', 'Finishing'],
+        manufacturing_location: 'Turkey',
+        certifications: ['GOTS', 'OEKO-TEX']
+    };
+    
+    try {
+        const response = await fetch('/api/create-dpp', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(sampleData)
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            alert('Örnek DPP başarıyla oluşturuldu!');
+            loadDPPList();
+        } else {
+            alert('DPP oluşturulurken hata: ' + data.error);
+        }
+    } catch (error) {
+        console.error('DPP oluşturulurken hata:', error);
+        alert('DPP oluşturulurken hata oluştu');
+    }
+}
+
+// DPP indir
+function downloadDPP() {
+    if (currentDPP) {
+        const dataStr = JSON.stringify(currentDPP, null, 2);
+        const dataBlob = new Blob([dataStr], {type: 'application/json'});
+        const url = URL.createObjectURL(dataBlob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `DPP_${currentDPP.dpp_id}.json`;
+        link.click();
+        URL.revokeObjectURL(url);
+    }
+}
+
+// NFT oluştur
+function createNFT() {
+    if (currentDPP) {
+        previewNFT(currentDPP.dpp_id);
+        bootstrap.Modal.getInstance(document.getElementById('dppDetailModal')).hide();
+    }
+}
+
+// NFT mint et (placeholder)
+function mintNFT() {
+    alert('NFT mint etme özelliği geliştirilme aşamasında. Blockchain entegrasyonu Faz 4\'te tamamlanacak.');
+}
+</script>
+{% endblock %}

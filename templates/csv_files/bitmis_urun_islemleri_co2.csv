@@ -1,0 +1,57 @@
+﻿Kategori,İşlem Türü,Açıklama,Uygulanan Ürün Grupları,CO2 (kgCO2e/ürün)
+Baskı Teknikleri,Serigrafi (Screen Print),"Klasik baskı tekniği; dayanıklı, çok renkli baskılar","Tişört, Sweatshirt, Çocuk Giyim",0.35-0.50
+Baskı Teknikleri,Rotasyon (Rotary Screen Print),Döner silindirle sürekli desen baskı,"Denim, Dış Giyim, Büyük parçalar",0.40-0.60
+Baskı Teknikleri,Dijital Baskı,Fotoğraf kalitesinde baskı,"Moda koleksiyonları, Premium tişört, Elbise",0.25-0.40
+Baskı Teknikleri,Sublimasyon,Polyester bazlı kumaşa transfer,"Spor giyim, Forma, Aktif giyim",0.30-0.45
+Baskı Teknikleri,Folyo (Foil) Baskı,Parlak metalik yüzey,"Kadın giyim, Moda, Aksesuar",0.20-0.35
+Baskı Teknikleri,Discharge (Açık Ekran) Baskı,Boya çıkarılarak desen oluşturma,"Tişört, Sweatshirt",0.30-0.50
+Baskı Teknikleri,Kabartma (Emboss) Baskı,3D yüzeyli desen,"Moda tişört, Özel koleksiyon",0.25-0.40
+Baskı Teknikleri,Sim / Glitter Baskı,Parıltılı efekt,Kadın & Çocuk giyim,0.20-0.35
+Nakış & Süsleme,Direkt Nakış,Klasik nakış,"Polo, Gömlek, Şapka, Çocuk giyim",0.20-0.35
+Nakış & Süsleme,Aplike Nakış,Kumaş parçalarının işlenmesi,"Sweatshirt, Denim, Ceket",0.30-0.45
+Nakış & Süsleme,Chenille Nakış,Havlı ipliklerle dokulu nakış,"Kolej montu, Sweatshirt",0.35-0.55
+Nakış & Süsleme,3D Nakış,Kabartmalı nakış,"Spor şapka, Polo",0.25-0.40
+Nakış & Süsleme,Boncuklu / Taşlı Nakış,Dekoratif lüks nakış,"Kadın abiye, Özel koleksiyon",0.40-0.70
+Aplike & Eklemeler,Kumaş Aplike,Ek kumaş parçaları ile desen,"Denim jacket, Sweatshirt",0.20-0.35
+Aplike & Eklemeler,Patch / Arma,Dikişli veya yapıştırmalı arma,"Tişört, Denim, Spor giyim",0.15-0.30
+Aplike & Eklemeler,Laser-cut Aplike,Lazerle kesilmiş aplike,"Moda, Genç giyim",0.20-0.35
+Aplike & Eklemeler,PVC / PU Aplike,Sentetik aplike,"Spor giyim, Streetwear",0.25-0.40
+Parça Boyama,Garment Dye,Bitmiş ürünü boyama,"Tişört, Sweatshirt, Denim",0.80-1.20
+Parça Boyama,Dip Dye / Ombre,Kademeli renk geçişi,"Tişört, Elbise, Çocuk giyim",0.50-0.80
+Parça Boyama,Tie-Dye,"Batik, bağlama boyama","Moda trend, Çocuk, Festival giyim",0.60-0.90
+Parça Boyama,Spray Dye,Sprey efekt boyama,"Casual giyim, Denim",0.40-0.70
+Parça Boyama,Acid Wash Dye,Asit efektli boyama,"Denim, Sweatshirt",0.60-0.90
+Parça Yıkama & Efektler,Stone Wash,Taşla eskitme,"Denim, Casual giyim",0.50-0.70
+Parça Yıkama & Efektler,Enzim Wash,Enzimlerle yumuşatma,"Tişört, Sweatshirt, Denim",0.40-0.60
+Parça Yıkama & Efektler,Bleach Wash,Açık renk efekt,"Denim, Moda tişört",0.60-0.90
+Parça Yıkama & Efektler,Sand Wash,Kum aşındırma,"Denim, Casual",0.40-0.60
+Parça Yıkama & Efektler,Vintage Wash,Eskitilmiş görünüm,"Denim, Moda",0.50-0.80
+Parça Yıkama & Efektler,Destroyed / Ripped Wash,"Yırtık, parçalanmış efekt","Denim, Streetwear",0.60-0.90
+Parça Yıkama & Efektler,Snow Wash,Kar taneli desen efekti,"Denim, Moda",0.40-0.60
+Kaplama & Astar,PU / PVC Kaplama,Sentetik film kaplama,"Dış giyim, Çanta, Aksesuar",0.30-0.50
+Kaplama & Astar,Wax Kaplama,Balmumu kaplama,"Dış giyim, Denim",0.20-0.40
+Kaplama & Astar,Laminasyon,İki yüzeyin lamine edilmesi,"Teknik giyim, Dış giyim",0.40-0.70
+Taşlama & Eskitme,Kumlama (Sandblasting),Yüzey aşındırma,"Denim, İş giyim",0.40-0.60
+Taşlama & Eskitme,El Taşlama,Manuel eskitme,"Denim, Casual",0.20-0.35
+Taşlama & Eskitme,Lazer Eskitme,Lazerle desen/eskitme,"Denim, Moda",0.10-0.20
+Taşlama & Eskitme,Whiskers (Bıyık Efekti),Denim’de büküm çizgileri,"Denim pantolon, Ceket",0.15-0.25
+Bitim & Apre İşlemleri,Anti-Pilling Finish,Tüylenme önleyici,"Tişört, Sweatshirt",0.10-0.20
+Bitim & Apre İşlemleri,Su itici (Water-repellent) Finish,Su geçirmezlik,"Dış giyim, Outdoor",0.30-0.50
+Bitim & Apre İşlemleri,Parlak / Mat Kaplama,Yüzey görünümü değiştirir,"Moda, Aksesuar",0.25-0.40
+Bitim & Apre İşlemleri,Resin Finish,Sertlik / tutum kazandırır,"Denim, Dış giyim",0.30-0.50
+Sıcak Transfer & Folyo,Heat Transfer,Isıyla transfer desen,"Spor giyim, Tişört",0.15-0.25
+Sıcak Transfer & Folyo,Plastisol Transfer,Plastisol bazlı transfer baskı,"Spor giyim, Aktif giyim",0.20-0.35
+Sıcak Transfer & Folyo,PU / PVC Transfer,Plastik bazlı transfer,"Streetwear, Spor giyim",0.25-0.40
+Dekoratif İşlemler,Flock Baskı,Kadife efekt,"Tişört, Sweatshirt",0.20-0.35
+Dekoratif İşlemler,Kabartma (Emboss/Deboss),Yüzey kabartma / çökertme,"Moda, Premium giyim",0.25-0.40
+Dekoratif İşlemler,Lazer Kesim,Desen kesim,"Denim, Streetwear",0.10-0.20
+Dekoratif İşlemler,Burn-out (Yanık),Kumaşın bir kısmını yakarak desen,"Moda, Premium, Casual",0.40-0.60
+Aksesuar Eklemeler,Studs (Zımbalar),Metal dekor,"Denim, Streetwear, Aksesuar",0.05-0.15
+Aksesuar Eklemeler,Rivet,Metal perçin,"Denim, Çanta, Ceket",0.05-0.15
+Aksesuar Eklemeler,Boncuk / Payet,Dekoratif ekleme,"Kadın abiye, Çocuk",0.20-0.40
+Aksesuar Eklemeler,Taş Yapıştırma,"Kristal, taş, strass","Kadın giyim, Moda",0.25-0.45
+Aksesuar Eklemeler,"Zincir, Metal Detay",Dekoratif metal,"Denim, Streetwear",0.20-0.40
+Özel Efektler,Metalik Kaplama,Altın / gümüş görünüm,"Moda, Premium",0.30-0.50
+Özel Efektler,UV Reactive Baskı,Işık altında renk değiştirir,"Streetwear, Moda",0.25-0.40
+Özel Efektler,Glow-in-the-Dark,Karanlıkta parlayan efekt,"Çocuk giyim, Spor giyim",0.25-0.40
+Özel Efektler,Holografik Transfer,Hologram görünümlü desen,"Moda, Genç giyim",0.30-0.50
