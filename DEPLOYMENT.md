@@ -6,7 +6,7 @@ Bu rehber Zero@Design uygulamasının production ortamına deployment sürecini 
 
 ### 1. Gereksinimler
 - Docker & Docker Compose
-- Domain adı (örn: zero-design.yourdomain.com)
+- Domain adı (örn: onatltd.com)
 - VPS/Server (minimum 2GB RAM, 20GB disk)
 
 ### 2. Deployment Adımları
@@ -44,8 +44,8 @@ POSTGRES_USER=zero_design_user
 POSTGRES_PASSWORD=your-strong-database-password-here
 
 # Domain Configuration
-DOMAIN_NAME=zero-design.yourdomain.com
-SSL_EMAIL=admin@yourdomain.com
+DOMAIN_NAME=onatltd.com
+SSL_EMAIL=admin@onatltd.com
 ```
 
 ### Manuel Deployment
@@ -98,7 +98,7 @@ docker-compose -f docker-compose.prod.yml ps
 ./scripts/deploy.sh status
 
 # Health check
-curl https://your-domain.com/health
+curl https://onatltd.com/health
 ```
 
 ### Logs

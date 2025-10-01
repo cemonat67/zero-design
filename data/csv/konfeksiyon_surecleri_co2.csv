@@ -1,0 +1,51 @@
+﻿Kategori,İşlem Adımı,Açıklama,Uygulanan Ürün Grupları,CO2 (kgCO2e/ürün),Not
+Kesim,Pastal Hazırlık (Marker),Beden/derinlik dağılımına göre en verimli yerleşim planı oluşturma,Tüm giyim grupları,0.01-0.02,Dijital marker yazılımı/plotter; enerji tüketimi düşük
+Kesim,Serim (Spreading) - Manuel,Kat kat kumaş serimi; kenar hizalama,Tüm giyim grupları,0.01-0.03,Serim makinası/konveyör opsiyonlu
+Kesim,Serim (Spreading) - Otomatik,Otomatik serim makinesi ile hızlı ve düz serim,Tüm giyim grupları,0.02-0.04,"Daha stabil, fire azalır"
+Kesim,Kesim - Manuel Bıçak (Dikey/Şerit),Çok katlı kumaşın şerit/dikey bıçakla kesimi,Tüm giyim grupları,0.02-0.05,Operatör becerisine bağlı kesim doğruluğu
+Kesim,Kesim - CNC (Otomatik),Vakumlu masada CNC ile otomatik kesim,Tüm giyim grupları,0.03-0.08,Yüksek hassasiyet; fire düşer
+Kesim,Kalıp/Perforaj İşaretleme,"Notch, delik ve işaretlerin eklenmesi",Tüm giyim grupları,0.005-0.015,Pnömatik/elektrikli ekipman
+Kesim,Kenar Düzeltme & Çentik (Notching),Dikiş referansı için çentik açma,Tüm giyim grupları,0.005-0.010,Hata azaltır
+Kesim,Demetleme (Bundling) & Etiketleme,Parçaların model/beden bazında demetlenmesi ve biletlenmesi,Tüm giyim grupları,0.005-0.015,İzlenebilirlik için önemlidir
+Kesim,Tela Kesimi (Interlining),Tela ve yardımcı malzemelerin kesimi,"Gömlek, Ceket, Dış giyim",0.01-0.03,Isı ile yapışma öncesi
+Kesim,Lazer Kesim,Lazer ile hassas kesim ve mühürleme,"Teknik giyim, Aksesuar, Sentetik",0.02-0.05,Kenar mühürleme sağlar
+Triyaj/Preparasyon,Operasyon Planlama (SMV Bozumu),Model için operasyonların sıralanması ve zaman etüdü,Tüm giyim grupları,0.005-0.015,IE mühendisliği; hat dengeleme
+Triyaj/Preparasyon,Hat Dengeleme & Besleme,İş istasyonlarına WIP akışının ayarlanması,Tüm giyim grupları,0.005-0.015,Verimlilik artışı sağlar
+Triyaj/Preparasyon,Telalama (Fusing),Tela ile parçaların preslenerek yapıştırılması,"Gömlek, Ceket, Dış giyim",0.03-0.06,Sürekli bant pres/kalıp pres
+Triyaj/Preparasyon,Cep/Plaket/Pat Hazırlığı,"Cüzdan cep, plaket, pat katlama ve ütüleme","Gömlek, Ceket, Denim",0.02-0.05,Kalıp/şablonla standartlaştırma
+Triyaj/Preparasyon,Ön İşlem Nakış/Baskı,Dikim öncesi nakış veya baskı uygulaması,"Tişört, Sweatshirt, Çocuk",0.15-0.40,İşleme göre değişir (bkz. ilgili tablolar)
+Triyaj/Preparasyon,Aksesuar Hazırlığı,"Etiket, fermuar, düğme, ribana vb. hat besleme",Tüm giyim grupları,0.005-0.015,Malzeme ayrıştırma ve kalite kontrol
+Dikim,Overlock (3/4/5 İplik),Kenar temizleme ve birleştirme,"Tişört, Sweatshirt, Örme",0.03-0.06,Makine gücü ve SMV’ye bağlı
+Dikim,Düz Dikiş (Lockstitch),Ana birleştirme dikişleri,Tüm giyim grupları,0.05-0.12,SMV arttıkça CO2 artar
+Dikim,Zincir Dikiş (Chainstitch),"Esnek dikiş, yan/kol altı","Örme, Denim",0.04-0.08,Spor giyimde yaygın
+Dikim,Reçme / Coverstitch,"Paça, ribana, elastik uçlar","Tişört, Sweatshirt, Spor",0.04-0.09,Çift iğne kapama
+Dikim,Flatlock,"Düz birleşim, düşük tahriş",Spor/Performans Giyim,0.05-0.10,Çok iğneli işlem
+Dikim,Bartack / Sürfile,Stres noktalarında takviye,"Denim, İş Giyim",0.01-0.02,Kısa operasyon
+Dikim,Fitil/Ribana Uygulama,Yaka/kol ucu ribana montajı,Örme grupları,0.02-0.05,Reçme ile birlikte
+Dikim,Yaka/Kragen Montajı,Yaka takma ve şekillendirme,"Gömlek, Tişört, Ceket",0.03-0.07,Pres destekli olabilir
+Dikim,Kol Takma (Set-in/Raglan),Kolun gövdeye montajı,Tüm giyim grupları,0.04-0.09,Model tipine bağlı
+Dikim,Yan Dikiş & İç Bacak,Ana gövde birleştirme,Tüm giyim grupları,0.03-0.07,Lockstitch/Chainstitch
+Dikim,Fermuar Montajı,Ön/yan/cep fermuarı takma,"Denim, Dış giyim, Etek",0.02-0.05,Kalıp hassasiyeti önemli
+Dikim,Kemer/Bel Bandı,Bel bandı montaj ve kapama,"Denim, Pantolon, Etek",0.03-0.06,Reçme/lockstitch kombin
+Dikim,Paça Yapma (Hem),Alt uç kapama,Tüm giyim grupları,0.02-0.05,Reçme/Blind stitch
+Dikim,Kör Dikiş (Blind Hem),Görünmez paça,"Takım elbise, Abiye",0.02-0.04,Özel makine
+Dikim,Düğme Dikme,Düğmelerin makinayla dikilmesi,"Gömlek, Ceket, Dış giyim",0.01-0.02,Otomatik düğme makinası
+Dikim,İlik Açma,Düğme iliği açılması,"Gömlek, Ceket",0.01-0.02,Kilitli otomatik ilik
+Dikim,Perçin/Snap/Metal Aksesuar,Perçin ve çıtçıt uygulama,"Denim, Dış giyim",0.01-0.02,Pnömatik pres
+Bitim,Temizleme (İplik/Kılçık Alma),Sarkan ipliklerin kesilmesi,Tüm giyim grupları,0.01-0.02,Kısmi manuel
+Bitim,Ütü/Pres - Buharlı Tablo,Parça/parça ve son form presi,Tüm giyim grupları,0.10-0.20,Buhar kazanı enerjisi dahil
+Bitim,Ütü/Pres - Kalıp/Presse,Kalıp presle form verme,"Ceket, Dış giyim",0.12-0.25,Daha sabit form
+Bitim,Buhar Tüneli (Steam Tunnel),Asılı ürünlerin kırışıklık giderme,"Tişört, Sweatshirt, Örme",0.08-0.18,Yüksek adet/verim
+Bitim,Dekatür/Şekil Sabitleme,Özellikle dokuma/ceketlerde şekil verme,"Ceket, Takım",0.08-0.15,Basınç ve ısı
+Bitim,Aksesuar Montajı (Etiket/Askı),"Ana/yan etiket, askı aparatı, carelabel",Tüm giyim grupları,0.01-0.02,Malzeme CO2’si hariç
+Kontrol & Paketleme,Inline QC (İstasyon İçi),İstasyon bazlı kontrol ve düzeltme,Tüm giyim grupları,0.01-0.02,Hata erken yakalanır
+Kontrol & Paketleme,Endline QC (Hat Sonu),Tamamlanmış ürünün görsel/işlevsel kontrolü,Tüm giyim grupları,0.01-0.02,AQL öncesi filtre
+Kontrol & Paketleme,Ölçüm Kontrolü (Measurement),Tabloya göre beden ölçü kontrolü,Tüm giyim grupları,0.01-0.02,Rastgele/100% seçime göre
+Kontrol & Paketleme,İğne/Metal Dedektörü,İğne/metal parça tespiti,"Çocuk, Denim, Özel istekli ürünler",0.005-0.010,Gıda/çocukta sıkı zorunlu
+Kontrol & Paketleme,Final AQL Denetimi,ANSI/ASQ Z1.4 vb. plana göre muayene,Tüm giyim grupları,0.01-0.02,Sevkiyat onayı
+Kontrol & Paketleme,Katlama & Poşetleme,Standart kat ve polybag/paperbag,Tüm giyim grupları,0.02-0.05,Malzeme CO2’si hariç
+Kontrol & Paketleme,Set/Pack Hazırlama,Çoklu paket/renk/beden seti hazırlama,"Çocuk, İç giyim, Çoklu paket ürünler",0.02-0.05,Etiketleme dahil
+Kontrol & Paketleme,Kutuya Dizim & Paletleme,"Kartonlama, koli etiketleri ve palet",Tüm giyim grupları,0.03-0.08,Lojistik öncesi son aşama
+Destek,Rework/Tamir,Hatalı ürünlerin onarımı,Tüm giyim grupları,0.02-0.06,Ek operasyon süresi
+Destek,SMED / Setup Değişimi,Makine ayar/kalıp değişimi,Tüm giyim grupları,0.01-0.03,Seri geçişlerinde
+Destek,Bakım & Yağlama,Makine bakım işlemleri,Tüm giyim grupları,0.005-0.015,Periyodik bakım

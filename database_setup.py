@@ -52,6 +52,7 @@ class DatabaseSetup:
                 last_name TEXT,
                 company TEXT,
                 phone TEXT,
+                preferences TEXT DEFAULT '{}', -- JSON string for user preferences
                 is_active BOOLEAN DEFAULT 1,
                 is_verified BOOLEAN DEFAULT 0,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -148,11 +149,29 @@ class DatabaseSetup:
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS co2_calculations (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                product_name TEXT NOT NULL,
-                category TEXT,
+                user_id INTEGER,
+                product_name TEXT,
+                fabric_type TEXT,
+                accessories TEXT,
+                processes TEXT,
                 total_co2 REAL,
                 calculation_details TEXT,
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (user_id) REFERENCES users (id)
+            )
+        ''')
+        
+        # Settings tablosu - sistem ayarları için
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS settings (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                key TEXT UNIQUE NOT NULL,
+                value TEXT NOT NULL,
+                description TEXT,
+                data_type TEXT DEFAULT 'string',
+                is_public BOOLEAN DEFAULT 0,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         ''')
         
@@ -191,8 +210,35 @@ class DatabaseSetup:
         ''')
         
         conn.commit()
+        
+        # Default settings değerlerini ekle
+        self.insert_default_settings()
+        
         conn.close()
         print("✅ Veritabanı tabloları başarıyla oluşturuldu!")
+        
+    def insert_default_settings(self):
+        """Default sistem ayarlarını ekle"""
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+        
+        default_settings = [
+            ('co2_threshold', '1000', 'CO₂ emission threshold in kg. When exceeded, alerts will be shown on dashboard.', 'number', 1),
+            ('alert_color', '#D51635', 'Brand red color for alerts and warnings', 'string', 1),
+            ('dashboard_refresh_interval', '30', 'Dashboard auto-refresh interval in seconds', 'number', 0),
+            ('max_export_records', '10000', 'Maximum number of records allowed in export files', 'number', 0),
+            ('enable_email_alerts', 'true', 'Enable email notifications for threshold alerts', 'boolean', 0)
+        ]
+        
+        for key, value, description, data_type, is_public in default_settings:
+            cursor.execute('''
+                INSERT OR IGNORE INTO settings (key, value, description, data_type, is_public)
+                VALUES (?, ?, ?, ?, ?)
+            ''', (key, value, description, data_type, is_public))
+        
+        conn.commit()
+        conn.close()
+        print("✅ Default settings eklendi!")
         
     def parse_co2_range(self, co2_value: str) -> Tuple[Optional[float], Optional[float]]:
         """

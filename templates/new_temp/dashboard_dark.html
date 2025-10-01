@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard - Zero@Design</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{
+      font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+      background:#0a1929; color:#e3f2fd; min-height:100vh;
+    }
+
+    /* Topbar */
+    .navbar{
+      position:sticky; top:0; z-index:10;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 20px;
+      background:#0d2238; border-bottom:1px solid rgba(255,255,255,.06);
+      box-shadow:0 10px 24px rgba(0,0,0,.25);
+    }
+    .logo{font-weight:800; font-size:1.25rem; letter-spacing:.3px}
+    .user-info{display:flex; align-items:center; gap:12px}
+    .user-name{color:#b0bec5}
+    .btn-ghost, .logout-btn{
+      border:1px solid rgba(255,255,255,.12); background:transparent; color:#e3f2fd;
+      padding:8px 12px; border-radius:8px; cursor:pointer; text-decoration:none; font-weight:600;
+      transition:all .2s ease;
+    }
+    .btn-ghost:hover{border-color:#3b82f6; box-shadow:0 0 0 3px rgba(59,130,246,.12)}
+    .logout-btn{border-color:#ef4444; color:#ffb4b4}
+    .logout-btn:hover{box-shadow:0 0 0 3px rgba(239,68,68,.12)}
+
+    .container{max-width:1200px; margin:24px auto; padding:0 20px}
+
+    /* Header card */
+    .card{
+      background:#132f4c; border:1px solid rgba(255,255,255,.08);
+      border-radius:16px; box-shadow:0 24px 48px rgba(0,0,0,.4);
+      padding:24px;
+    }
+    .header-card{margin-bottom:24px}
+    .title{font-size:1.8rem; font-weight:800}
+    .subtitle{color:#90a4ae; margin-top:6px}
+
+    /* Feature grid */
+    .grid{
+      display:grid; gap:18px; grid-template-columns:repeat(auto-fit, minmax(260px,1fr));
+      margin-top:18px;
+    }
+    .feature{
+      background:#0f2741; border:1px solid rgba(255,255,255,.08);
+      border-radius:14px; padding:20px; cursor:pointer; transition:transform .15s ease, box-shadow .15s ease, border-color .2s ease;
+    }
+    .feature:hover{
+      transform:translateY(-3px);
+      border-color:#3b82f6;
+      box-shadow:0 12px 28px rgba(59,130,246,.18);
+    }
+    .icon{font-size:28px; line-height:1; margin-bottom:12px}
+    .feat-title{font-weight:700; margin-bottom:6px}
+    .feat-desc{color:#90a4ae; font-size:.95rem}
+
+    /* KPI strip */
+    .kpis{margin-top:24px}
+    .kpi-grid{display:grid; gap:14px; grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+    .kpi{
+      background:#0f2741; border:1px solid rgba(255,255,255,.08);
+      border-radius:14px; padding:18px; text-align:center;
+    }
+    .kpi-number{font-size:1.8rem; font-weight:800; color:#90caf9}
+    .kpi-label{color:#b0bec5; margin-top:6px}
+
+    @media (max-width: 520px){
+      .title{font-size:1.5rem}
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">Zero@Design</div>
+    <div class="user-info">
+      <span class="user-name">Hoş geldin, {{ user_name }}!</span>
+      <a class="logout-btn" href="/logout">Çıkış Yap</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <section class="card header-card">
+      <div class="title">Dashboard</div>
+      <p class="subtitle">Sürdürülebilir moda tasarımı için tüm araçlarınız burada</p>
+
+      <div class="grid" style="margin-top:16px">
+        <div class="feature" onclick="go('/style-card')">
+          <div class="icon">🎨</div>
+          <div class="feat-title">Style Card</div>
+          <div class="feat-desc">Yeni tasarımlar oluşturun ve mevcut koleksiyonunuzu yönetin</div>
+        </div>
+
+        <div class="feature" onclick="go('/benchmark')">
+          <div class="icon">📊</div>
+          <div class="feat-title">Benchmark</div>
+          <div class="feat-desc">CO₂ emisyonlarını analiz edin ve sektör ortalaması ile kıyaslayın</div>
+        </div>
+
+        <div class="feature" onclick="go('/collection')">
+          <div class="icon">👗</div>
+          <div class="feat-title">Koleksiyon</div>
+          <div class="feat-desc">Koleksiyonunuzu optimize edin; sürdürülebilirlik skorunu artırın</div>
+        </div>
+
+        <div class="feature" onclick="go('/dpp')">
+          <div class="icon">🔗</div>
+          <div class="feat-title">Digital Product Passport</div>
+          <div class="feat-desc">Ürünler için dijital pasaport oluşturun ve blockchain’e kaydedin</div>
+        </div>
+
+        <div class="feature" onclick="go('/analytics')">
+          <div class="icon">📈</div>
+          <div class="feat-title">Analitik</div>
+          <div class="feat-desc">Detaylı raporlar ve performans analizleri</div>
+        </div>
+
+        <div class="feature" onclick="go('/profile')">
+          <div class="icon">⚙️</div>
+          <div class="feat-title">Ayarlar</div>
+          <div class="feat-desc">Hesap ayarlarınızı ve profil bilgilerinizi yönetin</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="kpis">
+      <div class="kpi-grid">
+        <div class="kpi">
+          <div id="totalDesigns" class="kpi-number">-</div>
+          <div class="kpi-label">Toplam Tasarım</div>
+        </div>
+        <div class="kpi">
+          <div id="avgCO2" class="kpi-number">-</div>
+          <div class="kpi-label">Ortalama CO₂ (kg)</div>
+        </div>
+        <div class="kpi">
+          <div id="totalDPPs" class="kpi-number">-</div>
+          <div class="kpi-label">Oluşturulan DPP</div>
+        </div>
+        <div class="kpi">
+          <div id="sustainabilityScore" class="kpi-number">-</div>
+          <div class="kpi-label">Sürdürülebilirlik Skoru</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const go = (href) => { 
+      const el = document.createElement('a'); el.href = href; el.click();
+    };
+
+    document.addEventListener('DOMContentLoaded', loadDashboardStats);
+
+    async function loadDashboardStats(){
+      try{
+        const stylesRes = await fetch('/api/get-all-styles');
+        if (stylesRes.ok){
+          const data = await stylesRes.json();
+          document.getElementById('totalDesigns').textContent = data.styles? data.styles.length:0;
+        }
+        const dppRes = await fetch('/api/dpp-list');
+        if (dppRes.ok){
+          const data = await dppRes.json();
+          document.getElementById('totalDPPs').textContent = data.dpps? data.dpps.length:0;
+        }
+        document.getElementById('avgCO2').textContent = '12.5';
+        document.getElementById('sustainabilityScore').textContent = '85%';
+      }catch(e){
+        console.error(e);
+        ['totalDesigns','avgCO2','totalDPPs','sustainabilityScore'].forEach(id=>{
+          document.getElementById(id).textContent = id==='sustainabilityScore'?'0%':'0';
+        });
+      }
+    }
+  </script>
+</body>
+</html>

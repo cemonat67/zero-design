@@ -21,6 +21,43 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
     
+    <style>
+        .navbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .user-menu .dropdown-toggle {
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: transparent;
+            color: white;
+        }
+        
+        .user-menu .dropdown-toggle:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .auth-buttons .btn {
+            margin-left: 0.5rem;
+        }
+        
+        .dropdown-menu {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .dropdown-item {
+            color: #333;
+        }
+        
+        .dropdown-item:hover {
+            background: rgba(0, 123, 255, 0.1);
+            color: #007bff;
+        }
+    </style>
 
     
     {% block extra_css %}{% endblock %}
@@ -92,6 +129,28 @@
 
                 <!-- Action Buttons -->
                 <div class="navbar-actions">
+                    <!-- User Menu (if logged in) -->
+                    {% if session.user_id %}
+                    <div class="user-menu">
+                        <div class="dropdown">
+                            <button class="btn btn-outline-light dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown">
+                                <i class="fas fa-user"></i> {{ session.first_name or 'Kullanıcı' }}
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="{{ url_for('profile') }}"><i class="fas fa-user-cog"></i> Profil</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i> Çıkış Yap</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    {% else %}
+                    <!-- Login/Register buttons (if not logged in) -->
+                    <div class="auth-buttons">
+                        <a href="{{ url_for('signin') }}" class="btn btn-outline-light me-2">Giriş Yap</a>
+                        <a href="{{ url_for('signup') }}" class="btn btn-primary">Kayıt Ol</a>
+                    </div>
+                    {% endif %}
+                    
                     <!-- Language Selector -->
                     <div class="lang">
                         <span class="pill" data-lang="tk">TK</span>

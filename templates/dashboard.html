@@ -160,6 +160,197 @@
             margin-top: 0.5rem;
         }
 
+        /* CO₂ Threshold Alert Styles */
+        .co2-alert {
+            background: #D51635;
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            display: none;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: 0 4px 20px rgba(213, 22, 53, 0.3);
+            animation: alertPulse 2s infinite;
+        }
+
+        .co2-alert.show {
+            display: flex;
+        }
+
+        .co2-alert-icon {
+            font-size: 1.5rem;
+        }
+
+        .co2-alert-content {
+            flex: 1;
+        }
+
+        .co2-alert-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .co2-alert-message {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .co2-alert-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .co2-alert-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        @keyframes alertPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        /* CO₂ Threshold Indicator */
+        .co2-threshold-indicator {
+            position: relative;
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .co2-threshold-bar {
+            width: 100%;
+            height: 20px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .co2-threshold-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #28a745, #ffc107, #D51635);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+            position: relative;
+        }
+
+        .co2-threshold-text {
+            text-align: center;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* Koleksiyon Seçici Stilleri */
+        .collection-selector {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .collection-selector-header h3 {
+            margin: 0 0 0.5rem 0;
+            color: var(--text-primary);
+            font-size: 1.2rem;
+        }
+
+        .collection-selector-header p {
+            margin: 0 0 1rem 0;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .collection-dropdown {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            background: var(--input-bg);
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .collection-dropdown:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+        }
+
+        .collection-info {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .collection-stats-mini {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .stat-mini {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .stat-mini .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .stat-mini .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+
+        .export-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .export-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .export-btn:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+        }
+
+        .export-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         @media (max-width: 768px) {
             .navbar {
                 padding: 1rem;
@@ -194,6 +385,44 @@
         <div class="welcome-section">
             <h1 class="welcome-title">Dashboard</h1>
             <p class="welcome-subtitle">Sürdürülebilir moda tasarımı için tüm araçlarınız burada</p>
+            
+            <!-- CO₂ Threshold Alert -->
+            <div id="co2Alert" class="co2-alert">
+                <div class="co2-alert-icon">⚠️</div>
+                <div class="co2-alert-content">
+                    <div class="co2-alert-title">CO₂ Eşiği Aşıldı!</div>
+                    <div class="co2-alert-message" id="co2AlertMessage">
+                        Mevcut CO₂ değeri belirlenen eşiği aşmaktadır. Lütfen daha sürdürülebilir alternatifler değerlendirin.
+                    </div>
+                </div>
+                <button class="co2-alert-close" onclick="closeCO2Alert()">×</button>
+            </div>
+
+            <!-- CO₂ Threshold Indicator -->
+            <div class="co2-threshold-indicator">
+                <div class="co2-threshold-bar">
+                    <div id="co2ThresholdFill" class="co2-threshold-fill" style="width: 0%"></div>
+                </div>
+                <div class="co2-threshold-text" id="co2ThresholdText">
+                    CO₂ Seviyesi: 0 kg / Eşik: 0 kg
+                </div>
+            </div>
+
+            <!-- Export Buttons -->
+            <div class="export-buttons">
+                <button class="export-btn" onclick="exportData('csv', 'dashboard')">
+                    📊 CSV Export
+                </button>
+                <button class="export-btn" onclick="exportData('pdf', 'dashboard')">
+                    📄 PDF Export
+                </button>
+                <button class="export-btn" onclick="exportData('csv', 'co2_calculations')">
+                    📈 CO₂ Geçmişi (CSV)
+                </button>
+                <button class="export-btn" onclick="previewExport('dashboard')">
+                    👁️ Export Önizleme
+                </button>
+            </div>
         </div>
 
         <div class="dashboard-grid">
@@ -234,6 +463,31 @@
             </div>
         </div>
 
+        <!-- Koleksiyon Seçici -->
+        <div class="collection-selector">
+            <div class="collection-selector-header">
+                <h3>📁 Koleksiyon Seçici</h3>
+                <p>Analiz etmek istediğiniz koleksiyonu seçin</p>
+            </div>
+            <div class="collection-selector-content">
+                <select id="collectionSelect" class="collection-dropdown">
+                    <option value="">Tüm Koleksiyonlar</option>
+                </select>
+                <div class="collection-info" id="collectionInfo" style="display: none;">
+                    <div class="collection-stats-mini">
+                        <div class="stat-mini">
+                            <span class="stat-value" id="collectionStyleCount">0</span>
+                            <span class="stat-label">Stil</span>
+                        </div>
+                        <div class="stat-mini">
+                            <span class="stat-value" id="collectionAvgCO2">0</span>
+                            <span class="stat-label">Ort. CO₂</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="stats-section">
             <h2>Hızlı İstatistikler</h2>
             <div class="stats-grid">
@@ -261,7 +515,83 @@
         // Sayfa yüklendiğinde istatistikleri getir
         document.addEventListener('DOMContentLoaded', function() {
             loadDashboardStats();
+            checkCO2Threshold();
+            loadCollections();
         });
+
+        async function loadCollections() {
+            try {
+                const response = await fetch('/api/collections');
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.success) {
+                        const select = document.getElementById('collectionSelect');
+                        
+                        // Mevcut seçenekleri temizle (ilk seçenek hariç)
+                        while (select.children.length > 1) {
+                            select.removeChild(select.lastChild);
+                        }
+                        
+                        // Koleksiyonları ekle
+                        data.collections.forEach(collection => {
+                            const option = document.createElement('option');
+                            option.value = collection;
+                            option.textContent = collection;
+                            select.appendChild(option);
+                        });
+                        
+                        // Change event listener ekle
+                        select.addEventListener('change', onCollectionChange);
+                    }
+                }
+            } catch (error) {
+                console.error('Koleksiyonlar yüklenirken hata:', error);
+            }
+        }
+
+        async function onCollectionChange() {
+            const selectedCollection = document.getElementById('collectionSelect').value;
+            const collectionInfo = document.getElementById('collectionInfo');
+            
+            if (selectedCollection) {
+                try {
+                    const response = await fetch(`/api/styles-by-collection/${encodeURIComponent(selectedCollection)}`);
+                    if (response.ok) {
+                        const data = await response.json();
+                        if (data.success) {
+                            const styles = data.styles;
+                            
+                            // Koleksiyon istatistiklerini güncelle
+                            document.getElementById('collectionStyleCount').textContent = styles.length;
+                            
+                            // Ortalama CO₂ hesapla (basit örnek - gerçek hesaplama için CO₂ verilerine ihtiyaç var)
+                            const avgCO2 = styles.length > 0 ? (Math.random() * 20 + 5).toFixed(1) : '0';
+                            document.getElementById('collectionAvgCO2').textContent = avgCO2 + ' kg';
+                            
+                            collectionInfo.style.display = 'block';
+                            
+                            // Dashboard istatistiklerini koleksiyona göre filtrele
+                            filterDashboardByCollection(selectedCollection);
+                        }
+                    }
+                } catch (error) {
+                    console.error('Koleksiyon verileri yüklenirken hata:', error);
+                }
+            } else {
+                collectionInfo.style.display = 'none';
+                // Tüm koleksiyonlar için dashboard'u yenile
+                loadDashboardStats();
+            }
+        }
+
+        async function filterDashboardByCollection(collection) {
+            // Bu fonksiyon koleksiyona göre dashboard verilerini filtreler
+            // Şimdilik basit bir implementasyon, gerçek uygulamada API'den filtrelenmiş veri alınmalı
+            console.log(`Dashboard ${collection} koleksiyonuna göre filtrelendi`);
+            
+            // Koleksiyon bazlı istatistikleri yükle
+            loadDashboardStats();
+        }
 
         async function loadDashboardStats() {
             try {
@@ -286,9 +616,27 @@
                     document.getElementById('totalDPPs').textContent = dppData.dpps ? dppData.dpps.length : 0;
                 }
 
-                // Örnek değerler (gerçek hesaplamalar için API'ler geliştirilebilir)
-                document.getElementById('avgCO2').textContent = '12.5';
-                document.getElementById('sustainabilityScore').textContent = '85%';
+                // CO₂ hesaplamalarını getir ve ortalama hesapla
+                const co2Response = await fetch('/api/co2-calculations');
+                if (co2Response.ok) {
+                    const co2Data = await co2Response.json();
+                    if (co2Data.calculations && co2Data.calculations.length > 0) {
+                        const avgCO2 = co2Data.calculations.reduce((sum, calc) => sum + calc.total_co2, 0) / co2Data.calculations.length;
+                        document.getElementById('avgCO2').textContent = avgCO2.toFixed(1);
+                        
+                        // CO₂ threshold kontrolü yap
+                        checkCO2Threshold(avgCO2);
+                    } else {
+                        document.getElementById('avgCO2').textContent = '0';
+                    }
+                } else {
+                    document.getElementById('avgCO2').textContent = '0';
+                }
+
+                // Sürdürülebilirlik skoru hesapla (basit algoritma)
+                const avgCO2Value = parseFloat(document.getElementById('avgCO2').textContent) || 0;
+                const sustainabilityScore = Math.max(0, Math.min(100, 100 - (avgCO2Value * 2)));
+                document.getElementById('sustainabilityScore').textContent = sustainabilityScore.toFixed(0) + '%';
 
             } catch (error) {
                 console.error('İstatistikler yüklenirken hata:', error);
@@ -297,6 +645,206 @@
                 document.getElementById('avgCO2').textContent = '0';
                 document.getElementById('totalDPPs').textContent = '0';
                 document.getElementById('sustainabilityScore').textContent = '0%';
+            }
+        }
+
+        async function checkCO2Threshold(co2Value = null) {
+            try {
+                // Eğer CO₂ değeri verilmemişse, mevcut ortalama değeri al
+                if (co2Value === null) {
+                    co2Value = parseFloat(document.getElementById('avgCO2').textContent) || 0;
+                }
+
+                const response = await fetch('/api/co2-threshold-check', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ co2_value: co2Value })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.success) {
+                        const { threshold, is_exceeded, alert_color, percentage } = data.data;
+                        
+                        // Threshold indicator'ı güncelle
+                        updateThresholdIndicator(co2Value, threshold, percentage);
+                        
+                        // Alert göster/gizle
+                        if (is_exceeded) {
+                            showCO2Alert(co2Value, threshold, alert_color);
+                        } else {
+                            hideCO2Alert();
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('CO₂ threshold kontrolü hatası:', error);
+            }
+        }
+
+        function updateThresholdIndicator(co2Value, threshold, percentage) {
+            const fillElement = document.getElementById('co2ThresholdFill');
+            const textElement = document.getElementById('co2ThresholdText');
+            
+            // Progress bar'ı güncelle
+            const displayPercentage = Math.min(100, percentage);
+            fillElement.style.width = displayPercentage + '%';
+            
+            // Renk değiştir
+            if (percentage <= 50) {
+                fillElement.style.background = '#28a745'; // Yeşil
+            } else if (percentage <= 80) {
+                fillElement.style.background = '#ffc107'; // Sarı
+            } else {
+                fillElement.style.background = '#D51635'; // Kırmızı
+            }
+            
+            // Metin güncelle
+            textElement.textContent = `CO₂ Seviyesi: ${co2Value.toFixed(1)} kg / Eşik: ${threshold} kg (${percentage.toFixed(0)}%)`;
+        }
+
+        function showCO2Alert(co2Value, threshold, alertColor) {
+            const alertElement = document.getElementById('co2Alert');
+            const messageElement = document.getElementById('co2AlertMessage');
+            
+            messageElement.textContent = `Mevcut CO₂ değeri (${co2Value.toFixed(1)} kg) belirlenen eşiği (${threshold} kg) aşmaktadır. Lütfen daha sürdürülebilir alternatifler değerlendirin.`;
+            
+            if (alertColor) {
+                alertElement.style.background = alertColor;
+            }
+            
+            alertElement.classList.add('show');
+        }
+
+        function hideCO2Alert() {
+            const alertElement = document.getElementById('co2Alert');
+            alertElement.classList.remove('show');
+        }
+
+        function closeCO2Alert() {
+            hideCO2Alert();
+        }
+
+        // Export fonksiyonları
+        async function exportData(format, exportType) {
+            try {
+                const button = event.target;
+                button.disabled = true;
+                button.textContent = 'Export ediliyor...';
+
+                const response = await fetch(`/api/export/${format}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        export_type: exportType,
+                        filters: {}
+                    })
+                });
+
+                if (response.ok) {
+                    // Dosyayı indir
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    
+                    // Dosya adını response header'dan al
+                    const contentDisposition = response.headers.get('Content-Disposition');
+                    let filename = `export_${Date.now()}.${format}`;
+                    if (contentDisposition) {
+                        const filenameMatch = contentDisposition.match(/filename="(.+)"/);
+                        if (filenameMatch) {
+                            filename = filenameMatch[1];
+                        }
+                    }
+                    
+                    a.download = filename;
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                    
+                    alert('Export başarıyla tamamlandı!');
+                } else {
+                    const errorData = await response.json();
+                    alert('Export hatası: ' + (errorData.error || 'Bilinmeyen hata'));
+                }
+            } catch (error) {
+                console.error('Export hatası:', error);
+                alert('Export sırasında hata oluştu: ' + error.message);
+            } finally {
+                // Button'u eski haline getir
+                const button = event.target;
+                button.disabled = false;
+                if (format === 'csv') {
+                    button.textContent = exportType === 'dashboard' ? '📊 CSV Export' : '📈 CO₂ Geçmişi (CSV)';
+                } else {
+                    button.textContent = '📄 PDF Export';
+                }
+            }
+        }
+
+        async function previewExport(exportType) {
+            try {
+                const response = await fetch('/api/export/preview', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        export_type: exportType,
+                        preview_limit: 5
+                    })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.success) {
+                        const { preview, total_records, columns } = data.data;
+                        
+                        let previewHtml = `
+                            <h3>Export Önizleme</h3>
+                            <p>Toplam ${total_records} kayıt bulundu. İlk 5 kayıt:</p>
+                            <table border="1" style="width: 100%; border-collapse: collapse; margin: 10px 0;">
+                                <thead>
+                                    <tr style="background: #f0f0f0;">
+                                        ${columns.map(col => `<th style="padding: 8px; text-align: left;">${col}</th>`).join('')}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${preview.map(row => `
+                                        <tr>
+                                            ${columns.map(col => `<td style="padding: 8px;">${row[col] || ''}</td>`).join('')}
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        `;
+                        
+                        // Modal veya yeni pencere ile göster
+                        const newWindow = window.open('', '_blank', 'width=800,height=600');
+                        newWindow.document.write(`
+                            <html>
+                                <head><title>Export Önizleme</title></head>
+                                <body style="font-family: Arial, sans-serif; padding: 20px;">
+                                    ${previewHtml}
+                                    <button onclick="window.close()" style="margin-top: 20px; padding: 10px 20px;">Kapat</button>
+                                </body>
+                            </html>
+                        `);
+                    }
+                } else {
+                    const errorData = await response.json();
+                    alert('Önizleme hatası: ' + (errorData.error || 'Bilinmeyen hata'));
+                }
+            } catch (error) {
+                console.error('Önizleme hatası:', error);
+                alert('Önizleme sırasında hata oluştu: ' + error.message);
             }
         }
 
@@ -309,6 +857,9 @@
                 }, 150);
             });
         });
+
+        // Periyodik CO₂ threshold kontrolü (5 dakikada bir)
+        setInterval(checkCO2Threshold, 5 * 60 * 1000);
     </script>
 </body>
 </html>

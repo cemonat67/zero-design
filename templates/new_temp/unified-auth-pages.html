@@ -1,0 +1,383 @@
+<!-- SIGNIN.HTML -->
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş Yap - Zero@Design</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #0a1929;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .signin-container {
+            background: #132f4c;
+            border-radius: 16px;
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
+            width: 100%;
+            max-width: 440px;
+            padding: 48px 40px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .logo-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo-text {
+            color: #ffffff;
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 8px;
+        }
+
+        .logo-underline {
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #ff9800 0%, #f57c00 100%);
+            border-radius: 2px;
+            margin: 12px 0 24px 0;
+        }
+
+        .subtitle {
+            color: #b0bec5;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .welcome-text {
+            color: #ffffff;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .demo-credentials {
+            background: rgba(59, 130, 246, 0.08);
+            border-left: 3px solid #3b82f6;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+
+        .demo-credentials h4 {
+            color: #90caf9;
+            margin-bottom: 8px;
+            font-size: 0.875rem;
+        }
+
+        .demo-credentials p {
+            margin: 4px 0;
+            color: #b0bec5;
+            font-size: 0.8rem;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            color: #b0bec5;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            background: #0a1929;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        input::placeholder {
+            color: #546e7a;
+        }
+
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .checkbox-group label {
+            margin: 0;
+            color: #b0bec5;
+            font-size: 0.875rem;
+            cursor: pointer;
+        }
+
+        .forgot-link {
+            color: #3b82f6;
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .forgot-link:hover {
+            color: #60a5fa;
+        }
+
+        .signin-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .signin-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .signin-btn:disabled {
+            background: #546e7a;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 32px 0;
+        }
+
+        .divider-line {
+            flex: 1;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .divider-text {
+            padding: 0 16px;
+            color: #78909c;
+            font-size: 0.875rem;
+        }
+
+        .signup-section {
+            text-align: center;
+            color: #b0bec5;
+            font-size: 0.875rem;
+        }
+
+        .signup-link {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+
+        .signup-link:hover {
+            color: #60a5fa;
+        }
+
+        .message {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.875rem;
+            display: none;
+        }
+
+        .message.success {
+            background: rgba(34, 197, 94, 0.1);
+            color: #4ade80;
+            border: 1px solid rgba(34, 197, 94, 0.2);
+        }
+
+        .message.error {
+            background: rgba(239, 68, 68, 0.1);
+            color: #f87171;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 16px;
+            color: #90caf9;
+        }
+
+        .spinner {
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-top: 2px solid #3b82f6;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 480px) {
+            .signin-container {
+                padding: 32px 24px;
+            }
+
+            .logo-text {
+                font-size: 2rem;
+            }
+
+            .welcome-text {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="signin-container">
+        <div class="logo-section">
+            <div class="logo-text">Zero@<br>Design</div>
+            <div class="logo-underline"></div>
+            <p class="subtitle">Sürdürülebilir Moda Platformu</p>
+        </div>
+
+        <h2 class="welcome-text">Hesabınıza Giriş Yapın</h2>
+
+        <div class="demo-credentials">
+            <h4>Demo Hesap Bilgileri:</h4>
+            <p><strong>E-posta:</strong> demo@zerodesign.com</p>
+            <p><strong>Şifre:</strong> demo123</p>
+        </div>
+
+        <div id="errorMessage" class="message error"></div>
+        <div id="successMessage" class="message success"></div>
+
+        <form id="signinForm">
+            <div class="form-group">
+                <label for="email">E-posta Adresi</label>
+                <input type="email" id="email" placeholder="ornek@email.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Şifre</label>
+                <input type="password" id="password" placeholder="••••••••" required>
+            </div>
+
+            <div class="remember-forgot">
+                <div class="checkbox-group">
+                    <input type="checkbox" id="rememberMe">
+                    <label for="rememberMe">Beni Hatırla</label>
+                </div>
+                <a href="/forgot-password" class="forgot-link">Şifremi Unuttum?</a>
+            </div>
+
+            <button type="submit" class="signin-btn" id="signinBtn">Giriş Yap</button>
+
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <span>Giriş yapılıyor...</span>
+            </div>
+        </form>
+
+        <div class="divider">
+            <div class="divider-line"></div>
+            <span class="divider-text">veya</span>
+            <div class="divider-line"></div>
+        </div>
+
+        <div class="signup-section">
+            Hesabınız yok mu? <a href="/signup" class="signup-link">Kayıt Olun</a>
+        </div>
+    </div>
+
+    <script>
+        const signinForm = document.getElementById('signinForm');
+        const signinBtn = document.getElementById('signinBtn');
+        const loading = document.getElementById('loading');
+        const errorMessage = document.getElementById('errorMessage');
+        const successMessage = document.getElementById('successMessage');
+
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+            successMessage.style.display = 'none';
+        }
+
+        function showSuccess(message) {
+            successMessage.textContent = message;
+            successMessage.style.display = 'block';
+            errorMessage.style.display = 'none';
+        }
+
+        function hideMessages() {
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+        }
+
+        signinForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            hideMessages();
+            
+            signinBtn.style.display = 'none';
+            loading.style.display = 'block';
+            
+            // Simulated login - replace with actual API call
+            setTimeout(() => {
+                window.location.href = '/dashboard';
+            }, 1000);
+        });
+
+        // Demo hesap bilgilerini otomatik doldur
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('demo') === 'true') {
+                document.getElementById('email').value = 'demo@zerodesign.com';
+                document.getElementById('password').value = 'demo123';
+            }
+        });
+    </script>
+</body>
+</html>

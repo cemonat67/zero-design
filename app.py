@@ -3,7 +3,7 @@ Zero@Design - Eco-Design @ Source Platform
 Ana uygulama dosyası
 """
 
-from flask import Flask, render_template, request, jsonify, session, redirect, url_for
+from flask import Flask, render_template, request, jsonify, session, redirect, url_for, make_response
 import json
 import os
 from datetime import datetime
@@ -14,6 +14,9 @@ from blockchain_integration import BlockchainDPPIntegration, DPPBlockchainStorag
 from database_manager import db_manager
 from auth_manager import AuthManager
 from security_middleware import SecurityMiddleware, require_auth, require_csrf
+from co2_calculator import co2_calculator
+from settings_manager import SettingsManager
+from export_manager import ExportManager
 
 app = Flask(__name__)
 
@@ -24,8 +27,14 @@ app.config['DEBUG'] = True
 # Auth Manager'ı başlat
 auth_manager = AuthManager()
 
+# Settings Manager'ı başlat
+settings_manager = SettingsManager()
+
 # Security Middleware'i başlat
 security = SecurityMiddleware(app)
+
+# Export Manager'ı başlat
+export_manager = ExportManager()
 
 # Veri dosyaları için klasör
 DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
@@ -34,8 +43,13 @@ if not os.path.exists(DATA_DIR):
 
 @app.route('/')
 def index():
-    """Ana sayfa - Dashboard"""
-    return render_template('index.html')
+    """Ana sayfa - Kullanıcı durumuna göre yönlendirme"""
+    if 'user_id' in session:
+        # Kullanıcı giriş yapmışsa dashboard'a yönlendir
+        return redirect(url_for('dashboard'))
+    else:
+        # Kullanıcı giriş yapmamışsa giriş sayfasına yönlendir
+        return redirect(url_for('signin'))
 
 @app.route('/signup')
 def signup():
@@ -658,6 +672,90 @@ def search_operations():
             'error': str(e)
         }), 500
 
+@app.route('/api/calculate-co2', methods=['POST'])
+@require_auth
+@require_csrf
+def calculate_total_co2():
+    """
+    Yeni CO₂ hesaplama endpoint'i
+    Input: fabric_id, accessory_ids[], process_ids[], quantities
+    Output: total_co2 + detaylı breakdown JSON
+    """
+    try:
+        data = request.get_json()
+        
+        # Input parametrelerini al
+        fabric_id = data.get('fabric_id')
+        fabric_quantity_kg = float(data.get('fabric_quantity_kg', 1.0))
+        accessory_ids = data.get('accessory_ids', [])
+        accessory_quantities = data.get('accessory_quantities', [])
+        process_ids = data.get('process_ids', [])
+        
+        # Validation
+        if not fabric_id and not accessory_ids and not process_ids:
+            return jsonify({
+                'success': False,
+                'error': 'En az bir kumaş, aksesuar veya işlem seçilmeli'
+            }), 400
+        
+        # CO₂ hesaplama
+        result = co2_calculator.calculate_total_co2(
+            fabric_id=fabric_id,
+            fabric_quantity_kg=fabric_quantity_kg,
+            accessory_ids=accessory_ids,
+            accessory_quantities=accessory_quantities,
+            process_ids=process_ids
+        )
+        
+        # Hata kontrolü
+        if 'error' in result:
+            return jsonify({
+                'success': False,
+                'error': result['error']
+            }), 500
+        
+        return jsonify({
+            'success': True,
+            'data': result
+        })
+        
+    except ValueError as e:
+        return jsonify({
+            'success': False,
+            'error': f'Geçersiz parametre: {str(e)}'
+        }), 400
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': f'CO₂ hesaplama hatası: {str(e)}'
+        }), 500
+
+@app.route('/api/co2-items')
+@require_auth
+def get_co2_items():
+    """
+    Mevcut kumaş, aksesuar ve işlemleri listele
+    """
+    try:
+        items = co2_calculator.get_available_items()
+        
+        if 'error' in items:
+            return jsonify({
+                'success': False,
+                'error': items['error']
+            }), 500
+        
+        return jsonify({
+            'success': True,
+            'data': items
+        })
+        
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': f'Öğeleri getirme hatası: {str(e)}'
+        }), 500
+
 @app.route('/api/co2-calculator', methods=['POST'])
 def calculate_co2():
     """CO2 hesaplama"""
@@ -919,6 +1017,23 @@ blockchain_integration = BlockchainDPPIntegration()
 blockchain_storage = DPPBlockchainStorage()
 
 # Authentication API Routes
+@app.route('/health')
+def health_check():
+    """Docker health check endpoint"""
+    try:
+        # Basit bir sağlık kontrolü
+        return jsonify({
+            'status': 'healthy',
+            'timestamp': datetime.now().isoformat(),
+            'service': 'Zero@Design'
+        }), 200
+    except Exception as e:
+        return jsonify({
+            'status': 'unhealthy',
+            'error': str(e),
+            'timestamp': datetime.now().isoformat()
+        }), 500
+
 @app.route('/api/csrf-token')
 def get_csrf_token():
     """CSRF token'ı döndür"""
@@ -1215,6 +1330,366 @@ def change_user_password():
             
     except Exception as e:
         return jsonify({'error': 'Şifre değiştirme sırasında hata oluştu'}), 500
+
+# =====================================================
+# SETTINGS API ENDPOINTS
+# =====================================================
+
+@app.route('/api/settings', methods=['GET'])
+@require_auth
+def get_settings():
+    """Sistem ayarlarını getir"""
+    try:
+        user_id = security.get_current_user_id()
+        
+        # Admin kontrolü (basit kontrol - geliştirilmeli)
+        user_info = auth_manager.get_user_by_id(user_id)
+        is_admin = user_info and user_info.get('username') == 'admin'  # Basit admin kontrolü
+        
+        if is_admin:
+            # Admin tüm ayarları görebilir
+            settings = settings_manager.get_all_settings(public_only=False)
+        else:
+            # Normal kullanıcı sadece genel ayarları görebilir
+            settings = settings_manager.get_all_settings(public_only=True)
+        
+        return jsonify({
+            'success': True,
+            'data': settings,
+            'is_admin': is_admin
+        })
+        
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': f'Ayarları getirme hatası: {str(e)}'
+        }), 500
+
+@app.route('/api/settings', methods=['POST'])
+@require_auth
+@require_csrf
+def update_settings():
+    """Sistem ayarlarını güncelle (sadece admin)"""
+    try:
+        user_id = security.get_current_user_id()
+        
+        # Admin kontrolü
+        user_info = auth_manager.get_user_by_id(user_id)
+        is_admin = user_info and user_info.get('username') == 'admin'
+        
+        if not is_admin:
+            return jsonify({
+                'success': False,
+                'error': 'Bu işlem için admin yetkisi gereklidir'
+            }), 403
+        
+        data = request.get_json()
+        settings_data = data.get('settings', {})
+        
+        if not settings_data:
+            return jsonify({
+                'success': False,
+                'error': 'Ayar verisi bulunamadı'
+            }), 400
+        
+        # Her ayarı güncelle
+        updated_count = 0
+        errors = []
+        
+        for key, value in settings_data.items():
+            success = settings_manager.set_setting(key, value)
+            if success:
+                updated_count += 1
+            else:
+                errors.append(f"'{key}' ayarı güncellenemedi")
+        
+        if errors:
+            return jsonify({
+                'success': False,
+                'error': f'Bazı ayarlar güncellenemedi: {", ".join(errors)}',
+                'updated_count': updated_count
+            }), 400
+        
+        return jsonify({
+            'success': True,
+            'message': f'{updated_count} ayar başarıyla güncellendi',
+            'updated_count': updated_count
+        })
+        
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': f'Ayarları güncelleme hatası: {str(e)}'
+        }), 500
+
+@app.route('/api/user/preferences', methods=['GET'])
+@require_auth
+def get_user_preferences():
+    """Kullanıcı tercihlerini getir"""
+    try:
+        user_id = security.get_current_user_id()
+        preferences = settings_manager.get_user_preferences(user_id)
+        
+        return jsonify({
+            'success': True,
+            'data': preferences
+        })
+        
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': f'Kullanıcı tercihlerini getirme hatası: {str(e)}'
+        }), 500
+
+@app.route('/api/user/preferences', methods=['POST'])
+@require_auth
+@require_csrf
+def update_user_preferences():
+    """Kullanıcı tercihlerini güncelle"""
+    try:
+        user_id = security.get_current_user_id()
+        data = request.get_json()
+        preferences = data.get('preferences', {})
+        
+        success = settings_manager.set_user_preferences(user_id, preferences)
+        
+        if success:
+            return jsonify({
+                'success': True,
+                'message': 'Tercihler başarıyla güncellendi'
+            })
+        else:
+            return jsonify({
+                'success': False,
+                'error': 'Tercihler güncellenemedi'
+            }), 500
+        
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': f'Kullanıcı tercihlerini güncelleme hatası: {str(e)}'
+        }), 500
+
+@app.route('/api/collections')
+def get_collections():
+    """Tüm koleksiyonları getirir"""
+    try:
+        collections = db_manager.get_collections()
+        return jsonify({
+            'success': True,
+            'collections': collections
+        })
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+@app.route('/api/styles-by-collection/<collection>')
+def get_styles_by_collection(collection):
+    """Koleksiyona göre stilleri getirir"""
+    try:
+        styles = db_manager.get_styles_by_collection(collection)
+        return jsonify({
+            'success': True,
+            'styles': styles
+        })
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+@app.route('/api/co2-threshold-check', methods=['POST'])
+@require_auth
+def check_co2_threshold():
+    """CO₂ değerinin eşiği aşıp aşmadığını kontrol et"""
+    try:
+        data = request.get_json()
+        co2_value = data.get('co2_value', 0)
+        
+        if not isinstance(co2_value, (int, float)):
+            return jsonify({
+                'success': False,
+                'error': 'Geçersiz CO₂ değeri'
+            }), 400
+        
+        threshold = settings_manager.get_co2_threshold()
+        is_exceeded = settings_manager.is_threshold_exceeded(co2_value)
+        alert_color = settings_manager.get_alert_color()
+        
+        return jsonify({
+            'success': True,
+            'data': {
+                'co2_value': co2_value,
+                'threshold': threshold,
+                'is_exceeded': is_exceeded,
+                'alert_color': alert_color,
+                'percentage': (co2_value / threshold * 100) if threshold > 0 else 0
+            }
+        })
+        
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': f'CO₂ eşik kontrolü hatası: {str(e)}'
+        }), 500
+
+# =====================================================
+# EXPORT API ENDPOINTS
+# =====================================================
+
+@app.route('/api/export/csv', methods=['POST'])
+@require_auth
+def export_csv():
+    """Dashboard verilerini CSV formatında export et"""
+    try:
+        user_id = security.get_current_user_id()
+        data = request.get_json()
+        
+        # Export tipini belirle
+        export_type = data.get('export_type', 'dashboard')  # dashboard, co2_calculations
+        filters = data.get('filters', {})
+        
+        if export_type == 'dashboard':
+            # Dashboard verilerini al
+            export_data = export_manager.get_dashboard_data_for_export(user_id, filters)
+            filename_prefix = "dashboard_export"
+            
+        elif export_type == 'co2_calculations':
+            # CO2 hesaplama geçmişini al
+            limit = filters.get('limit', 1000)
+            export_data = export_manager.get_co2_calculations_for_export(user_id, limit)
+            filename_prefix = "co2_calculations_export"
+            
+        else:
+            return jsonify({
+                'success': False,
+                'error': 'Geçersiz export tipi'
+            }), 400
+        
+        if not export_data:
+            return jsonify({
+                'success': False,
+                'error': 'Export edilecek veri bulunamadı'
+            }), 404
+        
+        # CSV export işlemi
+        csv_content, filename = export_manager.export_to_csv(export_data, filename_prefix)
+        
+        # Response oluştur
+        response = make_response(csv_content)
+        response.headers['Content-Type'] = 'text/csv; charset=utf-8'
+        response.headers['Content-Disposition'] = f'attachment; filename="{filename}"'
+        response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+        response.headers['Pragma'] = 'no-cache'
+        response.headers['Expires'] = '0'
+        
+        return response
+        
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': f'CSV export hatası: {str(e)}'
+        }), 500
+
+@app.route('/api/export/pdf', methods=['POST'])
+@require_auth
+def export_pdf():
+    """Dashboard verilerini PDF formatında export et"""
+    try:
+        user_id = security.get_current_user_id()
+        data = request.get_json()
+        
+        # Export tipini belirle
+        export_type = data.get('export_type', 'dashboard')
+        filters = data.get('filters', {})
+        title = data.get('title', 'Export Raporu')
+        
+        if export_type == 'dashboard':
+            # Dashboard verilerini al
+            export_data = export_manager.get_dashboard_data_for_export(user_id, filters)
+            filename_prefix = "dashboard_export"
+            title = "Dashboard CO₂ Raporu"
+            
+        elif export_type == 'co2_calculations':
+            # CO2 hesaplama geçmişini al
+            limit = filters.get('limit', 1000)
+            export_data = export_manager.get_co2_calculations_for_export(user_id, limit)
+            filename_prefix = "co2_calculations_export"
+            title = "CO₂ Hesaplama Geçmişi Raporu"
+            
+        else:
+            return jsonify({
+                'success': False,
+                'error': 'Geçersiz export tipi'
+            }), 400
+        
+        if not export_data:
+            return jsonify({
+                'success': False,
+                'error': 'Export edilecek veri bulunamadı'
+            }), 404
+        
+        # PDF export işlemi
+        pdf_content, filename = export_manager.export_to_pdf(export_data, title, filename_prefix)
+        
+        # Response oluştur
+        response = make_response(pdf_content)
+        response.headers['Content-Type'] = 'application/pdf'
+        response.headers['Content-Disposition'] = f'attachment; filename="{filename}"'
+        response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+        response.headers['Pragma'] = 'no-cache'
+        response.headers['Expires'] = '0'
+        
+        return response
+        
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': f'PDF export hatası: {str(e)}'
+        }), 500
+
+@app.route('/api/export/preview', methods=['POST'])
+@require_auth
+def export_preview():
+    """Export edilecek veriyi önizleme olarak göster"""
+    try:
+        user_id = security.get_current_user_id()
+        data = request.get_json()
+        
+        export_type = data.get('export_type', 'dashboard')
+        filters = data.get('filters', {})
+        limit = data.get('preview_limit', 10)  # Önizleme için limit
+        
+        if export_type == 'dashboard':
+            export_data = export_manager.get_dashboard_data_for_export(user_id, filters)
+        elif export_type == 'co2_calculations':
+            export_data = export_manager.get_co2_calculations_for_export(user_id, 1000)
+        else:
+            return jsonify({
+                'success': False,
+                'error': 'Geçersiz export tipi'
+            }), 400
+        
+        # Önizleme için veriyi sınırla
+        preview_data = export_data[:limit] if export_data else []
+        
+        return jsonify({
+            'success': True,
+            'data': {
+                'preview': preview_data,
+                'total_records': len(export_data) if export_data else 0,
+                'preview_records': len(preview_data),
+                'columns': list(preview_data[0].keys()) if preview_data else []
+            }
+        })
+        
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': f'Export önizleme hatası: {str(e)}'
+        }), 500
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)

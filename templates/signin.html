@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Giriş Yap - Zero@Design</title>
     <style>
+        :root {
+            --color-white: #FFFFFF;
+            --color-black: #000000;
+            --color-green: #005530;
+            --color-red: #D51635;
+            --color-navy: #02154e;
+            --color-orange: #f9ba00;
+        }
+        
         * {
             margin: 0;
             padding: 0;
@@ -13,7 +22,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--color-navy, #02154e);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -39,7 +48,7 @@
             left: 0;
             right: 0;
             height: 5px;
-            background: linear-gradient(90deg, #02154e, #667eea);
+            background: var(--color-green, #005530);
         }
 
         .logo {
@@ -107,7 +116,7 @@
         }
 
         .forgot-password {
-            color: #02154e;
+            color: var(--color-navy, #02154e);
             text-decoration: none;
         }
 
@@ -118,7 +127,7 @@
         .signin-btn {
             width: 100%;
             padding: 15px;
-            background: #02154e;
+            background: var(--color-navy, #02154e);
             color: white;
             border: none;
             border-radius: 10px;
@@ -294,16 +303,26 @@
             successMessage.style.display = 'none';
         }
 
+        let csrfToken = null;
+
         async function getCSRFToken() {
             try {
-                const response = await fetch('/api/csrf-token');
+                const response = await fetch('/api/csrf-token', {
+                    credentials: 'include'
+                });
                 const data = await response.json();
+                csrfToken = data.csrf_token;
                 return data.csrf_token;
             } catch (error) {
                 console.error('CSRF token alınamadı:', error);
                 return '';
             }
         }
+
+        // Sayfa yüklendiğinde CSRF token al
+        document.addEventListener('DOMContentLoaded', async function() {
+            await getCSRFToken();
+        });
 
         signinForm.addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -313,8 +332,10 @@
             const formData = new FormData(this);
             const data = Object.fromEntries(formData);
             
-            // CSRF token ekle
-            const csrfToken = await getCSRFToken();
+            // CSRF token yoksa al
+            if (!csrfToken) {
+                csrfToken = await getCSRFToken();
+            }
             
             // Loading göster
             signinBtn.style.display = 'none';

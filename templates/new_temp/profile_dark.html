@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Profil - Zero@Design</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{
+      font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+      background:#0a1929; color:#e3f2fd; min-height:100vh;
+    }
+
+    .navbar{
+      position:sticky; top:0; z-index:10;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 20px;
+      background:#0d2238; border-bottom:1px solid rgba(255,255,255,.06);
+      box-shadow:0 10px 24px rgba(0,0,0,.25);
+    }
+    .logo{font-weight:800; font-size:1.1rem; letter-spacing:.3px; text-decoration:none; color:#e3f2fd}
+    .nav-links{display:flex; gap:8px; align-items:center}
+    .nav-link,.logout-btn{
+      border:1px solid rgba(255,255,255,.12); background:transparent; color:#e3f2fd;
+      padding:8px 12px; border-radius:8px; text-decoration:none; font-weight:600; transition:all .2s ease;
+    }
+    .nav-link:hover{border-color:#3b82f6; box-shadow:0 0 0 3px rgba(59,130,246,.12)}
+    .logout-btn{border-color:#ef4444; color:#ffb4b4}
+    .logout-btn:hover{box-shadow:0 0 0 3px rgba(239,68,68,.12)}
+
+    .container{max-width:980px; margin:24px auto; padding:0 20px}
+
+    .profile-header{
+      background:#132f4c; border:1px solid rgba(255,255,255,.08); border-radius:16px;
+      box-shadow:0 24px 48px rgba(0,0,0,.4); padding:24px; text-align:center; margin-bottom:20px;
+    }
+    .avatar{
+      width:96px; height:96px; border-radius:50%; margin:0 auto 12px;
+      display:grid; place-items:center; font-size:42px; font-weight:800; color:#fff;
+      background:linear-gradient(135deg,#3b82f6 0%, #2563eb 100%);
+      box-shadow:0 10px 24px rgba(59,130,246,.35);
+    }
+    .profile-name{font-weight:800; font-size:1.4rem}
+    .profile-email{color:#b0bec5; margin-top:4px}
+
+    .grid{display:grid; gap:18px; grid-template-columns:1fr 1fr}
+    .card{
+      background:#132f4c; border:1px solid rgba(255,255,255,.08); border-radius:16px;
+      box-shadow:0 24px 48px rgba(0,0,0,.4); padding:22px;
+    }
+    .section-title{font-weight:800; margin-bottom:14px}
+    .form-group{margin-bottom:14px}
+    label{display:block; color:#b0bec5; font-size:.9rem; margin-bottom:6px}
+    .input{
+      width:100%; padding:12px 14px; border-radius:10px; border:1px solid rgba(255,255,255,.12);
+      background:#0a1929; color:#e3f2fd; transition:border-color .2s ease, box-shadow .2s ease;
+    }
+    .input:focus{outline:none; border-color:#3b82f6; box-shadow:0 0 0 3px rgba(59,130,246,.12)}
+    .btn{
+      width:100%; padding:12px 14px; border-radius:10px; border:none; cursor:pointer; font-weight:700;
+      background:linear-gradient(135deg,#3b82f6 0%, #2563eb 100%); color:#fff; box-shadow:0 6px 18px rgba(59,130,246,.28);
+      transition:transform .15s ease, box-shadow .15s ease;
+    }
+    .btn:hover{transform:translateY(-2px); box-shadow:0 10px 24px rgba(59,130,246,.38)}
+    .message{display:none; padding:12px; border-radius:10px; margin-bottom:12px; font-size:.9rem}
+    .message.success{background:rgba(34,197,94,.1); border:1px solid rgba(34,197,94,.25); color:#4ade80}
+    .message.error{background:rgba(239,68,68,.1); border:1px solid rgba(239,68,68,.25); color:#f87171}
+
+    .stats{
+      margin-top:20px; background:#132f4c; border:1px solid rgba(255,255,255,.08);
+      border-radius:16px; padding:22px; box-shadow:0 24px 48px rgba(0,0,0,.4);
+    }
+    .kpi-grid{display:grid; gap:14px; grid-template-columns:repeat(4,1fr)}
+    .kpi{
+      background:#0f2741; border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:16px; text-align:center;
+    }
+    .kpi-number{font-size:1.4rem; font-weight:800; color:#90caf9}
+    .kpi-label{color:#b0bec5; margin-top:6px; font-size:.9rem}
+
+    @media (max-width: 900px){.grid{grid-template-columns:1fr}}
+    @media (max-width: 560px){.kpi-grid{grid-template-columns:1fr 1fr}}
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <a href="/dashboard" class="logo">Zero@Design</a>
+    <div class="nav-links">
+      <a href="/dashboard" class="nav-link">Dashboard</a>
+      <a href="/style-card" class="nav-link">Style Card</a>
+      <a href="/collection" class="nav-link">Koleksiyon</a>
+      <a href="/logout" class="logout-btn">Çıkış Yap</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <section class="profile-header">
+      <div id="profileAvatar" class="avatar">Z</div>
+      <div id="profileName" class="profile-name">Yükleniyor...</div>
+      <div id="profileEmail" class="profile-email">Yükleniyor...</div>
+    </section>
+
+    <section class="grid">
+      <div class="card">
+        <div class="section-title">👤 Profil Bilgileri</div>
+        <div id="profileMessage" class="message"></div>
+        <form id="profileForm">
+          <div class="form-group">
+            <label for="firstName">Ad</label>
+            <input id="firstName" class="input" required />
+          </div>
+          <div class="form-group">
+            <label for="lastName">Soyad</label>
+            <input id="lastName" class="input" required />
+          </div>
+          <div class="form-group">
+            <label for="email">E-posta</label>
+            <input id="email" type="email" class="input" required />
+          </div>
+          <button id="updateProfileBtn" class="btn" type="submit">Profili Güncelle</button>
+        </form>
+      </div>
+
+      <div class="card">
+        <div class="section-title">🔒 Şifre Değiştir</div>
+        <div id="passwordMessage" class="message"></div>
+        <form id="passwordForm">
+          <div class="form-group">
+            <label for="currentPassword">Mevcut Şifre</label>
+            <input id="currentPassword" type="password" class="input" required/>
+          </div>
+          <div class="form-group">
+            <label for="newPassword">Yeni Şifre</label>
+            <input id="newPassword" type="password" class="input" required/>
+          </div>
+          <div class="form-group">
+            <label for="confirmPassword">Yeni Şifre (Tekrar)</label>
+            <input id="confirmPassword" type="password" class="input" required/>
+          </div>
+          <button id="changePasswordBtn" class="btn" type="submit">Şifreyi Değiştir</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="stats">
+      <div class="section-title">📊 Hesap İstatistikleri</div>
+      <div class="kpi-grid">
+        <div class="kpi">
+          <div id="totalDesigns" class="kpi-number">-</div>
+          <div class="kpi-label">Toplam Tasarım</div>
+        </div>
+        <div class="kpi">
+          <div id="totalDPPs" class="kpi-number">-</div>
+          <div class="kpi-label">Oluşturulan DPP</div>
+        </div>
+        <div class="kpi">
+          <div id="memberSince" class="kpi-number">-</div>
+          <div class="kpi-label">Üyelik Tarihi</div>
+        </div>
+        <div class="kpi">
+          <div id="sustainabilityScore" class="kpi-number">-</div>
+          <div class="kpi-label">Sürdürülebilirlik Skoru</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    let currentUser = null;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadUserProfile(); loadUserStats();
+    });
+
+    async function loadUserProfile(){
+      try{
+        const res = await fetch('/api/user/profile');
+        if(!res.ok) throw new Error();
+        const data = await res.json();
+        currentUser = data.user;
+
+        document.getElementById('profileName').textContent = `${currentUser.first_name} ${currentUser.last_name}`;
+        document.getElementById('profileEmail').textContent = currentUser.email;
+        document.getElementById('firstName').value = currentUser.first_name;
+        document.getElementById('lastName').value = currentUser.last_name;
+        document.getElementById('email').value = currentUser.email;
+
+        const av = document.getElementById('profileAvatar');
+        av.textContent = (currentUser.first_name||'?').charAt(0).toUpperCase();
+      }catch(e){
+        showMessage('profileMessage','Profil bilgileri yüklenemedi','error');
+      }
+    }
+
+    async function loadUserStats(){
+      try{
+        const styles = await fetch('/api/get-all-styles');
+        if (styles.ok){
+          const d = await styles.json();
+          document.getElementById('totalDesigns').textContent = d.styles? d.styles.length:0;
+        }
+        const dpp = await fetch('/api/dpp-list');
+        if (dpp.ok){
+          const d = await dpp.json();
+          document.getElementById('totalDPPs').textContent = d.dpps? d.dpps.length:0;
+        }
+        if(currentUser?.created_at){
+          const dt = new Date(currentUser.created_at);
+          document.getElementById('memberSince').textContent = dt.toLocaleDateString('tr-TR');
+        }
+        document.getElementById('sustainabilityScore').textContent = '85%';
+      }catch(e){}
+    }
+
+    document.getElementById('profileForm').addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      const btn = document.getElementById('updateProfileBtn'); const txt = btn.textContent;
+      try{
+        btn.textContent='Güncelleniyor...'; btn.disabled=true;
+        const csrf = await getCSRFToken();
+        const res = await fetch('/api/user/update-profile',{
+          method:'POST',
+          headers:{'Content-Type':'application/json','X-CSRF-Token':csrf},
+          body:JSON.stringify({
+            firstName:document.getElementById('firstName').value,
+            lastName:document.getElementById('lastName').value,
+            email:document.getElementById('email').value
+          })
+        });
+        const data = await res.json();
+        if(data.success){ showMessage('profileMessage','Profil güncellendi','success'); loadUserProfile();}
+        else{ showMessage('profileMessage', data.error||'Güncelleme hatası','error');}
+      }catch(e){
+        showMessage('profileMessage','Bağlantı hatası','error');
+      }finally{ btn.textContent=txt; btn.disabled=false; }
+    });
+
+    document.getElementById('passwordForm').addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      const btn = document.getElementById('changePasswordBtn'); const txt = btn.textContent;
+      const np = document.getElementById('newPassword').value;
+      const cp = document.getElementById('confirmPassword').value;
+      if(np!==cp){ showMessage('passwordMessage','Yeni şifreler eşleşmiyor','error'); return; }
+      try{
+        btn.textContent='Değiştiriliyor...'; btn.disabled=true;
+        const csrf = await getCSRFToken();
+        const res = await fetch('/api/user/change-password',{
+          method:'POST',
+          headers:{'Content-Type':'application/json','X-CSRF-Token':csrf},
+          body:JSON.stringify({currentPassword:document.getElementById('currentPassword').value,newPassword:np})
+        });
+        const data = await res.json();
+        if(data.success){ showMessage('passwordMessage','Şifre değiştirildi','success'); document.getElementById('passwordForm').reset();}
+        else{ showMessage('passwordMessage', data.error||'Şifre değiştirme hatası','error');}
+      }catch(e){
+        showMessage('passwordMessage','Bağlantı hatası','error');
+      }finally{ btn.textContent=txt; btn.disabled=false; }
+    });
+
+    async function getCSRFToken(){
+      try{ const r = await fetch('/api/csrf-token'); const j = await r.json(); return j.csrf_token; }
+      catch{ return ''; }
+    }
+    function showMessage(id,msg,type){
+      const el = document.getElementById(id); el.textContent=msg; el.className=`message ${type}`; el.style.display='block';
+      setTimeout(()=>{ el.style.display='none'; }, 5000);
+    }
+  </script>
+</body>
+</html>

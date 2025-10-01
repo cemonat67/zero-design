@@ -578,6 +578,34 @@ class DatabaseManager:
         except Exception as e:
             raise e
     
+    def get_collections(self):
+        """Tüm koleksiyonları listele"""
+        try:
+            query = """
+                SELECT DISTINCT collection FROM styles 
+                WHERE collection IS NOT NULL AND collection != ''
+                ORDER BY collection
+            """
+            results = self.execute_query(query)
+            return [row['collection'] for row in results]
+            
+        except Exception as e:
+            return []
+    
+    def get_styles_by_collection(self, collection: str):
+        """Koleksiyona göre stilleri getir"""
+        try:
+            query = """
+                SELECT id, style_code, product_name, collection, category, 
+                       created_at FROM styles 
+                WHERE collection = ?
+                ORDER BY created_at DESC
+            """
+            return self.execute_query(query, (collection,))
+            
+        except Exception as e:
+            return []
+    
     def get_co2_range_by_category(self, category: str) -> Dict:
         """Kategoriye göre CO2 aralığını getirir"""
         # Master konfeksiyon verilerinden

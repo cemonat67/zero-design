@@ -118,12 +118,12 @@ class AuthManager:
         except Exception as e:
             return {"success": False, "error": f"Kayıt sırasında hata: {str(e)}"}
     
-    def login_user(self, username_or_email: str, password: str) -> Tuple[bool, str, Optional[Dict]]:
+    def login_user(self, username_or_email: str, password: str) -> Dict[str, any]:
         """
         Kullanıcı girişi
         
         Returns:
-            (success, message, user_data)
+            Dict with success, message, and user_data
         """
         try:
             conn = self._get_connection()
@@ -140,12 +140,12 @@ class AuthManager:
             user = cursor.fetchone()
             if not user:
                 conn.close()
-                return False, "Kullanıcı bulunamadı veya hesap deaktif", None
+                return {"success": False, "error": "Kullanıcı bulunamadı veya hesap deaktif"}
             
             # Şifreyi kontrol et
             if not self._verify_password(password, user['password_hash']):
                 conn.close()
-                return False, "Hatalı şifre", None
+                return {"success": False, "error": "Hatalı şifre"}
             
             # Son giriş zamanını güncelle
             cursor.execute('''
@@ -166,7 +166,10 @@ class AuthManager:
                 'is_verified': user['is_verified']
             }
             
-            return True, "Giriş başarılı", user_data
+            return {"success": True, "message": "Giriş başarılı", "user": user_data}
+            
+        except Exception as e:
+            return {"success": False, "error": f"Giriş sırasında hata: {str(e)}"}
             
         except Exception as e:
             return False, f"Giriş sırasında hata: {str(e)}", None
