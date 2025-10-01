@@ -3,7 +3,7 @@ Zero@Design - Eco-Design @ Source Platform
 Ana uygulama dosyası
 """
 
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, session, redirect, url_for
 import json
 import os
 from datetime import datetime
@@ -12,12 +12,20 @@ from ai_agent import ai_agent
 from dpp_nft import DPPGenerator, NFTIntegration, DPPStorage
 from blockchain_integration import BlockchainDPPIntegration, DPPBlockchainStorage
 from database_manager import db_manager
+from auth_manager import AuthManager
+from security_middleware import SecurityMiddleware, require_auth, require_csrf
 
 app = Flask(__name__)
 
 # Konfigürasyon
-app.config['SECRET_KEY'] = 'zero-design-secret-key'
+app.config['SECRET_KEY'] = 'zero-design-secret-key-2024-secure'
 app.config['DEBUG'] = True
+
+# Auth Manager'ı başlat
+auth_manager = AuthManager()
+
+# Security Middleware'i başlat
+security = SecurityMiddleware(app)
 
 # Veri dosyaları için klasör
 DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
@@ -28,6 +36,39 @@ if not os.path.exists(DATA_DIR):
 def index():
     """Ana sayfa - Dashboard"""
     return render_template('index.html')
+
+@app.route('/signup')
+def signup():
+    """Kayıt sayfası"""
+    return render_template('signup.html')
+
+@app.route('/signin')
+def signin():
+    """Giriş sayfası"""
+    return render_template('signin.html')
+
+@app.route('/dashboard')
+@require_auth
+def dashboard():
+    """Dashboard - Giriş yapmış kullanıcılar için"""
+    user_name = session.get('user_name', 'Kullanıcı')
+    return render_template('dashboard.html', user_name=user_name)
+
+@app.route('/logout')
+def logout():
+    """Çıkış yap"""
+    security.destroy_session()
+    return redirect(url_for('index'))
+
+@app.route('/forgot-password')
+def forgot_password():
+    """Şifre sıfırlama sayfası"""
+    return render_template('forgot_password.html')
+
+@app.route('/reset-password')
+def reset_password():
+    """Şifre sıfırlama formu sayfası"""
+    return render_template('reset_password.html')
 
 @app.route('/benchmark')
 def benchmark():
@@ -876,6 +917,304 @@ nft_integration = NFTIntegration()
 dpp_storage = DPPStorage()
 blockchain_integration = BlockchainDPPIntegration()
 blockchain_storage = DPPBlockchainStorage()
+
+# Authentication API Routes
+@app.route('/api/csrf-token')
+def get_csrf_token():
+    """CSRF token'ı döndür"""
+    token = security.generate_csrf_token()
+    return jsonify({'csrf_token': token})
+
+@app.route('/api/signup', methods=['POST'])
+@require_csrf
+def api_signup():
+    """Kullanıcı kayıt API'si"""
+    try:
+        data = request.get_json()
+        
+        # Güvenlik kontrolü - input sanitization
+        first_name = security.sanitize_input(data.get('firstName', ''))
+        last_name = security.sanitize_input(data.get('lastName', ''))
+        email = security.sanitize_input(data.get('email', ''))
+        password = data.get('password', '')
+        
+        # Gerekli alanları kontrol et
+        if not all([first_name, last_name, email, password]):
+            return jsonify({'error': 'Tüm alanlar doldurulmalıdır'}), 400
+        
+        # E-posta format kontrolü
+        if not security.validate_email_format(email):
+            return jsonify({'error': 'Geçersiz e-posta formatı'}), 400
+        
+        # Şifre güç kontrolü
+        is_strong, message = security.validate_password_strength(password)
+        if not is_strong:
+            return jsonify({'error': message}), 400
+        
+        # Kullanıcıyı kaydet (email'i username olarak kullan)
+        result = auth_manager.register_user(
+            username=email,  # Email'i username olarak kullan
+            email=email,
+            password=password,
+            first_name=first_name,
+            last_name=last_name
+        )
+        
+        if result['success']:
+            # Rate limiting temizle
+            client_ip = security.get_client_ip()
+            security.clear_failed_attempts(client_ip)
+            
+            return jsonify({
+                'success': True,
+                'message': 'Kayıt başarılı',
+                'user_id': result['user_id']
+            })
+        else:
+            return jsonify({'error': result['error']}), 400
+            
+    except Exception as e:
+        return jsonify({'error': f'Kayıt sırasında hata: {str(e)}'}), 500
+
+@app.route('/api/signin', methods=['POST'])
+@require_csrf
+def api_signin():
+    """Kullanıcı giriş API'si"""
+    try:
+        data = request.get_json()
+        
+        # Güvenlik kontrolü - input sanitization
+        email = security.sanitize_input(data.get('email', ''))
+        password = data.get('password', '')
+        
+        # Rate limiting kontrolü
+        client_ip = security.get_client_ip()
+        if security.is_rate_limited(client_ip):
+            return jsonify({'error': 'Çok fazla başarısız deneme. 15 dakika sonra tekrar deneyin.'}), 429
+        
+        # Gerekli alanları kontrol et
+        if not email or not password:
+            return jsonify({'error': 'E-posta ve şifre gereklidir'}), 400
+        
+        # Kullanıcı girişini kontrol et
+        result = auth_manager.login_user(email, password)
+        
+        if result['success']:
+            # Güvenli session oluştur
+            security.create_session(
+                result['user']['id'],
+                result['user']['email'],
+                f"{result['user']['first_name']} {result['user']['last_name']}"
+            )
+            
+            # Başarılı giriş - rate limiting temizle
+            security.clear_failed_attempts(client_ip)
+            
+            return jsonify({
+                'success': True,
+                'message': 'Giriş başarılı',
+                'redirect': '/dashboard',
+                'user': {
+                    'id': result['user']['id'],
+                    'email': result['user']['email'],
+                    'first_name': result['user']['first_name'],
+                    'last_name': result['user']['last_name']
+                }
+            })
+        else:
+            # Başarısız giriş - rate limiting kaydet
+            security.record_failed_attempt(client_ip)
+            return jsonify({'error': result['error']}), 401
+            
+    except Exception as e:
+        return jsonify({'error': f'Giriş sırasında hata: {str(e)}'}), 500
+
+@app.route('/api/user/profile')
+@require_auth
+def get_user_profile():
+    """Kullanıcı profil bilgilerini getir"""
+    try:
+        user_id = security.get_current_user_id()
+        user = auth_manager.get_user_by_id(user_id)
+        
+        if user:
+            return jsonify({
+                'success': True,
+                'user': {
+                    'id': user['id'],
+                    'first_name': user['first_name'],
+                    'last_name': user['last_name'],
+                    'email': user['email'],
+                    'created_at': user['created_at']
+                }
+            })
+        else:
+            return jsonify({'error': 'Kullanıcı bulunamadı'}), 404
+            
+    except Exception as e:
+        return jsonify({'error': 'Profil bilgileri alınırken hata oluştu'}), 500
+
+@app.route('/api/forgot-password', methods=['POST'])
+def api_forgot_password():
+    """Şifre sıfırlama bağlantısı gönder"""
+    try:
+        data = request.get_json()
+        
+        if not data.get('email'):
+            return jsonify({'error': 'E-posta adresi gereklidir'}), 400
+        
+        # E-posta formatını kontrol et
+        if not auth_manager.validate_email(data['email']):
+            return jsonify({'error': 'Geçersiz e-posta formatı'}), 400
+        
+        # Şifre sıfırlama token'ı oluştur
+        result = auth_manager.create_password_reset_token(data['email'])
+        
+        if result['success']:
+            # Gerçek uygulamada burada e-posta gönderilir
+            # Şimdilik sadece başarılı yanıt döndürüyoruz
+            return jsonify({
+                'success': True,
+                'message': 'Şifre sıfırlama bağlantısı e-posta adresinize gönderildi',
+                'reset_token': result['token']  # Demo için - gerçek uygulamada bu gönderilmez
+            })
+        else:
+            return jsonify({'error': result['error']}), 400
+            
+    except Exception as e:
+        return jsonify({'error': f'Şifre sıfırlama sırasında hata: {str(e)}'}), 500
+
+@app.route('/api/check-reset-token', methods=['POST'])
+def api_check_reset_token():
+    """Şifre sıfırlama token'ının geçerliliğini kontrol et"""
+    try:
+        data = request.get_json()
+        
+        if not data.get('token'):
+            return jsonify({'error': 'Token gereklidir'}), 400
+        
+        # Token'ın geçerliliğini kontrol et
+        is_valid = auth_manager.validate_reset_token(data['token'])
+        
+        if is_valid:
+            return jsonify({'success': True, 'valid': True})
+        else:
+            return jsonify({'error': 'Token geçersiz veya süresi dolmuş'}), 400
+            
+    except Exception as e:
+        return jsonify({'error': f'Token kontrolü sırasında hata: {str(e)}'}), 500
+
+@app.route('/api/reset-password', methods=['POST'])
+def api_reset_password():
+    """Şifre sıfırlama API'si"""
+    try:
+        data = request.get_json()
+        
+        token = data.get('token', '')
+        new_password = data.get('newPassword', '')
+        
+        if not token or not new_password:
+            return jsonify({'error': 'Token ve yeni şifre gereklidir'}), 400
+        
+        # Şifre gücünü kontrol et
+        if not auth_manager.validate_password(new_password):
+            return jsonify({'error': 'Şifre en az 6 karakter olmalı ve güçlü olmalıdır'}), 400
+        
+        # Şifreyi sıfırla
+        result = auth_manager.reset_password(token, new_password)
+        
+        if result['success']:
+            return jsonify({
+                'success': True,
+                'message': 'Şifre başarıyla sıfırlandı. Giriş yapabilirsiniz.',
+                'redirect': '/signin'
+            })
+        else:
+            return jsonify({'error': result['message']}), 400
+            
+    except Exception as e:
+        return jsonify({'error': 'Şifre sıfırlama sırasında hata oluştu'}), 500
+
+@app.route('/profile')
+@require_auth
+def profile():
+    """Kullanıcı profil sayfası"""
+    return render_template('profile.html')
+
+@app.route('/api/user/update-profile', methods=['POST'])
+@require_auth
+@require_csrf
+def update_user_profile():
+    """Kullanıcı profil bilgilerini güncelle"""
+    try:
+        data = request.get_json()
+        user_id = security.get_current_user_id()
+        
+        # Güvenlik kontrolü - input sanitization
+        first_name = security.sanitize_input(data.get('firstName', ''))
+        last_name = security.sanitize_input(data.get('lastName', ''))
+        email = security.sanitize_input(data.get('email', ''))
+        
+        # Validasyon
+        if not all([first_name, last_name, email]):
+            return jsonify({'error': 'Tüm alanlar doldurulmalıdır'}), 400
+        
+        # E-posta format kontrolü
+        if not security.validate_email_format(email):
+            return jsonify({'error': 'Geçersiz e-posta formatı'}), 400
+        
+        # Profil güncelleme
+        result = auth_manager.update_user_profile(user_id, first_name, last_name, email)
+        
+        if result['success']:
+            # Session'daki kullanıcı adını güncelle
+            session['user_name'] = f"{first_name} {last_name}"
+            session['user_email'] = email
+            
+            return jsonify({
+                'success': True,
+                'message': 'Profil başarıyla güncellendi'
+            })
+        else:
+            return jsonify({'error': result['message']}), 400
+            
+    except Exception as e:
+        return jsonify({'error': 'Profil güncelleme sırasında hata oluştu'}), 500
+
+@app.route('/api/user/change-password', methods=['POST'])
+@require_auth
+@require_csrf
+def change_user_password():
+    """Kullanıcı şifresini değiştir"""
+    try:
+        data = request.get_json()
+        user_id = security.get_current_user_id()
+        
+        current_password = data.get('currentPassword', '')
+        new_password = data.get('newPassword', '')
+        
+        # Validasyon
+        if not current_password or not new_password:
+            return jsonify({'error': 'Mevcut şifre ve yeni şifre gereklidir'}), 400
+        
+        # Şifre gücü kontrolü
+        is_strong, message = security.validate_password_strength(new_password)
+        if not is_strong:
+            return jsonify({'error': message}), 400
+        
+        # Şifre değiştirme
+        result = auth_manager.change_password(user_id, current_password, new_password)
+        
+        if result['success']:
+            return jsonify({
+                'success': True,
+                'message': 'Şifre başarıyla değiştirildi'
+            })
+        else:
+            return jsonify({'error': result['message']}), 400
+            
+    except Exception as e:
+        return jsonify({'error': 'Şifre değiştirme sırasında hata oluştu'}), 500
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
