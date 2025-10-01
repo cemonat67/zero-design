@@ -1,0 +1,145 @@
+# Multi-Subdomain Nginx Configuration Template
+# Copy this file and customize for new subdomains
+
+# Rate limiting zones for PROJECT_NAME
+limit_req_zone $binary_remote_addr zone=PROJECT_NAME_api:10m rate=10r/s;
+limit_req_zone $binary_remote_addr zone=PROJECT_NAME_login:10m rate=5r/m;
+
+# Upstream for PROJECT_NAME web application
+upstream PROJECT_NAME_web {
+    server PROJECT_NAME_web:5000;
+}
+
+# HTTP to HTTPS redirect for PROJECT_NAME
+server {
+    listen 80;
+    server_name PROJECT_SUBDOMAIN.onatltd.com www.PROJECT_SUBDOMAIN.onatltd.com;
+    
+    # Security headers
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-XSS-Protection "1; mode=block" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+    
+    # Redirect all HTTP requests to HTTPS
+    return 301 https://$server_name$request_uri;
+}
+
+# HTTPS server for PROJECT_SUBDOMAIN.onatltd.com
+server {
+    listen 443 ssl http2;
+    server_name PROJECT_SUBDOMAIN.onatltd.com www.PROJECT_SUBDOMAIN.onatltd.com;
+    
+    # SSL Configuration (Wildcard certificate)
+    ssl_certificate /etc/letsencrypt/live/onatltd.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/onatltd.com/privkey.pem;
+    
+    # SSL Security Settings
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers ECDHE-RSA-AES256-GCM-SHA512:DHE-RSA-AES256-GCM-SHA512:ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES256-GCM-SHA384;
+    ssl_prefer_server_ciphers off;
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_timeout 10m;
+    
+    # HSTS (HTTP Strict Transport Security)
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
+    
+    # Security Headers
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-XSS-Protection "1; mode=block" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+    add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self'; frame-ancestors 'self';" always;
+    
+    # Gzip compression
+    gzip on;
+    gzip_vary on;
+    gzip_min_length 1024;
+    gzip_proxied any;
+    gzip_comp_level 6;
+    gzip_types
+        text/plain
+        text/css
+        text/xml
+        text/javascript
+        application/json
+        application/javascript
+        application/xml+rss
+        application/atom+xml
+        image/svg+xml;
+    
+    # Static files
+    location /static/ {
+        alias /var/www/PROJECT_NAME/static/;
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+        access_log off;
+    }
+    
+    # Health check endpoint (no rate limiting)
+    location /health {
+        proxy_pass http://PROJECT_NAME_web;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        access_log off;
+    }
+    
+    # API endpoints with rate limiting
+    location /api/ {
+        limit_req zone=PROJECT_NAME_api burst=20 nodelay;
+        limit_req_status 429;
+        
+        proxy_pass http://PROJECT_NAME_web;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Server $host;
+        
+        # Timeout settings
+        proxy_connect_timeout 60s;
+        proxy_send_timeout 60s;
+        proxy_read_timeout 60s;
+    }
+    
+    # Login endpoint with stricter rate limiting
+    location /signin {
+        limit_req zone=PROJECT_NAME_login burst=10 nodelay;
+        limit_req_status 429;
+        
+        proxy_pass http://PROJECT_NAME_web;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Server $host;
+    }
+    
+    # All other requests
+    location / {
+        proxy_pass http://PROJECT_NAME_web;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Server $host;
+        
+        # Timeout settings
+        proxy_connect_timeout 60s;
+        proxy_send_timeout 60s;
+        proxy_read_timeout 60s;
+    }
+}
+
+# Usage Instructions:
+# 1. Copy this file: cp multi-subdomain.conf.template dpp.conf
+# 2. Replace placeholders:
+#    - PROJECT_NAME → dpp
+#    - PROJECT_SUBDOMAIN → dpp
+# 3. Update docker-compose to include the new service
+# 4. Add DNS record: dpp.onatltd.com → VPS_IP

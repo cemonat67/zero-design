@@ -6,7 +6,7 @@
 set -e
 
 # Configuration
-DOMAIN_NAME=${DOMAIN_NAME:-"onatltd.com"}
+DOMAIN_NAME=${DOMAIN_NAME:-"app.onatltd.com"}
 SSL_EMAIL=${SSL_EMAIL:-"admin@onatltd.com"}
 NGINX_CONF_DIR="./nginx/conf.d"
 CERTBOT_DIR="./nginx/www"
@@ -20,7 +20,7 @@ mkdir -p ${CERTBOT_DIR}
 mkdir -p ${CERTS_DIR}
 
 # Update nginx configuration with actual domain
-sed -i.bak "s/onatltd.com/${DOMAIN_NAME}/g" ${NGINX_CONF_DIR}/default.conf
+sed -i.bak "s/app\.onatltd\.com/${DOMAIN_NAME}/g" ${NGINX_CONF_DIR}/default.conf
 
 echo "Updated nginx configuration with domain: ${DOMAIN_NAME}"
 
